@@ -13,6 +13,7 @@
     "check": "astro check",
     "lint": "astro sync && eslint . && prettier --check . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude",
     "check:comments": "node scripts/check-no-comments.mjs",
+    "check:links": "node scripts/check-external-links.mjs",
     "test": "vitest",
     "e2e": "playwright test",
     "format": "prettier --write . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude",
