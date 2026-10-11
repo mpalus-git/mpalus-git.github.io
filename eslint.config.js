@@ -41,7 +41,6 @@ export default defineConfig([
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
-        extraFileExtensions: [".astro"],
       },
     },
     rules: {
@@ -58,7 +57,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["vitest.config.ts"],
+    files: ["vitest.config.ts", "src/env.d.ts"],
     rules: {
       "no-restricted-syntax": "off",
     },
@@ -72,6 +71,7 @@ export default defineConfig([
       parserOptions: {
         projectService: false,
         project: true,
+        extraFileExtensions: [".astro"],
       },
     },
     rules: {
