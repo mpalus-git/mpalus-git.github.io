@@ -1,0 +1,154 @@
+---
+import type { Dictionary } from "@/i18n/dictionary";
+import { t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  language: Language;
+  class?: string;
+};
+
+type Box = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  title: keyof Dictionary;
+  detail: keyof Dictionary | null;
+  variant: "client" | "inner" | "handlers" | "external" | "optional";
+  wrap: boolean;
+};
+
+const { language, class: className } = Astro.props;
+const lineHeight = 17;
+const box = (
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  title: keyof Dictionary,
+  detail: keyof Dictionary | null,
+  variant: Box["variant"],
+  wrap = false,
+): Box => ({ x, y, width, height, title, detail, variant, wrap });
+const boxes: Box[] = [
+  box(0, 0, 190, 48, "apiDiagramWebClient", "apiDiagramWebClientTech", "client"),
+  box(210, 0, 190, 48, "apiDiagramMobileClient", "apiDiagramMobileClientTech", "client"),
+  box(12, 100, 236, 80, "apiDiagramEndpoints", "apiDiagramEndpointsDetail", "inner"),
+  box(260, 100, 128, 80, "apiDiagramJobs", "apiDiagramJobsDetail", "inner", true),
+  box(12, 212, 376, 44, "apiDiagramHandlers", null, "handlers"),
+  box(12, 288, 112, 48, "apiDiagramCache", "apiDiagramCacheDetail", "inner"),
+  box(136, 288, 124, 48, "apiDiagramDomain", "apiDiagramDomainDetail", "inner"),
+  box(12, 392, 112, 48, "apiDiagramRedis", "apiDiagramRedisDetail", "optional"),
+  box(136, 392, 124, 48, "apiDiagramEmail", "apiDiagramEmailDetail", "external"),
+  box(272, 392, 116, 48, "apiDiagramDatabase", null, "external"),
+];
+const boxClasses: Record<Box["variant"], string> = {
+  client: "fill-surface stroke-brand",
+  inner: "fill-surface stroke-brand",
+  handlers: "fill-brand stroke-brand",
+  external: "fill-surface stroke-muted",
+  optional: "fill-surface stroke-muted [stroke-dasharray:5_4]",
+};
+const arrows = [
+  { path: "M95 48V98", optional: false },
+  { path: "M305 48 212 98", optional: false },
+  { path: "M130 180V210", optional: false },
+  { path: "M324 180V210", optional: false },
+  { path: "M68 256V286", optional: false },
+  { path: "M198 256V286", optional: false },
+  { path: "M276 256V370H198V390", optional: false },
+  { path: "M330 256V390", optional: false },
+  { path: "M68 336V390", optional: true },
+];
+
+function detailLines(detail: string, wrap: boolean): string[] {
+  if (!wrap) {
+    return [detail];
+  }
+  const parts = detail.split(", ");
+  return parts.map((part, index) => (index < parts.length - 1 ? `${part},` : part));
+}
+
+function textLines(box: Box) {
+  const details = box.detail ? detailLines(t(language, box.detail), box.wrap) : [];
+  const lines = [
+    { text: t(language, box.title), bold: true },
+    ...details.map((text) => ({ text, bold: false })),
+  ];
+  const firstBaseline = box.y + box.height / 2 - ((lines.length - 1) * lineHeight) / 2 + 5;
+  return lines.map((line, index) => ({ ...line, y: firstBaseline + index * lineHeight }));
+}
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="-2 -2 404 444"
+  width="404"
+  height="444"
+  role="img"
+  aria-labelledby="api-architecture-title api-architecture-description"
+  class={className}
+>
+  <title id="api-architecture-title">{t(language, "apiDiagramTitle")}</title>
+  <desc id="api-architecture-description">{t(language, "apiDiagramDescription")}</desc>
+  <defs>
+    <marker
+      id="api-architecture-arrow"
+      viewBox="0 0 10 10"
+      refX="9"
+      refY="5"
+      markerWidth="7"
+      markerHeight="7"
+      orient="auto-start-reverse"
+    >
+      <path d="M0 0 10 5 0 10z" class="fill-brand"></path>
+    </marker>
+  </defs>
+  <rect
+    x="0"
+    y="64"
+    width="400"
+    height="288"
+    rx="12"
+    class="fill-brand-tint stroke-brand [stroke-dasharray:6_4]"
+    stroke-width="1.5"
+  ></rect>
+  <text x="388" y="86" text-anchor="end" class="fill-brand-dark text-[14px] font-bold">
+    {t(language, "diagramApiName")}
+  </text>
+  {arrows.map((arrow) => (
+    <path
+      d={arrow.path}
+      fill="none"
+      stroke-width="2"
+      class:list={["stroke-brand", arrow.optional && "[stroke-dasharray:5_4]"]}
+      marker-end="url(#api-architecture-arrow)"
+    />
+  ))}
+  {boxes.map((box) => (
+    <g>
+      <rect
+        x={box.x}
+        y={box.y}
+        width={box.width}
+        height={box.height}
+        rx="8"
+        stroke-width="2"
+        class={boxClasses[box.variant]}
+      />
+      {textLines(box).map((line) => (
+        <text
+          x={box.x + box.width / 2}
+          y={line.y}
+          text-anchor="middle"
+          class:list={[
+            box.variant === "handlers" ? "fill-on-brand" : line.bold ? "fill-text" : "fill-muted",
+            line.bold ? "text-[14px] font-bold" : "text-[13px]",
+          ]}
+        >
+          {line.text}
+        </text>
+      ))}
+    </g>
+  ))}
+</svg>

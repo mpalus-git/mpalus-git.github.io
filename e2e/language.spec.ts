@@ -88,6 +88,18 @@ test.describe("language detection on entry", () => {
     await context.close();
   });
 
+  test("redirects a project page to its English counterpart keeping the hash", async ({
+    browser,
+  }) => {
+    const context = await createContext(browser, { locale: "de-DE" });
+    const page = await context.newPage();
+
+    await page.goto("/fixflow-mobile/#demo-heading");
+
+    await expectPath(page, "/en/fixflow-mobile/#demo-heading");
+    await context.close();
+  });
+
   test("redirects English pages to Polish for a Polish browser", async ({ browser }) => {
     const context = await createContext(browser, { locale: "pl-PL" });
     const page = await context.newPage();
@@ -195,6 +207,8 @@ test.describe("language switch", () => {
     ["/en/", "en", "/"],
     ["/404.html", "pl", "/en/404/"],
     ["/en/404/", "en", "/404.html"],
+    ["/fixflow-api/", "pl", "/en/fixflow-api/"],
+    ["/en/fixflow-web/", "en", "/fixflow-web/"],
   ];
   for (const [path, language, counterpart] of counterparts) {
     test(`on ${path} marks ${language} and leads to ${counterpart}`, async ({ browser }) => {
