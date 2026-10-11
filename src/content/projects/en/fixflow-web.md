@@ -26,6 +26,33 @@ links:
   repository: https://github.com/mpalus-git/FixFlow.Web
   demo: https://fix-flow-web.vercel.app/?lang=en
 demo: "The sign-in screen has quick sign-in buttons for the demo dispatcher and technician accounts. The demo data is shared by all visitors and reset every day."
+screenshots:
+  - image: ../../../assets/projects/fixflow-web/dashboard.png
+    alt: "Panel dashboard: counters of work orders to assign, in progress, to invoice and overdue, parts out of stock, work orders by status and technician workload in the current week"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/login.png
+    alt: "Sign-in screen with quick sign-in buttons for the dispatcher and the technician and a list of features worth checking in the demo"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/dispatch.png
+    alt: "Dispatch board: unassigned work orders above a week laid out as technician x day with cards of assigned work orders"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/work-orders.png
+    alt: "Work order list with search, filters for status, technician and due date, and a table with priority, status and overdue labels"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/work-order-details.png
+    alt: "Details of a completed work order: client and device data, a service entry with a photo and a used part, status progress and change history"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/dashboard-dark.png
+    alt: "Panel dashboard in dark mode"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/wake.png
+    alt: "Startup screen of the sleeping demo server with a progress bar"
+    device: desktop
+video:
+  file: dispatch-drag
+  poster: ../../../assets/projects/fixflow-web/dispatch-drag-poster.png
+  alt: "Dragging an unassigned work order onto a technician and a day on the dispatch board"
+  device: desktop
 ---
 
 The dispatcher needs to see which work orders are overdue, who has free slots and whom to assign a new request to. The panel brings this together on the dashboard and the dispatch board, a week laid out as technician x day with drag-and-drop assignment that also works from the keyboard.

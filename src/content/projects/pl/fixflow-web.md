@@ -26,6 +26,33 @@ links:
   repository: https://github.com/mpalus-git/FixFlow.Web
   demo: https://fix-flow-web.vercel.app
 demo: "Ekran logowania ma przyciski szybkiego logowania kontami demo dyspozytora i technika. Dane demonstracyjne są wspólne dla wszystkich odwiedzających i przywracane codziennie."
+screenshots:
+  - image: ../../../assets/projects/fixflow-web/dashboard.png
+    alt: "Pulpit panelu: liczniki zleceń do przypisania, w realizacji, do zafakturowania, opóźnionych i części bez stanu, zlecenia według statusu i obciążenie techników w bieżącym tygodniu"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/login.png
+    alt: "Ekran logowania z przyciskami szybkiego logowania jako dyspozytor lub technik i listą funkcji wartych sprawdzenia w demo"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/dispatch.png
+    alt: "Tablica dispatch: nieprzypisane zlecenia nad tygodniem w układzie technik x dzień z kartami przypisanych zleceń"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/work-orders.png
+    alt: "Lista zleceń z wyszukiwaniem i filtrami statusu, technika i terminu oraz tabelą z priorytetem, statusem i oznaczeniem zleceń po terminie"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/work-order-details.png
+    alt: "Szczegóły zakończonego zlecenia: dane klienta i urządzenia, wpis serwisowy ze zdjęciem i zużytą częścią, przebieg statusów i historia zmian"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/dashboard-dark.png
+    alt: "Pulpit panelu w trybie ciemnym"
+    device: desktop
+  - image: ../../../assets/projects/fixflow-web/wake.png
+    alt: "Ekran uruchamiania uśpionego serwera demo z paskiem postępu"
+    device: desktop
+video:
+  file: dispatch-drag
+  poster: ../../../assets/projects/fixflow-web/dispatch-drag-poster.png
+  alt: "Przeciągnięcie nieprzypisanego zlecenia na technika i dzień na tablicy dispatch"
+  device: desktop
 ---
 
 Dyspozytor musi widzieć, które zlecenia są opóźnione, kto ma wolne terminy i komu przypisać nowe zgłoszenie. Panel zbiera to na pulpicie i na tablicy dispatch, czyli tygodniu w układzie technik x dzień z przypisywaniem przeciągnięciem, także z klawiatury.

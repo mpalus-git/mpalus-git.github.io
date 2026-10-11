@@ -25,6 +25,36 @@ links:
   repository: https://github.com/mpalus-git/FixFlow.Mobile
   release: https://github.com/mpalus-git/FixFlow.Mobile/releases/latest
 demo: "Wydanie zawiera plik APK na Androida i wersję Windows do uruchomienia bez instalacji. Aplikacja łączy się z instancją demo, a konto technika i logowanie kontem demo opisuje README repozytorium. Dane demonstracyjne są przywracane codziennie."
+screenshots:
+  - image: ../../../assets/projects/fixflow-mobile/work-orders.png
+    alt: "Lista zleceń technika z podziałem na zaległe, nadchodzące i zakończone, z plakietkami statusu i priorytetu"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/work-order-details-dark.png
+    alt: "Szczegóły zlecenia w toku z klientem, osobą kontaktową i urządzeniem w trybie ciemnym"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/work-order-history.png
+    alt: "Wpis serwisowy ze zdjęciem i pozycją GPS oraz historia zlecenia"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/service-entry.png
+    alt: "Formularz wpisu serwisowego z czasem pracy i zużytą częścią"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/complete-signature.png
+    alt: "Ekran zakończenia zlecenia z podpisem klienta"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/offline-queue.png
+    alt: "Lista bez połączenia z paskiem stanu i liczbą zmian do wysłania"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/conflict.png
+    alt: "Ekran synchronizacji z rozpoczęciem odrzuconym po przekazaniu zlecenia innemu technikowi i wstrzymanym wpisem"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/windows.png
+    alt: "Lista zleceń w wersji Windows w trybie ciemnym"
+    device: desktop
+video:
+  file: offline-sync
+  poster: ../../../assets/projects/fixflow-mobile/offline-sync-poster.png
+  alt: "Rozpoczęcie zlecenia i wpis serwisowy bez sieci, potem synchronizacja po odzyskaniu połączenia"
+  device: phone
 ---
 
 Technik pracuje w terenie, gdzie zasięg bywa niepewny. Aplikacja pokazuje przypisane mu zlecenia, pozwala rozpocząć pracę, dodawać wpisy serwisowe z czasem pracy, zużytymi częściami, zdjęciami i pozycją GPS, a na końcu zamknąć zlecenie z podpisem klienta. Wszystko działa także offline.

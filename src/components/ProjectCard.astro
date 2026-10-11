@@ -4,7 +4,9 @@ import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
 import BookOpen from "@lucide/astro/icons/book-open";
 import Code from "@lucide/astro/icons/code";
 import Download from "@lucide/astro/icons/download";
+import ApiArchitectureDiagram from "@/components/ApiArchitectureDiagram.astro";
 import ExternalLink from "@/components/ExternalLink.astro";
+import Screenshot from "@/components/Screenshot.astro";
 import { t, type Language } from "@/i18n/i18n";
 
 type Props = {
@@ -14,6 +16,7 @@ type Props = {
 
 const { project, language } = Astro.props;
 const { links } = project.data;
+const cover = project.data.screenshots[0];
 type Action = {
   href: string;
   label: string;
@@ -52,6 +55,27 @@ const actions = candidates.filter((action): action is Action => action !== null)
 ---
 
 <article class="flex h-full flex-col overflow-hidden rounded-xl border border-t-4 border-border border-t-brand bg-surface shadow-sm">
+  <div class="flex aspect-[16/10] items-start justify-center overflow-hidden border-b border-border bg-brand-tint">
+    {project.data.project === "fixflow-api" ? (
+      <ApiArchitectureDiagram language={language} class="m-auto h-auto w-full p-5" />
+    ) : cover?.device === "phone" ? (
+      <Screenshot
+        image={cover.image}
+        alt={cover.alt}
+        device="phone"
+        sizes="(min-width: 1024px) 150px, 45vw"
+        class="mt-6 h-auto w-[45%] rounded-t-xl shadow-md"
+      />
+    ) : cover ? (
+      <Screenshot
+        image={cover.image}
+        alt={cover.alt}
+        device="desktop"
+        sizes="(min-width: 1024px) 352px, (min-width: 768px) 50vw, 100vw"
+        class="h-auto w-full"
+      />
+    ) : null}
+  </div>
   <div class="flex flex-1 flex-col p-6">
     <h3 class="text-xl font-bold">{project.data.title}</h3>
     <p class="mt-2 text-muted">{project.data.summary}</p>

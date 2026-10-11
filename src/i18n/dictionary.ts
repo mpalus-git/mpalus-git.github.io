@@ -21,6 +21,15 @@ export type Dictionary = {
   diagramDatabase: string;
   diagramRest: string;
   diagramOfflineQueue: string;
+  apiDiagramTitle: string;
+  apiDiagramDescription: string;
+  apiDiagramEndpoints: string;
+  apiDiagramJobs: string;
+  apiDiagramHandlers: string;
+  apiDiagramDomain: string;
+  apiDiagramCache: string;
+  apiDiagramDatabase: string;
+  apiDiagramEmail: string;
   projectStackLabel: string;
   projectLinkDemo: string;
   projectLinkRelease: string;
