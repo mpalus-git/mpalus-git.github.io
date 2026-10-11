@@ -86,6 +86,27 @@ describe("ProjectCard", () => {
   });
 });
 
+describe("ProjectCard cover", () => {
+  it("shows the API architecture diagram for FixFlow.Api", async () => {
+    const html = await renderCard({
+      ...project,
+      id: "en/fixflow-api",
+      data: { ...project.data, project: "fixflow-api", title: "FixFlow.Api" },
+    });
+
+    expect(html).toContain('aria-labelledby="api-diagram-title api-diagram-description"');
+    expect(html).toContain('<title id="api-diagram-title">FixFlow.Api architecture</title>');
+    expect(html).toContain("Feature handlers (vertical slices)");
+  });
+
+  it("shows no cover image without screenshots", async () => {
+    const html = await renderCard(project);
+
+    expect(html).not.toContain("<img");
+    expect(html).not.toContain("<svg role");
+  });
+});
+
 describe("SystemDiagram", () => {
   it.each([
     ["pl", "Architektura systemu FixFlow", "Panel dyspozytora"],

@@ -30,7 +30,11 @@ for (const { path, locale, demoName, demoHref } of pages) {
 
       await expect(page.getByRole("heading", { level: 1 })).toHaveText("Mateusz Palus");
       await expect(page.getByRole("heading", { level: 2, name: "FixFlow" })).toBeVisible();
-      await expect(page.getByRole("img", { name: /FixFlow/ })).toBeVisible();
+      await expect(
+        page.getByRole("img", {
+          name: /^(Architektura systemu FixFlow|FixFlow system architecture)/,
+        }),
+      ).toBeVisible();
       await expect(page.getByRole("heading", { level: 3 })).toHaveText([
         "FixFlow.Api",
         "FixFlow.Web",
