@@ -36,16 +36,24 @@ describe("ProjectCard", () => {
   it("renders the title, summary and stack", async () => {
     const html = await renderCard(project);
 
-    expect(html).toMatch(/<h3[^>]*>FixFlow\.Web<\/h3>/);
+    expect(html).toMatch(/<h3[^>]*>\s*<a[^>]*>\s*FixFlow\.Web/);
     expect(html).toContain("A dispatcher panel.");
     expect(html).toContain('aria-label="Main technologies"');
     expect(html).toContain("React 19");
     expect(html).toContain("TypeScript 7");
   });
 
-  it("opens every link in a new tab with an accessible hint", async () => {
+  it("links the title to the project page in the same language", async () => {
     const html = await renderCard(project);
-    const links = html.match(/<a [^>]*>/g) ?? [];
+
+    expect(html).toMatch(
+      /<h3[^>]*>\s*<a href="\/en\/fixflow-web\/" aria-label="FixFlow\.Web project details"/,
+    );
+  });
+
+  it("opens every external link in a new tab with an accessible hint", async () => {
+    const html = await renderCard(project);
+    const links = html.match(/<a href="https:[^>]*>/g) ?? [];
 
     expect(links).toHaveLength(2);
     for (const link of links) {
