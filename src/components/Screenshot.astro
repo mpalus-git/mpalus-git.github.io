@@ -27,5 +27,6 @@ const defaultSizes =
   sizes={sizes ?? defaultSizes}
   loading="lazy"
   decoding="async"
-  class:list={["h-auto", device === "phone" ? "w-full max-w-[280px]" : "w-full", className]}
+  pictureAttributes={{ class: "contents" }}
+  class={className ?? (device === "phone" ? "h-auto w-full max-w-[280px]" : "h-auto w-full")}
 />
