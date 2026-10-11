@@ -42,6 +42,7 @@ Astro.csp?.insertScriptHash(await hashScript(languageScript));
       <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
     ))}
     <link rel="alternate" hreflang="x-default" href={defaultHref} />
+    <slot name="head" />
   </head>
   <body class="flex min-h-screen flex-col font-sans">
     <script is:inline set:html={languageScript} />
