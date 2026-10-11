@@ -12,6 +12,10 @@ const dictionaries: Record<Language, Dictionary> = { pl, en };
 
 const englishPrefix = "/en/";
 
+const notFoundPath = "/404/";
+
+const notFoundFile = "/404.html";
+
 export function t(language: Language, key: keyof Dictionary): string {
   return dictionaries[language][key];
 }
@@ -25,8 +29,18 @@ export function getLanguageFromPath(path: string): Language {
 }
 
 export function getLocalizedPath(path: string, language: Language): string {
-  const normalized = path.endsWith("/") ? path : `${path}/`;
+  const normalized = normalizePath(path);
   const neutral =
     getLanguageFromPath(normalized) === "en" ? normalized.slice("/en".length) : normalized;
-  return language === "en" ? `/en${neutral}` : neutral;
+  if (language === "en") {
+    return `/en${neutral}`;
+  }
+  return neutral === notFoundPath ? notFoundFile : neutral;
+}
+
+function normalizePath(path: string): string {
+  if (path === notFoundFile) {
+    return notFoundPath;
+  }
+  return path.endsWith("/") ? path : `${path}/`;
 }

@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getLocalizedPath, t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  language: Language;
+};
+
+const { language } = Astro.props;
+---
+
+<BaseLayout language={language} title={t(language, "notFoundTitle")}>
+  <section class="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24">
+    <h1 class="text-3xl font-bold tracking-tight md:text-5xl">{t(language, "notFoundTitle")}</h1>
+    <p class="mt-4 max-w-prose text-lg text-muted">{t(language, "notFoundText")}</p>
+    <a
+      href={getLocalizedPath("/", language)}
+      class="mt-8 inline-flex min-h-11 items-center rounded-lg bg-brand px-5 font-semibold text-on-brand transition-colors hover:bg-brand-dark"
+    >
+      {t(language, "notFoundLink")}
+    </a>
+  </section>
+</BaseLayout>
