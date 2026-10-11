@@ -13,7 +13,7 @@ describe("LanguageSwitch", () => {
 
     expect(html).toContain('aria-label="Wybór języka"');
     expect(html).toMatch(/<span aria-current="page"[^>]*><span aria-hidden="true">PL<\/span>/);
-    expect(html).toMatch(/<a href="\/en\/" hreflang="en" lang="en"/);
+    expect(html).toMatch(/<a href="\/en\/" hreflang="en" lang="en" data-language-switch="en"/);
     expect(html).toContain('<span class="sr-only">English</span>');
     expect(html).toContain('<span class="sr-only">Polski</span>');
   });

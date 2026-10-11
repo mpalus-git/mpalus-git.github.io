@@ -3,6 +3,7 @@ import "@/styles/global.css";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import { defaultLanguage, getLocalizedPath, languages, t, type Language } from "@/i18n/i18n";
+import { buildLanguageScript } from "@/scripts/languagePreference";
 
 type Props = {
   language: Language;
@@ -16,6 +17,7 @@ const alternates = languages.map((code) => ({
   href: new URL(getLocalizedPath(path, code), Astro.site).href,
 }));
 const defaultHref = new URL(getLocalizedPath(path, defaultLanguage), Astro.site).href;
+const languageScript = buildLanguageScript();
 ---
 
 <!doctype html>
@@ -30,6 +32,7 @@ const defaultHref = new URL(getLocalizedPath(path, defaultLanguage), Astro.site)
       <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
     ))}
     <link rel="alternate" hreflang="x-default" href={defaultHref} />
+    <script is:inline set:html={languageScript} />
   </head>
   <body class="flex min-h-screen flex-col font-sans">
     <a
