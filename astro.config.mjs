@@ -25,6 +25,7 @@ export default defineConfig({
   },
   build: {
     format: "directory",
+    inlineStylesheets: "always",
   },
   markdown: {
     syntaxHighlight: false,
