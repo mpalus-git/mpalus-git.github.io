@@ -3,7 +3,14 @@ import "@/styles/global.css";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import { apiOrigin, themeColor } from "@/config";
-import { defaultLanguage, getLocalizedPath, languages, t, type Language } from "@/i18n/i18n";
+import {
+  defaultLanguage,
+  getLocalizedPath,
+  getOtherLanguage,
+  languages,
+  t,
+  type Language,
+} from "@/i18n/i18n";
 import { buildLanguageScript, hashScript } from "@/scripts/languagePreference";
 
 type Props = {
@@ -20,6 +27,8 @@ const alternates = languages.map((code) => ({
   href: new URL(getLocalizedPath(path, code), Astro.site).href,
 }));
 const canonicalHref = new URL(getLocalizedPath(path, language), Astro.site).href;
+const ogLocales: Record<Language, string> = { pl: "pl_PL", en: "en_US" };
+const ogImageHref = new URL("/og-image.png", Astro.site).href;
 const defaultHref = new URL(getLocalizedPath(path, defaultLanguage), Astro.site).href;
 const languageScript = buildLanguageScript();
 Astro.csp?.insertScriptHash(await hashScript(languageScript));
@@ -38,6 +47,19 @@ Astro.csp?.insertScriptHash(await hashScript(languageScript));
     <meta name="description" content={description} />
     {noIndex ? <meta name="robots" content="noindex" /> : null}
     <link rel="canonical" href={canonicalHref} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={t(language, "personName")} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalHref} />
+    <meta property="og:locale" content={ogLocales[language]} />
+    <meta property="og:locale:alternate" content={ogLocales[getOtherLanguage(language)]} />
+    <meta property="og:image" content={ogImageHref} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t(language, "ogImageAlt")} />
+    <meta name="twitter:card" content="summary_large_image" />
     {alternates.map((alternate) => (
       <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
     ))}

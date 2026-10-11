@@ -3,6 +3,7 @@ export type Dictionary = {
   role: string;
   homeTitle: string;
   homeDescription: string;
+  ogImageAlt: string;
   heroDescription: string;
   heroBadgeBackend: string;
   heroBadgeWeb: string;
