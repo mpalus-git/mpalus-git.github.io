@@ -15,6 +15,29 @@ export default defineConfig({
   build: {
     format: "directory",
   },
+  markdown: {
+    syntaxHighlight: false,
+  },
+  security: {
+    csp: {
+      directives: [
+        "default-src 'self'",
+        "img-src 'self' data:",
+        "media-src 'self'",
+        "font-src 'none'",
+        "connect-src 'self'",
+        "base-uri 'self'",
+        "form-action 'none'",
+        "object-src 'none'",
+      ],
+      scriptDirective: {
+        resources: ["'self'"],
+      },
+      styleDirective: {
+        resources: ["'self'"],
+      },
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

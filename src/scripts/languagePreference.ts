@@ -119,3 +119,8 @@ export function runLanguagePreference(
 export function buildLanguageScript(): string {
   return `(${runLanguagePreference.toString()})(window,${decideLanguage.toString()});`;
 }
+
+export async function hashScript(script: string): Promise<`sha256-${string}`> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(script));
+  return `sha256-${btoa(String.fromCharCode(...new Uint8Array(digest)))}`;
+}

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildLanguageScript,
   decideLanguage,
+  hashScript,
   runLanguagePreference,
   type LanguageDecisionInput,
   type LanguageEnvironment,
@@ -282,5 +283,13 @@ describe("buildLanguageScript", () => {
     expect(script.startsWith("(function runLanguagePreference(")).toBe(true);
     expect(script).toContain("function decideLanguage(");
     expect(script.endsWith(");")).toBe(true);
+  });
+});
+
+describe("hashScript", () => {
+  it("returns the CSP sha256 source of the script", async () => {
+    expect(await hashScript("alert(1)")).toBe(
+      "sha256-bhHHL3z2vDgxUt0W3dWQOrprscmda2Y5pLsLg4GF+pI=",
+    );
   });
 });
