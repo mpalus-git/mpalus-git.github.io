@@ -2,6 +2,12 @@ export type Dictionary = {
   personName: string;
   role: string;
   homeTitle: string;
+  heroDescription: string;
+  heroBadgeBackend: string;
+  heroBadgeWeb: string;
+  heroBadgeMobile: string;
+  heroGitHub: string;
+  heroDemo: string;
   skipToContent: string;
   languageSwitchLabel: string;
   languageName: string;

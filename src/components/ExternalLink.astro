@@ -5,12 +5,19 @@ type Props = {
   href: string;
   language: Language;
   class?: string;
+  demo?: boolean;
 };
 
-const { href, language, class: className } = Astro.props;
+const { href, language, class: className, demo = false } = Astro.props;
 ---
 
-<a href={href} target="_blank" rel="noopener" class={className}>
+<a
+  href={href}
+  target="_blank"
+  rel="noopener"
+  class={className}
+  data-demo-link={demo ? "" : undefined}
+>
   <slot />
   <span class="sr-only">{t(language, "opensInNewTab")}</span>
 </a>
