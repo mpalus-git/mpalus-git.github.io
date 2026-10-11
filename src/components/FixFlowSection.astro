@@ -1,4 +1,6 @@
 ---
+import { getCollection } from "astro:content";
+import ProjectCard from "@/components/ProjectCard.astro";
 import SystemDiagram from "@/components/SystemDiagram.astro";
 import { t, type Language } from "@/i18n/i18n";
 
@@ -7,6 +9,9 @@ type Props = {
 };
 
 const { language } = Astro.props;
+const projects = (
+  await getCollection("projects", (entry) => entry.id.startsWith(`${language}/`))
+).sort((first, second) => first.data.order - second.data.order);
 ---
 
 <section
@@ -27,4 +32,11 @@ const { language } = Astro.props;
       <SystemDiagram language={language} />
     </div>
   </div>
+  <ul class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {projects.map((project) => (
+      <li>
+        <ProjectCard project={project} language={language} />
+      </li>
+    ))}
+  </ul>
 </section>

@@ -21,6 +21,11 @@ export type Dictionary = {
   diagramDatabase: string;
   diagramRest: string;
   diagramOfflineQueue: string;
+  projectStackLabel: string;
+  projectLinkDemo: string;
+  projectLinkRelease: string;
+  projectLinkDocs: string;
+  projectLinkRepository: string;
   skipToContent: string;
   languageSwitchLabel: string;
   languageName: string;

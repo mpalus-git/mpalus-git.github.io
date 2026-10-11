@@ -1,0 +1,81 @@
+---
+import type { CollectionEntry } from "astro:content";
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
+import BookOpen from "@lucide/astro/icons/book-open";
+import Code from "@lucide/astro/icons/code";
+import Download from "@lucide/astro/icons/download";
+import ExternalLink from "@/components/ExternalLink.astro";
+import { t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  project: CollectionEntry<"projects">;
+  language: Language;
+};
+
+const { project, language } = Astro.props;
+const { links } = project.data;
+type Action = {
+  href: string;
+  label: string;
+  icon: typeof ArrowUpRight;
+  wakesApi: boolean;
+};
+
+const candidates: (Action | null)[] = [
+  links.demo
+    ? {
+        href: links.demo,
+        label: t(language, "projectLinkDemo"),
+        icon: ArrowUpRight,
+        wakesApi: true,
+      }
+    : null,
+  links.release
+    ? {
+        href: links.release,
+        label: t(language, "projectLinkRelease"),
+        icon: Download,
+        wakesApi: false,
+      }
+    : null,
+  links.docs
+    ? { href: links.docs, label: t(language, "projectLinkDocs"), icon: BookOpen, wakesApi: true }
+    : null,
+  {
+    href: links.repository,
+    label: t(language, "projectLinkRepository"),
+    icon: Code,
+    wakesApi: false,
+  },
+];
+const actions = candidates.filter((action): action is Action => action !== null);
+---
+
+<article class="flex h-full flex-col overflow-hidden rounded-xl border border-t-4 border-border border-t-brand bg-surface shadow-sm">
+  <div class="flex flex-1 flex-col p-6">
+    <h3 class="text-xl font-bold">{project.data.title}</h3>
+    <p class="mt-2 text-muted">{project.data.summary}</p>
+    <ul aria-label={t(language, "projectStackLabel")} class="mt-4 flex flex-wrap gap-2">
+      {project.data.stack.map((technology) => (
+        <li class="rounded-full bg-brand-tint px-3 py-1 text-sm font-semibold text-brand-dark">
+          {technology}
+        </li>
+      ))}
+    </ul>
+    <ul class="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-6">
+      {actions.map((action) => (
+        <li>
+          <ExternalLink
+            href={action.href}
+            language={language}
+            demo={action.wakesApi}
+            class="inline-flex min-h-11 items-center gap-1.5 font-semibold text-brand underline decoration-2 underline-offset-4 hover:text-brand-dark"
+          >
+            <action.icon size={18} />
+            {action.label}
+          </ExternalLink>
+        </li>
+      ))}
+    </ul>
+  </div>
+</article>
