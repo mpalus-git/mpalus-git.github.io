@@ -12,6 +12,7 @@
     "build": "astro build",
     "check": "astro check",
     "lint": "eslint . && prettier --check . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude",
+    "check:comments": "node scripts/check-no-comments.mjs",
     "test": "vitest",
     "format": "prettier --write . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude",
     "preview": "astro preview",
