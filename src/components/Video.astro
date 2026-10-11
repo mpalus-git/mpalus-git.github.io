@@ -1,0 +1,60 @@
+---
+import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+
+type Props = {
+  project: string;
+  file: string;
+  poster: ImageMetadata;
+  alt: string;
+  device: "desktop" | "phone";
+};
+
+const { project, file, poster, alt, device } = Astro.props;
+const videos = import.meta.glob<string>("/src/assets/projects/*/*.{mp4,webm}", {
+  query: "?url",
+  import: "default",
+  eager: true,
+});
+const sources = [
+  { src: videos[`/src/assets/projects/${project}/${file}.webm`], type: "video/webm" },
+  { src: videos[`/src/assets/projects/${project}/${file}.mp4`], type: "video/mp4" },
+];
+const posterImage = await getImage({ src: poster, format: "webp" });
+const videoClass = device === "phone" ? "h-auto w-full max-w-[280px]" : "h-auto w-full";
+---
+
+<div>
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster={posterImage.src}
+    width={poster.width}
+    height={poster.height}
+    aria-label={alt}
+    class:list={[videoClass, "motion-reduce:hidden"]}
+  >
+    {sources.map((source) => (
+      <source src={source.src} type={source.type} />
+    ))}
+  </video>
+  <video
+    controls
+    muted
+    loop
+    playsinline
+    preload="none"
+    poster={posterImage.src}
+    width={poster.width}
+    height={poster.height}
+    aria-label={alt}
+    class:list={[videoClass, "hidden motion-reduce:block"]}
+  >
+    {sources.map((source) => (
+      <source src={source.src} type={source.type} />
+    ))}
+  </video>
+</div>
