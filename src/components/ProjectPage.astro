@@ -18,7 +18,11 @@ const hasMedia = project.data.screenshots.length > 0 || project.data.video !== u
 const headingClass = "text-3xl font-bold tracking-tight md:text-4xl";
 ---
 
-<BaseLayout language={language} title={`${project.data.title} - ${t(language, "personName")}`}>
+<BaseLayout
+  language={language}
+  title={`${project.data.title} - ${t(language, "personName")}`}
+  description={project.data.summary}
+>
   <ProjectHero project={project} language={language} />
   <div class="mx-auto flex max-w-6xl flex-col gap-16 px-4 py-16 md:px-8">
     <section aria-labelledby="problem-heading">

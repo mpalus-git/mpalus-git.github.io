@@ -2,16 +2,30 @@
 import FixFlowSection from "@/components/FixFlowSection.astro";
 import Hero from "@/components/Hero.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { t, type Language } from "@/i18n/i18n";
+import { githubProfileUrl } from "@/config";
+import { getLocalizedPath, t, type Language } from "@/i18n/i18n";
 
 type Props = {
   language: Language;
 };
 
 const { language } = Astro.props;
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: t(language, "personName"),
+  url: new URL(getLocalizedPath("/", language), Astro.site).href,
+  jobTitle: t(language, "role"),
+  sameAs: [githubProfileUrl],
+};
 ---
 
-<BaseLayout language={language} title={t(language, "homeTitle")}>
+<BaseLayout
+  language={language}
+  title={t(language, "homeTitle")}
+  description={t(language, "homeDescription")}
+>
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(person)} />
   <Hero language={language} />
   <FixFlowSection language={language} />
 </BaseLayout>

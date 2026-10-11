@@ -1,3 +1,4 @@
+import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import { apiOrigin } from "./src/config.ts";
@@ -6,6 +7,15 @@ export default defineConfig({
   site: "https://mpalus-git.github.io",
   output: "static",
   trailingSlash: "always",
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: "pl",
+        locales: { pl: "pl", en: "en" },
+      },
+      filter: (page) => !page.includes("/404"),
+    }),
+  ],
   i18n: {
     locales: ["pl", "en"],
     defaultLocale: "pl",
