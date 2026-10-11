@@ -22,6 +22,26 @@ describe("BaseLayout", () => {
   });
 
   it.each([
+    ["pl", "/fixflow-web/", "pl_PL", "en_US"],
+    ["en", "/en/fixflow-web/", "en_US", "pl_PL"],
+  ] as const)(
+    "describes the %s page %s for link previews",
+    async (language, path, locale, other) => {
+      const html = await render(language, path);
+
+      expect(html).toContain('<meta property="og:title" content="Tytuł">');
+      expect(html).toContain('<meta property="og:description" content="Opis strony">');
+      expect(html).toContain(`<meta property="og:url" content="${site}${path}">`);
+      expect(html).toContain(`<meta property="og:locale" content="${locale}">`);
+      expect(html).toContain(`<meta property="og:locale:alternate" content="${other}">`);
+      expect(html).toContain(`<meta property="og:image" content="${site}/og-image.png">`);
+      expect(html).toMatch(/<meta property="og:image:alt" content="Mateusz Palus, [^"]+">/);
+      expect(html).toContain('<meta name="twitter:card" content="summary_large_image">');
+      expect(html).toContain('<link rel="icon" href="/favicon.svg" type="image/svg+xml">');
+    },
+  );
+
+  it.each([
     ["pl", "/", `${site}/`],
     ["en", "/en/", `${site}/en/`],
     ["pl", "/fixflow-web/", `${site}/fixflow-web/`],
