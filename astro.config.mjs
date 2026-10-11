@@ -1,5 +1,6 @@
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
+import { apiOrigin } from "./src/config.ts";
 
 export default defineConfig({
   site: "https://mpalus-git.github.io",
@@ -25,7 +26,7 @@ export default defineConfig({
         "img-src 'self' data:",
         "media-src 'self'",
         "font-src 'none'",
-        "connect-src 'self'",
+        `connect-src 'self' ${apiOrigin}`,
         "base-uri 'self'",
         "form-action 'none'",
         "object-src 'none'",

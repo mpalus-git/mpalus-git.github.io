@@ -2,6 +2,7 @@
 import "@/styles/global.css";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
+import { apiOrigin } from "@/config";
 import { defaultLanguage, getLocalizedPath, languages, t, type Language } from "@/i18n/i18n";
 import { buildLanguageScript, hashScript } from "@/scripts/languagePreference";
 
@@ -28,6 +29,7 @@ Astro.csp?.insertScriptHash(await hashScript(languageScript));
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="only light" />
     <link rel="icon" href="data:," />
+    <link rel="preconnect" href={apiOrigin} crossorigin />
     <title>{title}</title>
     {alternates.map((alternate) => (
       <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
@@ -47,5 +49,10 @@ Astro.csp?.insertScriptHash(await hashScript(languageScript));
       <slot />
     </main>
     <Footer language={language} />
+    <script>
+      import { startApiWake } from "@/scripts/wakeApi";
+
+      startApiWake(window);
+    </script>
   </body>
 </html>
