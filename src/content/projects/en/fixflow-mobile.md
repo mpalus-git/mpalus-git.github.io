@@ -25,6 +25,36 @@ links:
   repository: https://github.com/mpalus-git/FixFlow.Mobile
   release: https://github.com/mpalus-git/FixFlow.Mobile/releases/latest
 demo: "The release includes an Android APK and a Windows version that runs without installation. The app connects to the demo instance, and the technician account and demo sign-in are described in the repository README. The demo data is reset every day."
+screenshots:
+  - image: ../../../assets/projects/fixflow-mobile/work-orders.png
+    alt: "Technician's work order list split into overdue, upcoming and completed, with status and priority badges"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/work-order-details-dark.png
+    alt: "Details of a work order in progress with the client, contact person and device in dark mode"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/work-order-history.png
+    alt: "Service entry with a photo and GPS position, and the work order history"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/service-entry.png
+    alt: "Service entry form with work time and a used part"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/complete-signature.png
+    alt: "Work order completion screen with the client's signature"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/offline-queue.png
+    alt: "List without a connection, with a status bar and the number of changes to send"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/conflict.png
+    alt: "Sync screen with a start rejected after the work order was handed to another technician and a held service entry"
+    device: phone
+  - image: ../../../assets/projects/fixflow-mobile/windows.png
+    alt: "Work order list in the Windows version in dark mode"
+    device: desktop
+video:
+  file: offline-sync
+  poster: ../../../assets/projects/fixflow-mobile/offline-sync-poster.png
+  alt: "Starting a work order and adding a service entry without a network, then synchronization once the connection is back"
+  device: phone
 ---
 
 Technicians work in the field, where coverage is not guaranteed. The app shows their assigned work orders, lets them start work, add service entries with work time, used parts, photos and GPS position, and finally complete the work order with the client's signature. All of it also works offline.

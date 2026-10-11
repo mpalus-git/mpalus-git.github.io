@@ -23,6 +23,7 @@ const project: CollectionEntry<"projects"> = {
       demo: "https://fix-flow-web.vercel.app/?lang=en",
     },
     demo: "Quick sign-in buttons.",
+    screenshots: [],
   },
 };
 
