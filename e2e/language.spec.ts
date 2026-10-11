@@ -1,4 +1,5 @@
 import { expect, test, type Browser, type BrowserContext, type Page } from "@playwright/test";
+import { mockApi, trackErrors } from "./support";
 
 type ContextOptions = {
   locale: string;
@@ -14,6 +15,7 @@ async function createContext(browser: Browser, options: ContextOptions): Promise
     javaScriptEnabled: options.javaScriptEnabled ?? true,
     ...(options.userAgent ? { userAgent: options.userAgent } : {}),
   });
+  await mockApi(context);
   if (options.languages) {
     await context.addInitScript((languages) => {
       Object.defineProperty(Navigator.prototype, "languages", { get: () => languages });
@@ -31,17 +33,6 @@ async function createContext(browser: Browser, options: ContextOptions): Promise
     });
   }
   return context;
-}
-
-function trackErrors(page: Page): string[] {
-  const errors: string[] = [];
-  page.on("console", (message) => {
-    if (message.type() === "error" || message.type() === "warning") {
-      errors.push(message.text());
-    }
-  });
-  page.on("pageerror", (error) => errors.push(error.message));
-  return errors;
 }
 
 async function expectPath(page: Page, path: string): Promise<void> {
