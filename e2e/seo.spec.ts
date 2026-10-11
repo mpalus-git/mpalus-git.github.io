@@ -1,20 +1,9 @@
 import { expect, test } from "@playwright/test";
-import { mockApi, trackErrors } from "./support";
+import { mockApi, sitePages, trackErrors } from "./support";
 
 const site = "https://mpalus-git.github.io";
 
-const pages = [
-  "/",
-  "/en/",
-  "/fixflow-api/",
-  "/fixflow-web/",
-  "/fixflow-mobile/",
-  "/en/fixflow-api/",
-  "/en/fixflow-web/",
-  "/en/fixflow-mobile/",
-  "/404.html",
-  "/en/404/",
-];
+const pages = sitePages;
 
 test("every page in a language has its own title, description and canonical address", async ({
   browser,

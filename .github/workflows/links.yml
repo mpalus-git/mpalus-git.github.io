@@ -1,0 +1,23 @@
+name: External links
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    name: Check external links
+    runs-on: ubuntu-26.04
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup
+
+      - run: pnpm build
+
+      - run: pnpm check:links
