@@ -1,4 +1,5 @@
 ---
+import FixFlowSection from "@/components/FixFlowSection.astro";
 import Hero from "@/components/Hero.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { t, type Language } from "@/i18n/i18n";
@@ -12,4 +13,5 @@ const { language } = Astro.props;
 
 <BaseLayout language={language} title={t(language, "homeTitle")}>
   <Hero language={language} />
+  <FixFlowSection language={language} />
 </BaseLayout>
