@@ -1,0 +1,34 @@
+---
+import ExternalLink from "@/components/ExternalLink.astro";
+import { githubProfileUrl, siteSourceUrl } from "@/config";
+import { t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  language: Language;
+};
+
+const { language } = Astro.props;
+const year = new Date().getFullYear();
+const linkClass =
+  "font-semibold text-brand underline decoration-2 underline-offset-4 hover:text-brand-dark";
+---
+
+<footer class="border-t border-border bg-surface">
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-sm text-muted md:flex-row md:items-center md:justify-between md:px-8">
+    <ul class="flex flex-wrap gap-x-6 gap-y-2">
+      <li>
+        <ExternalLink href={githubProfileUrl} language={language} class={linkClass}>
+          {t(language, "footerGitHub")}
+        </ExternalLink>
+      </li>
+      <li>
+        <ExternalLink href={siteSourceUrl} language={language} class={linkClass}>
+          {t(language, "footerSourceCode")}
+        </ExternalLink>
+      </li>
+    </ul>
+    <p>
+      © {year} {t(language, "personName")}. {t(language, "footerRights")}
+    </p>
+  </div>
+</footer>

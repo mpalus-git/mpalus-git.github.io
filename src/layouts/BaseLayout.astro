@@ -1,0 +1,47 @@
+---
+import "@/styles/global.css";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import { defaultLanguage, getLocalizedPath, languages, t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  language: Language;
+  title: string;
+};
+
+const { language, title } = Astro.props;
+const path = Astro.url.pathname;
+const alternates = languages.map((code) => ({
+  hreflang: code,
+  href: new URL(getLocalizedPath(path, code), Astro.site).href,
+}));
+const defaultHref = new URL(getLocalizedPath(path, defaultLanguage), Astro.site).href;
+---
+
+<!doctype html>
+<html lang={language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="only light" />
+    <link rel="icon" href="data:," />
+    <title>{title}</title>
+    {alternates.map((alternate) => (
+      <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={defaultHref} />
+  </head>
+  <body class="flex min-h-screen flex-col font-sans">
+    <a
+      href="#main"
+      class="sr-only rounded-lg bg-surface font-semibold text-brand shadow-md focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-10 focus:px-4 focus:py-3"
+    >
+      {t(language, "skipToContent")}
+    </a>
+    <Header language={language} path={path} />
+    <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
+      <slot />
+    </main>
+    <Footer language={language} />
+  </body>
+</html>

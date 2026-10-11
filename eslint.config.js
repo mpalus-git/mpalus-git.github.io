@@ -41,7 +41,6 @@ export default defineConfig([
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
-        extraFileExtensions: [".astro"],
       },
     },
     rules: {
@@ -57,6 +56,12 @@ export default defineConfig([
       ],
     },
   },
+  {
+    files: ["vitest.config.ts", "src/env.d.ts"],
+    rules: {
+      "no-restricted-syntax": "off",
+    },
+  },
   astro.configs.recommended,
   astro.configs["jsx-a11y-strict"],
   {
@@ -66,7 +71,11 @@ export default defineConfig([
       parserOptions: {
         projectService: false,
         project: true,
+        extraFileExtensions: [".astro"],
       },
+    },
+    rules: {
+      "@typescript-eslint/no-unsafe-return": "off",
     },
   },
 ]);
