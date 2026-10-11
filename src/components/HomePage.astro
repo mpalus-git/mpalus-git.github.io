@@ -11,7 +11,11 @@ type Props = {
 const { language } = Astro.props;
 ---
 
-<BaseLayout language={language} title={t(language, "homeTitle")}>
+<BaseLayout
+  language={language}
+  title={t(language, "homeTitle")}
+  description={t(language, "homeDescription")}
+>
   <Hero language={language} />
   <FixFlowSection language={language} />
 </BaseLayout>

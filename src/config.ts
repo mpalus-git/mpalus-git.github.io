@@ -1,3 +1,5 @@
+export const themeColor = "#0D736A";
+
 export const githubProfileUrl = "https://github.com/mpalus-git";
 
 export const panelDemoUrls = {

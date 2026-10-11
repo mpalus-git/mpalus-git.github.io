@@ -2,21 +2,24 @@
 import "@/styles/global.css";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
-import { apiOrigin } from "@/config";
+import { apiOrigin, themeColor } from "@/config";
 import { defaultLanguage, getLocalizedPath, languages, t, type Language } from "@/i18n/i18n";
 import { buildLanguageScript, hashScript } from "@/scripts/languagePreference";
 
 type Props = {
   language: Language;
   title: string;
+  description: string;
+  noIndex?: boolean;
 };
 
-const { language, title } = Astro.props;
+const { language, title, description, noIndex = false } = Astro.props;
 const path = Astro.url.pathname;
 const alternates = languages.map((code) => ({
   hreflang: code,
   href: new URL(getLocalizedPath(path, code), Astro.site).href,
 }));
+const canonicalHref = new URL(getLocalizedPath(path, language), Astro.site).href;
 const defaultHref = new URL(getLocalizedPath(path, defaultLanguage), Astro.site).href;
 const languageScript = buildLanguageScript();
 Astro.csp?.insertScriptHash(await hashScript(languageScript));
@@ -28,9 +31,13 @@ Astro.csp?.insertScriptHash(await hashScript(languageScript));
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="only light" />
+    <meta name="theme-color" content={themeColor} />
     <link rel="icon" href="data:," />
     <link rel="preconnect" href={apiOrigin} crossorigin />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    {noIndex ? <meta name="robots" content="noindex" /> : null}
+    <link rel="canonical" href={canonicalHref} />
     {alternates.map((alternate) => (
       <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
     ))}
