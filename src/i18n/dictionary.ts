@@ -30,6 +30,17 @@ export type Dictionary = {
   apiDiagramCache: string;
   apiDiagramDatabase: string;
   apiDiagramEmail: string;
+  apiDiagramWebClient: string;
+  apiDiagramWebClientTech: string;
+  apiDiagramMobileClient: string;
+  apiDiagramMobileClientTech: string;
+  apiDiagramEndpointsDetail: string;
+  apiDiagramJobsDetail: string;
+  apiDiagramDomainDetail: string;
+  apiDiagramCacheDetail: string;
+  apiDiagramRedis: string;
+  apiDiagramRedisDetail: string;
+  apiDiagramEmailDetail: string;
   projectStackLabel: string;
   projectLinkDemo: string;
   projectLinkRelease: string;
@@ -39,6 +50,7 @@ export type Dictionary = {
   projectProblemHeading: string;
   projectDecisionsHeading: string;
   projectMediaHeading: string;
+  projectArchitectureHeading: string;
   projectDemoHeading: string;
   skipToContent: string;
   languageSwitchLabel: string;

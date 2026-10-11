@@ -1,5 +1,6 @@
 ---
 import { render, type CollectionEntry } from "astro:content";
+import ApiArchitectureFullDiagram from "@/components/ApiArchitectureFullDiagram.astro";
 import ProjectHero from "@/components/ProjectHero.astro";
 import ProjectLinks from "@/components/ProjectLinks.astro";
 import ProjectMedia from "@/components/ProjectMedia.astro";
@@ -41,6 +42,16 @@ const headingClass = "text-3xl font-bold tracking-tight md:text-4xl";
         ))}
       </ul>
     </section>
+    {project.data.project === "fixflow-api" ? (
+      <section aria-labelledby="architecture-heading">
+        <h2 id="architecture-heading" class={headingClass}>
+          {t(language, "projectArchitectureHeading")}
+        </h2>
+        <div class="mt-8 rounded-xl border border-border bg-surface px-2 py-4 shadow-sm md:p-8">
+          <ApiArchitectureFullDiagram language={language} class="mx-auto h-auto w-full max-w-xl" />
+        </div>
+      </section>
+    ) : null}
     {hasMedia ? (
       <section aria-labelledby="media-heading">
         <h2 id="media-heading" class={headingClass}>
