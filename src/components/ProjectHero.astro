@@ -1,0 +1,58 @@
+---
+import ArrowLeft from "@lucide/astro/icons/arrow-left";
+import type { CollectionEntry } from "astro:content";
+import ExternalLink from "@/components/ExternalLink.astro";
+import { getProjectActions } from "@/components/projectActions";
+import { getLocalizedPath, t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  project: CollectionEntry<"projects">;
+  language: Language;
+};
+
+const { project, language } = Astro.props;
+const actions = getProjectActions(project.data.links, language);
+const buttonClass =
+  "inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-5 font-semibold transition-colors";
+---
+
+<section class="bg-linear-to-b from-brand from-70% to-brand-dark text-on-brand [--focus-ring:var(--on-brand)]">
+  <div class="mx-auto max-w-6xl px-4 py-10 md:px-8 md:py-16">
+    <a
+      href={`${getLocalizedPath("/", language)}#fixflow`}
+      class="inline-flex min-h-11 items-center gap-1.5 font-semibold underline decoration-2 underline-offset-4"
+    >
+      <ArrowLeft size={18} />
+      {t(language, "projectBackLink")}
+    </a>
+    <h1 class="mt-4 text-4xl leading-tight font-bold tracking-tight md:text-6xl">
+      {project.data.title}
+    </h1>
+    <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">{project.data.summary}</p>
+    <ul aria-label={t(language, "projectStackLabel")} class="mt-6 flex flex-wrap gap-2">
+      {project.data.stack.map((technology) => (
+        <li class="rounded-full bg-brand-dark px-3 py-1 text-sm font-semibold">{technology}</li>
+      ))}
+    </ul>
+    <ul class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      {actions.map((action, index) => (
+        <li class="flex flex-col">
+          <ExternalLink
+            href={action.href}
+            language={language}
+            demo={action.wakesApi}
+            class:list={[
+              buttonClass,
+              index === 0
+                ? "bg-surface text-brand hover:bg-brand-tint"
+                : "border-2 border-on-brand text-on-brand hover:bg-brand-dark",
+            ]}
+          >
+            <action.icon size={20} />
+            {action.label}
+          </ExternalLink>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

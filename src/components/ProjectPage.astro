@@ -1,0 +1,50 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import ProjectHero from "@/components/ProjectHero.astro";
+import ProjectLinks from "@/components/ProjectLinks.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  project: CollectionEntry<"projects">;
+  language: Language;
+};
+
+const { project, language } = Astro.props;
+const { Content } = await render(project);
+const headingClass = "text-3xl font-bold tracking-tight md:text-4xl";
+---
+
+<BaseLayout language={language} title={`${project.data.title} - ${t(language, "personName")}`}>
+  <ProjectHero project={project} language={language} />
+  <div class="mx-auto flex max-w-6xl flex-col gap-16 px-4 py-16 md:px-8">
+    <section aria-labelledby="problem-heading">
+      <h2 id="problem-heading" class={headingClass}>
+        {t(language, "projectProblemHeading")}
+      </h2>
+      <div class="mt-4 max-w-prose space-y-4 text-lg leading-relaxed">
+        <Content />
+      </div>
+    </section>
+    <section aria-labelledby="decisions-heading">
+      <h2 id="decisions-heading" class={headingClass}>
+        {t(language, "projectDecisionsHeading")}
+      </h2>
+      <ul class="mt-8 grid gap-6 md:grid-cols-2">
+        {project.data.decisions.map((decision) => (
+          <li class="rounded-xl border border-l-4 border-border border-l-brand bg-surface p-6 shadow-sm">
+            <h3 class="text-xl font-bold">{decision.title}</h3>
+            <p class="mt-2 leading-relaxed text-muted">{decision.body}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+    <section aria-labelledby="demo-heading" class="rounded-xl bg-brand-tint p-6 md:p-8">
+      <h2 id="demo-heading" class={headingClass}>
+        {t(language, "projectDemoHeading")}
+      </h2>
+      <p class="mt-4 max-w-prose text-lg leading-relaxed">{project.data.demo}</p>
+      <ProjectLinks links={project.data.links} language={language} class="mt-4" />
+    </section>
+  </div>
+</BaseLayout>

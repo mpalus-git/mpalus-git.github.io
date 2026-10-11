@@ -35,6 +35,10 @@ export type Dictionary = {
   projectLinkRelease: string;
   projectLinkDocs: string;
   projectLinkRepository: string;
+  projectBackLink: string;
+  projectProblemHeading: string;
+  projectDecisionsHeading: string;
+  projectDemoHeading: string;
   skipToContent: string;
   languageSwitchLabel: string;
   languageName: string;

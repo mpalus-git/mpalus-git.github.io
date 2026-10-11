@@ -1,8 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import ApiArchitectureDiagram from "@/components/ApiArchitectureDiagram.astro";
-import ExternalLink from "@/components/ExternalLink.astro";
-import { getProjectActions } from "@/components/projectActions";
+import ProjectLinks from "@/components/ProjectLinks.astro";
 import Screenshot from "@/components/Screenshot.astro";
 import { t, type Language } from "@/i18n/i18n";
 
@@ -13,7 +12,6 @@ type Props = {
 
 const { project, language } = Astro.props;
 const cover = project.data.screenshots[0];
-const actions = getProjectActions(project.data.links, language);
 ---
 
 <article class="flex h-full flex-col overflow-hidden rounded-xl border border-t-4 border-border border-t-brand bg-surface shadow-sm">
@@ -48,20 +46,6 @@ const actions = getProjectActions(project.data.links, language);
         </li>
       ))}
     </ul>
-    <ul class="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-6">
-      {actions.map((action) => (
-        <li>
-          <ExternalLink
-            href={action.href}
-            language={language}
-            demo={action.wakesApi}
-            class="inline-flex min-h-11 items-center gap-1.5 font-semibold text-brand underline decoration-2 underline-offset-4 hover:text-brand-dark"
-          >
-            <action.icon size={18} />
-            {action.label}
-          </ExternalLink>
-        </li>
-      ))}
-    </ul>
+    <ProjectLinks links={project.data.links} language={language} class="mt-auto pt-6" />
   </div>
 </article>

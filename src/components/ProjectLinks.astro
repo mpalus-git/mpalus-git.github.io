@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from "astro:content";
+import ExternalLink from "@/components/ExternalLink.astro";
+import { getProjectActions } from "@/components/projectActions";
+import type { Language } from "@/i18n/i18n";
+
+type Props = {
+  links: CollectionEntry<"projects">["data"]["links"];
+  language: Language;
+  class?: string;
+};
+
+const { links, language, class: className } = Astro.props;
+const actions = getProjectActions(links, language);
+---
+
+<ul class:list={["flex flex-wrap gap-x-5 gap-y-2", className]}>
+  {actions.map((action) => (
+    <li>
+      <ExternalLink
+        href={action.href}
+        language={language}
+        demo={action.wakesApi}
+        class="inline-flex min-h-11 items-center gap-1.5 font-semibold text-brand underline decoration-2 underline-offset-4 hover:text-brand-dark"
+      >
+        <action.icon size={18} />
+        {action.label}
+      </ExternalLink>
+    </li>
+  ))}
+</ul>
