@@ -57,6 +57,12 @@ export default defineConfig([
       ],
     },
   },
+  {
+    files: ["vitest.config.ts"],
+    rules: {
+      "no-restricted-syntax": "off",
+    },
+  },
   astro.configs.recommended,
   astro.configs["jsx-a11y-strict"],
   {
