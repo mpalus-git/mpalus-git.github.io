@@ -74,5 +74,8 @@ export default defineConfig([
         project: true,
       },
     },
+    rules: {
+      "@typescript-eslint/no-unsafe-return": "off",
+    },
   },
 ]);

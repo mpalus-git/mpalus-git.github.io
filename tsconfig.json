@@ -1,6 +1,7 @@
 {
   "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
+    "jsxImportSource": "astro",
     "paths": {
       "@/*": ["./src/*"]
     }

@@ -1,0 +1,23 @@
+---
+import LanguageSwitch from "@/components/LanguageSwitch.astro";
+import { getLocalizedPath, t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  language: Language;
+  path: string;
+};
+
+const { language, path } = Astro.props;
+---
+
+<header class="border-b border-border bg-surface">
+  <div class="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-4 px-4 md:px-8">
+    <a
+      href={getLocalizedPath("/", language)}
+      class="py-2 text-lg font-semibold text-text decoration-2 underline-offset-4 hover:underline"
+    >
+      {t(language, "personName")}
+    </a>
+    <LanguageSwitch language={language} path={path} />
+  </div>
+</header>

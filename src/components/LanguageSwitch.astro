@@ -1,0 +1,46 @@
+---
+import { getLocalizedPath, languages, t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  language: Language;
+  path: string;
+};
+
+const { language, path } = Astro.props;
+
+const items = languages.map((code) => ({
+  code,
+  label: code.toUpperCase(),
+  name: t(code, "languageName"),
+  href: getLocalizedPath(path, code),
+  active: code === language,
+}));
+
+const itemClass =
+  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg px-2 text-sm font-semibold";
+---
+
+<nav aria-label={t(language, "languageSwitchLabel")}>
+  <ul class="flex gap-1">
+    {items.map((item) => (
+      <li>
+        {item.active ? (
+          <span aria-current="page" class:list={[itemClass, "bg-brand text-on-brand"]}>
+            <span aria-hidden="true">{item.label}</span>
+            <span class="sr-only">{item.name}</span>
+          </span>
+        ) : (
+          <a
+            href={item.href}
+            hreflang={item.code}
+            lang={item.code}
+            class:list={[itemClass, "text-brand transition-colors hover:bg-brand-tint"]}
+          >
+            <span aria-hidden="true">{item.label}</span>
+            <span class="sr-only">{item.name}</span>
+          </a>
+        )}
+      </li>
+    ))}
+  </ul>
+</nav>

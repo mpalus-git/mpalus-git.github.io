@@ -1,0 +1,21 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  language: Language;
+};
+
+const { language } = Astro.props;
+---
+
+<BaseLayout language={language} title={t(language, "homeTitle")}>
+  <section class="bg-linear-to-b from-brand from-70% to-brand-dark text-on-brand [--focus-ring:var(--on-brand)]">
+    <div class="mx-auto max-w-6xl px-4 py-10 md:px-8 md:py-18">
+      <p class="mb-3 text-lg font-semibold">{t(language, "role")}</p>
+      <h1 class="text-4xl leading-tight font-bold tracking-tight md:text-6xl">
+        {t(language, "personName")}
+      </h1>
+    </div>
+  </section>
+</BaseLayout>

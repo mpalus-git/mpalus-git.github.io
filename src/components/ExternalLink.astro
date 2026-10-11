@@ -1,0 +1,16 @@
+---
+import { t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  href: string;
+  language: Language;
+  class?: string;
+};
+
+const { href, language, class: className } = Astro.props;
+---
+
+<a href={href} target="_blank" rel="noopener" class={className}>
+  <slot />
+  <span class="sr-only">{t(language, "opensInNewTab")}</span>
+</a>
