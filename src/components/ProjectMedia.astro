@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Screenshot from "@/components/Screenshot.astro";
+import Video from "@/components/Video.astro";
+
+type Props = {
+  project: CollectionEntry<"projects">;
+};
+
+const { project } = Astro.props;
+const { screenshots, video } = project.data;
+const desktopScreenshots = screenshots.filter((screenshot) => screenshot.device === "desktop");
+const phoneScreenshots = screenshots.filter((screenshot) => screenshot.device === "phone");
+const phoneVideo = video?.device === "phone" ? video : undefined;
+const frameClass = "overflow-hidden rounded-lg border border-border bg-surface shadow-sm";
+---
+
+<div class="mt-8 flex flex-col gap-10">
+  {video?.device === "desktop" ? (
+    <div class:list={[frameClass, "max-w-3xl"]}>
+      <Video
+        project={project.data.project}
+        file={video.file}
+        poster={video.poster}
+        alt={video.alt}
+        device="desktop"
+      />
+    </div>
+  ) : null}
+  {phoneScreenshots.length > 0 || phoneVideo ? (
+    <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      {phoneVideo ? (
+        <li class={frameClass}>
+          <Video
+            project={project.data.project}
+            file={phoneVideo.file}
+            poster={phoneVideo.poster}
+            alt={phoneVideo.alt}
+            device="phone"
+          />
+        </li>
+      ) : null}
+      {phoneScreenshots.map((screenshot) => (
+        <li class={frameClass}>
+          <Screenshot
+            image={screenshot.image}
+            alt={screenshot.alt}
+            device="phone"
+            sizes="(min-width: 1152px) 254px, (min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
+            class="h-auto w-full"
+          />
+        </li>
+      ))}
+    </ul>
+  ) : null}
+  {desktopScreenshots.length > 0 ? (
+    <ul class="grid gap-6 md:grid-cols-2">
+      {desktopScreenshots.map((screenshot) => (
+        <li class={frameClass}>
+          <Screenshot
+            image={screenshot.image}
+            alt={screenshot.alt}
+            device="desktop"
+            sizes="(min-width: 1152px) 532px, (min-width: 768px) 46vw, calc(100vw - 2rem)"
+            class="h-auto w-full"
+          />
+        </li>
+      ))}
+    </ul>
+  ) : null}
+</div>

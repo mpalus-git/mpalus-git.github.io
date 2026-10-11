@@ -38,6 +38,7 @@ export type Dictionary = {
   projectBackLink: string;
   projectProblemHeading: string;
   projectDecisionsHeading: string;
+  projectMediaHeading: string;
   projectDemoHeading: string;
   skipToContent: string;
   languageSwitchLabel: string;

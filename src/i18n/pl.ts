@@ -44,6 +44,7 @@ export const pl: Dictionary = {
   projectBackLink: "Wszystkie projekty",
   projectProblemHeading: "Jaki problem rozwiązuje",
   projectDecisionsHeading: "Decyzje techniczne",
+  projectMediaHeading: "Jak to wygląda",
   projectDemoHeading: "Wersja demo",
   skipToContent: "Przejdź do treści",
   languageSwitchLabel: "Wybór języka",
