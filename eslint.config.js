@@ -57,7 +57,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["vitest.config.ts", "src/env.d.ts"],
+    files: ["vitest.config.ts", "playwright.config.ts", "src/env.d.ts"],
     rules: {
       "no-restricted-syntax": "off",
     },

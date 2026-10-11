@@ -4,6 +4,6 @@ import type {} from "vitest/config";
 export default getViteConfig({
   test: {
     include: ["**/*.test.{ts,js,mjs}"],
-    exclude: ["node_modules/**", "dist/**", ".astro/**"],
+    exclude: ["node_modules/**", "dist/**", ".astro/**", "e2e/**"],
   },
 });

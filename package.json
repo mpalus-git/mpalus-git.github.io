@@ -14,6 +14,7 @@
     "lint": "astro sync && eslint . && prettier --check . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude",
     "check:comments": "node scripts/check-no-comments.mjs",
     "test": "vitest",
+    "e2e": "playwright test",
     "format": "prettier --write . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude",
     "preview": "astro preview",
     "astro": "astro"
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.0",
     "@tailwindcss/vite": "4.3.3",
     "eslint": "10.12.0",
     "eslint-plugin-astro": "3.2.1",
