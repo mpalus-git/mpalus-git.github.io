@@ -1,4 +1,38 @@
-import type { BrowserContext, Page, Request, Route } from "@playwright/test";
+import type {
+  Browser,
+  BrowserContextOptions,
+  BrowserContext,
+  Page,
+  Request,
+  Route,
+} from "@playwright/test";
+
+export const sitePages = [
+  "/",
+  "/en/",
+  "/fixflow-api/",
+  "/fixflow-web/",
+  "/fixflow-mobile/",
+  "/en/fixflow-api/",
+  "/en/fixflow-web/",
+  "/en/fixflow-mobile/",
+  "/404.html",
+  "/en/404/",
+];
+
+export function localeFor(path: string): string {
+  return path.startsWith("/en/") ? "en-US" : "pl-PL";
+}
+
+export async function newPageContext(
+  browser: Browser,
+  path: string,
+  options: BrowserContextOptions = {},
+): Promise<BrowserContext> {
+  const context = await browser.newContext({ locale: localeFor(path), ...options });
+  await mockApi(context);
+  return context;
+}
 
 export const apiReadyPattern = "**/api/v1/system/ready";
 
