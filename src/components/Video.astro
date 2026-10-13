@@ -39,7 +39,7 @@ const videoClass = device === "phone" ? "h-auto w-full max-w-[280px]" : "h-auto 
     class:list={[videoClass, "motion-reduce:hidden"]}
   >
     {sources.map((source) => (
-      <source src={source.src} type={source.type} />
+      <source src={source.src} type={source.type} media="(prefers-reduced-motion: no-preference)" />
     ))}
   </video>
   <video

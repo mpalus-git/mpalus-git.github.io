@@ -173,7 +173,14 @@ for (const reducedMotion of ["no-preference", "reduce"] as const) {
     const context = await browser.newContext({ locale: "pl-PL", reducedMotion });
     await mockApi(context);
     const page = await context.newPage();
+    const videoRequests: string[] = [];
+    page.on("request", (request) => {
+      if (/\.(webm|mp4)$/.test(new URL(request.url()).pathname)) {
+        videoRequests.push(request.url());
+      }
+    });
     await page.goto("/fixflow-web/");
+    await page.waitForLoadState("networkidle");
 
     const autoplaying = page.locator("main video[autoplay]");
     const manual = page.locator("main video[controls]:not([autoplay])");
@@ -181,10 +188,12 @@ for (const reducedMotion of ["no-preference", "reduce"] as const) {
     if (reducedMotion === "reduce") {
       await expect(autoplaying).toBeHidden();
       await expect(manual).toBeVisible();
+      expect(videoRequests).toEqual([]);
     } else {
       await expect(autoplaying).toBeVisible();
       await expect(autoplaying).toHaveAttribute("controls");
       await expect(manual).toBeHidden();
+      expect(videoRequests.length).toBeGreaterThan(0);
     }
     await context.close();
   });

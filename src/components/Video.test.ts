@@ -55,6 +55,19 @@ describe("Video", () => {
     expect(manual).toContain('preload="none"');
     expect(manual).toContain("hidden motion-reduce:block");
   });
+
+  it("loads the autoplaying sources only without reduced motion", async () => {
+    const html = await renderVideo(props);
+    const [autoplaying, manual] = html.match(/<video[\s\S]*?<\/video>/g) ?? [];
+    const motionQuery = 'media="(prefers-reduced-motion: no-preference)"';
+
+    expect(autoplaying).toContain("autoplay");
+    expect(autoplaying?.match(/<source[^>]*>/g)).toHaveLength(2);
+    for (const source of autoplaying?.match(/<source[^>]*>/g) ?? []) {
+      expect(source).toContain(motionQuery);
+    }
+    expect(manual).not.toContain(motionQuery);
+  });
 });
 
 describe("Screenshot", () => {
