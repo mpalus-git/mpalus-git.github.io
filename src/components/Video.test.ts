@@ -30,7 +30,7 @@ describe("Video", () => {
     const [autoplaying] = /<video[^>]*autoplay[^>]*>/.exec(html) ?? [];
 
     expect(autoplaying).toBeDefined();
-    for (const attribute of ["muted", "loop", "playsinline", 'preload="metadata"']) {
+    for (const attribute of ["controls", "muted", "loop", "playsinline", 'preload="metadata"']) {
       expect(autoplaying).toContain(attribute);
     }
     expect(autoplaying).toMatch(/poster="[^"]*webp[^"]*"/);
@@ -48,11 +48,25 @@ describe("Video", () => {
 
   it("offers a manually played version without autoplay for reduced motion", async () => {
     const html = await renderVideo(props);
-    const [manual] = /<video[^>]*controls[^>]*>/.exec(html) ?? [];
+    const [manual] = /<video(?![^>]*autoplay)[^>]*>/.exec(html) ?? [];
 
     expect(manual).toBeDefined();
-    expect(manual).not.toContain("autoplay");
+    expect(manual).toContain("controls");
+    expect(manual).toContain('preload="none"');
     expect(manual).toContain("hidden motion-reduce:block");
+  });
+
+  it("loads the autoplaying sources only without reduced motion", async () => {
+    const html = await renderVideo(props);
+    const [autoplaying, manual] = html.match(/<video[\s\S]*?<\/video>/g) ?? [];
+    const motionQuery = 'media="(prefers-reduced-motion: no-preference)"';
+
+    expect(autoplaying).toContain("autoplay");
+    expect(autoplaying?.match(/<source[^>]*>/g)).toHaveLength(2);
+    for (const source of autoplaying?.match(/<source[^>]*>/g) ?? []) {
+      expect(source).toContain(motionQuery);
+    }
+    expect(manual).not.toContain(motionQuery);
   });
 });
 

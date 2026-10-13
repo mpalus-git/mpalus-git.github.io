@@ -80,6 +80,7 @@ for (const project of projects) {
       await expect(page.getByRole("heading", { level: 2 })).toHaveText([...project.sections]);
       expect(await page.getByRole("heading", { level: 3 }).count()).toBeGreaterThanOrEqual(3);
       await expect(page.locator("main video")).toHaveCount(project.videos * 2);
+      await expect(page.locator("main video[autoplay]:not([controls])")).toHaveCount(0);
       expect(errors).toEqual([]);
       await context.close();
     });
@@ -172,17 +173,27 @@ for (const reducedMotion of ["no-preference", "reduce"] as const) {
     const context = await browser.newContext({ locale: "pl-PL", reducedMotion });
     await mockApi(context);
     const page = await context.newPage();
+    const videoRequests: string[] = [];
+    page.on("request", (request) => {
+      if (/\.(webm|mp4)$/.test(new URL(request.url()).pathname)) {
+        videoRequests.push(request.url());
+      }
+    });
     await page.goto("/fixflow-web/");
+    await page.waitForLoadState("networkidle");
 
     const autoplaying = page.locator("main video[autoplay]");
-    const withControls = page.locator("main video[controls]");
+    const manual = page.locator("main video[controls]:not([autoplay])");
 
     if (reducedMotion === "reduce") {
       await expect(autoplaying).toBeHidden();
-      await expect(withControls).toBeVisible();
+      await expect(manual).toBeVisible();
+      expect(videoRequests).toEqual([]);
     } else {
       await expect(autoplaying).toBeVisible();
-      await expect(withControls).toBeHidden();
+      await expect(autoplaying).toHaveAttribute("controls");
+      await expect(manual).toBeHidden();
+      expect(videoRequests.length).toBeGreaterThan(0);
     }
     await context.close();
   });
