@@ -80,6 +80,7 @@ for (const project of projects) {
       await expect(page.getByRole("heading", { level: 2 })).toHaveText([...project.sections]);
       expect(await page.getByRole("heading", { level: 3 }).count()).toBeGreaterThanOrEqual(3);
       await expect(page.locator("main video")).toHaveCount(project.videos * 2);
+      await expect(page.locator("main video[autoplay]:not([controls])")).toHaveCount(0);
       expect(errors).toEqual([]);
       await context.close();
     });
@@ -175,14 +176,15 @@ for (const reducedMotion of ["no-preference", "reduce"] as const) {
     await page.goto("/fixflow-web/");
 
     const autoplaying = page.locator("main video[autoplay]");
-    const withControls = page.locator("main video[controls]");
+    const manual = page.locator("main video[controls]:not([autoplay])");
 
     if (reducedMotion === "reduce") {
       await expect(autoplaying).toBeHidden();
-      await expect(withControls).toBeVisible();
+      await expect(manual).toBeVisible();
     } else {
       await expect(autoplaying).toBeVisible();
-      await expect(withControls).toBeHidden();
+      await expect(autoplaying).toHaveAttribute("controls");
+      await expect(manual).toBeHidden();
     }
     await context.close();
   });
