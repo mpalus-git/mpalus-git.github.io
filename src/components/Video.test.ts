@@ -97,4 +97,16 @@ describe("Screenshot", () => {
     expect(html).toContain("max-w-[280px]");
     expect(html).toContain('sizes="280px"');
   });
+
+  it("falls back to WebP instead of the source PNG", async () => {
+    const html = await renderScreenshot({
+      image: dashboard,
+      alt: "Panel dashboard",
+      device: "desktop",
+    });
+    const image = /<img[^>]*>/.exec(html)?.[0] ?? "";
+
+    expect(image).toMatch(/src="[^"]*f=webp/);
+    expect(html).not.toContain("f=png");
+  });
 });
