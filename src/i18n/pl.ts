@@ -33,6 +33,8 @@ export const pl: Dictionary = {
   apiDiagramTitle: "Architektura FixFlow.Api",
   apiDiagramDescription:
     "Panel dyspozytora i aplikacja technika wywołują Minimal API, które waliduje i autoryzuje żądania i przekazuje je do handlerów funkcji (Vertical Slice). Handlery korzystają z domeny z encjami i regułami, z HybridCache i z PostgreSQL oraz wysyłają e-maile przez SMTP. Joby Quartz także uruchamiają handlery. Redis jest opcjonalnym drugim poziomem cache.",
+  apiCardDiagramDescription:
+    "Minimal API i joby Quartz przekazują pracę do handlerów funkcji (Vertical Slice), które korzystają z domeny, z HybridCache i z PostgreSQL.",
   apiDiagramEndpoints: "Minimal API /api/v1",
   apiDiagramJobs: "Joby Quartz",
   apiDiagramHandlers: "Handlery funkcji (Vertical Slice)",

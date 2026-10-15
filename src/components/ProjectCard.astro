@@ -20,7 +20,7 @@ const detailsLabel = t(language, "projectDetailsLabel").replace("{title}", proje
 <article class="flex h-full flex-col overflow-hidden rounded-xl border border-t-4 border-border border-t-brand bg-surface shadow-sm">
   <div class="flex aspect-[16/10] items-start justify-center overflow-hidden border-b border-border bg-brand-tint">
     {project.data.project === "fixflow-api" ? (
-      <ApiArchitectureDiagram language={language} class="m-auto h-auto w-full p-5" />
+      <ApiArchitectureDiagram language={language} class="m-auto h-auto w-full max-w-sm p-5" />
     ) : cover?.device === "phone" ? (
       <Screenshot
         image={cover.image}

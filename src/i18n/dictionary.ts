@@ -25,6 +25,7 @@ export type Dictionary = {
   diagramOfflineQueue: string;
   apiDiagramTitle: string;
   apiDiagramDescription: string;
+  apiCardDiagramDescription: string;
   apiDiagramEndpoints: string;
   apiDiagramJobs: string;
   apiDiagramHandlers: string;

@@ -8,28 +8,27 @@ type Props = {
 
 const { language, class: className } = Astro.props;
 const sources = [
-  { x: 0, width: 190, label: t(language, "apiDiagramEndpoints") },
-  { x: 210, width: 190, label: t(language, "apiDiagramJobs") },
+  { x: 0, width: 170, label: t(language, "apiDiagramEndpoints") },
+  { x: 182, width: 118, label: t(language, "apiDiagramJobs") },
 ];
 const dependencies = [
-  { x: 0, width: 86, label: t(language, "apiDiagramDomain") },
-  { x: 98, width: 100, label: t(language, "apiDiagramCache") },
-  { x: 210, width: 112, label: t(language, "apiDiagramDatabase") },
-  { x: 334, width: 66, label: t(language, "apiDiagramEmail") },
+  { x: 0, width: 74, label: t(language, "apiDiagramDomain"), external: false },
+  { x: 86, width: 100, label: t(language, "apiDiagramCache"), external: false },
+  { x: 198, width: 102, label: t(language, "apiDiagramDatabase"), external: true },
 ];
 ---
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="-2 -2 404 254"
-  width="404"
-  height="254"
+  viewBox="-2 -2 304 168"
+  width="304"
+  height="168"
   role="img"
   aria-labelledby="api-diagram-title api-diagram-description"
   class={className}
 >
   <title id="api-diagram-title">{t(language, "apiDiagramTitle")}</title>
-  <desc id="api-diagram-description">{t(language, "apiDiagramDescription")}</desc>
+  <desc id="api-diagram-description">{t(language, "apiCardDiagramDescription")}</desc>
   <defs>
     <marker
       id="api-diagram-arrow"
@@ -49,59 +48,59 @@ const dependencies = [
         x={box.x}
         y="0"
         width={box.width}
-        height="44"
+        height="40"
         rx="8"
         class="fill-surface stroke-brand"
         stroke-width="2"
       />
       <text
         x={box.x + box.width / 2}
-        y="27"
+        y="25"
         text-anchor="middle"
-        class="fill-text text-[14px] font-semibold"
+        class="fill-text text-[14px] font-bold"
       >
         {box.label}
       </text>
       <line
         x1={box.x + box.width / 2}
-        y1="46"
+        y1="40"
         x2={box.x + box.width / 2}
-        y2="98"
+        y2="60"
         stroke-width="2"
         class="stroke-brand"
         marker-end="url(#api-diagram-arrow)"
       />
     </g>
   ))}
-  <rect x="0" y="102" width="400" height="44" rx="8" class="fill-brand"></rect>
-  <text x="200" y="129" text-anchor="middle" class="fill-on-brand text-[14px] font-bold">
+  <rect x="0" y="62" width="300" height="40" rx="8" class="fill-brand"></rect>
+  <text x="150" y="87" text-anchor="middle" class="fill-on-brand text-[14px] font-bold">
     {t(language, "apiDiagramHandlers")}
   </text>
   {dependencies.map((box) => (
     <g>
       <line
         x1={box.x + box.width / 2}
-        y1="148"
+        y1="102"
         x2={box.x + box.width / 2}
-        y2="200"
+        y2="122"
         stroke-width="2"
         class="stroke-brand"
         marker-end="url(#api-diagram-arrow)"
       />
       <rect
         x={box.x}
-        y="204"
+        y="124"
         width={box.width}
-        height="44"
+        height="40"
         rx="8"
-        class="fill-surface stroke-brand"
+        class:list={["fill-surface", box.external ? "stroke-muted" : "stroke-brand"]}
         stroke-width="2"
       />
       <text
         x={box.x + box.width / 2}
-        y="231"
+        y="149"
         text-anchor="middle"
-        class="fill-text text-[12px] font-semibold"
+        class="fill-text text-[13px] font-bold"
       >
         {box.label}
       </text>
