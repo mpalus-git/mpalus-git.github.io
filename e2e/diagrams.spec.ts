@@ -8,6 +8,7 @@ const diagramPages = [
   { path: "/en/fixflow-api/", diagrams: 1 },
 ];
 const minimumTextSize = 12;
+const metricFont = 'Arial, "Liberation Sans"';
 
 for (const { path, diagrams } of diagramPages) {
   for (const width of ["360", "640", "1440"]) {
@@ -18,10 +19,13 @@ for (const { path, diagrams } of diagramPages) {
       const page = await context.newPage();
       await page.goto(path);
 
-      const report = await page.evaluate(() => {
+      const report = await page.evaluate((font) => {
         const visible = [...document.querySelectorAll<SVGSVGElement>("svg[role='img']")].filter(
           (svg) => svg.getBoundingClientRect().width > 0,
         );
+        for (const svg of visible) {
+          svg.setAttribute("font-family", font);
+        }
         return {
           overflow: document.documentElement.scrollWidth > window.innerWidth,
           diagrams: visible.map((svg) => {
@@ -53,7 +57,7 @@ for (const { path, diagrams } of diagramPages) {
             };
           }),
         };
-      });
+      }, metricFont);
 
       expect(report.overflow).toBe(false);
       expect(report.diagrams).toHaveLength(diagrams);
