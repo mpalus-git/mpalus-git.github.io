@@ -40,4 +40,16 @@
     outline: 3px solid var(--focus-ring);
     outline-offset: 2px;
   }
+
+  @media (forced-colors: active) {
+    svg {
+      --brand: CanvasText;
+      --brand-dark: CanvasText;
+      --brand-tint: Canvas;
+      --on-brand: Canvas;
+      --surface: Canvas;
+      --text: CanvasText;
+      --muted: CanvasText;
+    }
+  }
 }
