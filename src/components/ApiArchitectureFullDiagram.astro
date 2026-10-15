@@ -4,6 +4,7 @@ import { t, type Language } from "@/i18n/i18n";
 
 type Props = {
   language: Language;
+  layout: "wide" | "narrow";
   class?: string;
 };
 
@@ -18,7 +19,7 @@ type Box = {
   wrap: boolean;
 };
 
-const { language, class: className } = Astro.props;
+const { language, layout, class: className } = Astro.props;
 const lineHeight = 17;
 const box = (
   x: number,
@@ -30,18 +31,67 @@ const box = (
   variant: Box["variant"],
   wrap = false,
 ): Box => ({ x, y, width, height, title, detail, variant, wrap });
-const boxes: Box[] = [
-  box(0, 0, 190, 48, "apiDiagramWebClient", "apiDiagramWebClientTech", "client"),
-  box(210, 0, 190, 48, "apiDiagramMobileClient", "apiDiagramMobileClientTech", "client"),
-  box(12, 100, 236, 80, "apiDiagramEndpoints", "apiDiagramEndpointsDetail", "inner"),
-  box(260, 100, 128, 80, "apiDiagramJobs", "apiDiagramJobsDetail", "inner", true),
-  box(12, 212, 376, 44, "apiDiagramHandlers", null, "handlers"),
-  box(12, 288, 112, 48, "apiDiagramCache", "apiDiagramCacheDetail", "inner"),
-  box(136, 288, 124, 48, "apiDiagramDomain", "apiDiagramDomainDetail", "inner"),
-  box(12, 392, 112, 48, "apiDiagramRedis", "apiDiagramRedisDetail", "optional"),
-  box(136, 392, 124, 48, "apiDiagramEmail", "apiDiagramEmailDetail", "external"),
-  box(272, 392, 116, 48, "apiDiagramDatabase", null, "external"),
-];
+const layouts = {
+  wide: {
+    width: 400,
+    height: 440,
+    label: { x: 388, y: 86 },
+    boxes: [
+      box(0, 0, 190, 48, "apiDiagramWebClient", "apiDiagramWebClientTech", "client"),
+      box(210, 0, 190, 48, "apiDiagramMobileClient", "apiDiagramMobileClientTech", "client"),
+      box(12, 100, 236, 80, "apiDiagramEndpoints", "apiDiagramEndpointsDetail", "inner"),
+      box(260, 100, 128, 80, "apiDiagramJobs", "apiDiagramJobsDetail", "inner", true),
+      box(12, 212, 376, 44, "apiDiagramHandlers", null, "handlers"),
+      box(12, 288, 112, 48, "apiDiagramCache", "apiDiagramCacheDetail", "inner"),
+      box(136, 288, 124, 48, "apiDiagramDomain", "apiDiagramDomainDetail", "inner"),
+      box(12, 392, 112, 48, "apiDiagramRedis", "apiDiagramRedisDetail", "optional"),
+      box(136, 392, 124, 48, "apiDiagramEmail", "apiDiagramEmailDetail", "external"),
+      box(272, 392, 116, 48, "apiDiagramDatabase", null, "external"),
+    ],
+    arrows: [
+      "M95 48V98",
+      "M305 48 212 98",
+      "M130 180V210",
+      "M324 180V210",
+      "M68 256V286",
+      "M198 256V286",
+      "M276 256V370H198V390",
+      "M330 256V390",
+    ],
+    optionalArrow: "M68 336V390",
+  },
+  narrow: {
+    width: 310,
+    height: 504,
+    label: { x: 298, y: 86 },
+    boxes: [
+      box(0, 0, 144, 48, "apiDiagramWebClient", "apiDiagramWebClientTech", "client"),
+      box(156, 0, 144, 48, "apiDiagramMobileClient", "apiDiagramMobileClientTech", "client"),
+      box(12, 96, 150, 84, "apiDiagramEndpoints", "apiDiagramEndpointsDetail", "inner", true),
+      box(172, 96, 126, 84, "apiDiagramJobs", "apiDiagramJobsDetail", "inner", true),
+      box(12, 212, 286, 44, "apiDiagramHandlers", null, "handlers"),
+      box(12, 288, 130, 48, "apiDiagramCache", "apiDiagramCacheDetail", "inner"),
+      box(168, 288, 130, 48, "apiDiagramDomain", "apiDiagramDomainDetail", "inner"),
+      box(12, 392, 130, 48, "apiDiagramRedis", "apiDiagramRedisDetail", "optional"),
+      box(168, 392, 130, 48, "apiDiagramDatabase", null, "external"),
+      box(168, 456, 130, 48, "apiDiagramEmail", "apiDiagramEmailDetail", "external"),
+    ],
+    arrows: [
+      "M72 48V94",
+      "M228 48 136 94",
+      "M87 180V210",
+      "M235 180V210",
+      "M77 256V286",
+      "M233 256V286",
+      "M155 256V416H166",
+      "M155 416V480H166",
+    ],
+    optionalArrow: "M77 336V390",
+  },
+};
+const { width, height, label, boxes, arrows, optionalArrow } = layouts[layout];
+const id = `api-architecture-${layout}`;
+const viewBox = [-2, -2, width + 4, height + 4].join(" ");
 const boxClasses: Record<Box["variant"], string> = {
   client: "fill-surface stroke-brand",
   inner: "fill-surface stroke-brand",
@@ -49,16 +99,9 @@ const boxClasses: Record<Box["variant"], string> = {
   external: "fill-surface stroke-muted",
   optional: "fill-surface stroke-muted [stroke-dasharray:5_4]",
 };
-const arrows = [
-  { path: "M95 48V98", optional: false },
-  { path: "M305 48 212 98", optional: false },
-  { path: "M130 180V210", optional: false },
-  { path: "M324 180V210", optional: false },
-  { path: "M68 256V286", optional: false },
-  { path: "M198 256V286", optional: false },
-  { path: "M276 256V370H198V390", optional: false },
-  { path: "M330 256V390", optional: false },
-  { path: "M68 336V390", optional: true },
+const paths = [
+  ...arrows.map((path) => ({ path, optional: false })),
+  { path: optionalArrow, optional: true },
 ];
 
 function detailLines(detail: string, wrap: boolean): string[] {
@@ -82,18 +125,18 @@ function textLines(box: Box) {
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="-2 -2 404 444"
-  width="404"
-  height="444"
+  viewBox={viewBox}
+  width={width + 4}
+  height={height + 4}
   role="img"
-  aria-labelledby="api-architecture-title api-architecture-description"
+  aria-labelledby={`${id}-title ${id}-description`}
   class={className}
 >
-  <title id="api-architecture-title">{t(language, "apiDiagramTitle")}</title>
-  <desc id="api-architecture-description">{t(language, "apiDiagramDescription")}</desc>
+  <title id={`${id}-title`}>{t(language, "apiDiagramTitle")}</title>
+  <desc id={`${id}-description`}>{t(language, "apiDiagramDescription")}</desc>
   <defs>
     <marker
-      id="api-architecture-arrow"
+      id={`${id}-arrow`}
       viewBox="0 0 10 10"
       refX="9"
       refY="5"
@@ -107,22 +150,22 @@ function textLines(box: Box) {
   <rect
     x="0"
     y="64"
-    width="400"
+    width={width}
     height="288"
     rx="12"
     class="fill-brand-tint stroke-brand [stroke-dasharray:6_4]"
     stroke-width="1.5"
   ></rect>
-  <text x="388" y="86" text-anchor="end" class="fill-brand-dark text-[14px] font-bold">
+  <text x={label.x} y={label.y} text-anchor="end" class="fill-brand-dark text-[14px] font-bold">
     {t(language, "diagramApiName")}
   </text>
-  {arrows.map((arrow) => (
+  {paths.map((arrow) => (
     <path
       d={arrow.path}
       fill="none"
       stroke-width="2"
       class:list={["stroke-brand", arrow.optional && "[stroke-dasharray:5_4]"]}
-      marker-end="url(#api-architecture-arrow)"
+      marker-end={`url(#${id}-arrow)`}
     />
   ))}
   {boxes.map((box) => (

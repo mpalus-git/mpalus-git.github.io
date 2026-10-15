@@ -25,7 +25,13 @@ const itemClass =
     {items.map((item) => (
       <li>
         {item.active ? (
-          <span aria-current="page" class:list={[itemClass, "bg-brand text-on-brand"]}>
+          <span
+            aria-current="page"
+            class:list={[
+              itemClass,
+              "border-2 border-transparent bg-brand text-on-brand forced-colors:underline",
+            ]}
+          >
             <span aria-hidden="true">{item.label}</span>
             <span class="sr-only">{item.name}</span>
           </span>

@@ -105,6 +105,8 @@ describe("ProjectCard cover", () => {
     expect(html).toContain('aria-labelledby="api-diagram-title api-diagram-description"');
     expect(html).toContain('<title id="api-diagram-title">FixFlow.Api architecture</title>');
     expect(html).toContain("Feature handlers (vertical slices)");
+    expect(html).toContain("which use the domain, HybridCache and PostgreSQL.</desc>");
+    expect(html).not.toContain("SMTP");
   });
 
   it("shows no cover image without screenshots", async () => {

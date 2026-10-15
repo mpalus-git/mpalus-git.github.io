@@ -34,7 +34,10 @@ const buttonClass =
       <ExternalLink
         href={githubProfileUrl}
         language={language}
-        class:list={[buttonClass, "bg-surface text-brand hover:bg-brand-tint"]}
+        class:list={[
+          buttonClass,
+          "border-2 border-transparent bg-surface text-brand hover:bg-brand-tint",
+        ]}
       >
         <GitHubIcon class="size-5" />
         {t(language, "heroGitHub")}

@@ -33,6 +33,8 @@ export const en: Dictionary = {
   apiDiagramTitle: "FixFlow.Api architecture",
   apiDiagramDescription:
     "The dispatcher panel and the technician app call the Minimal API, which validates and authorizes requests and passes them to feature handlers (vertical slices). Handlers use the domain with entities and rules, HybridCache and PostgreSQL, and send e-mails over SMTP. Quartz jobs also run handlers. Redis is an optional second cache level.",
+  apiCardDiagramDescription:
+    "The Minimal API and Quartz jobs pass work to feature handlers (vertical slices), which use the domain, HybridCache and PostgreSQL.",
   apiDiagramEndpoints: "Minimal API /api/v1",
   apiDiagramJobs: "Quartz jobs",
   apiDiagramHandlers: "Feature handlers (vertical slices)",
