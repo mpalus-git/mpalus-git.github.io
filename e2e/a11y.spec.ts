@@ -30,3 +30,24 @@ for (const path of sitePages) {
     });
   }
 }
+
+for (const path of sitePages) {
+  test(`gives links with the same name the same target on ${path}`, async ({ browser }) => {
+    const context = await newPageContext(browser, path);
+    const page = await context.newPage();
+    await page.goto(path);
+
+    const targets = new Map<string, Set<string>>();
+    for (const link of await page.getByRole("link").all()) {
+      const [line = ""] = (await link.ariaSnapshot()).split("\n");
+      const name = /link "(.*)"/.exec(line)?.[1] ?? "";
+      const href = (await link.getAttribute("href")) ?? "";
+      targets.set(name, (targets.get(name) ?? new Set()).add(href));
+    }
+    const ambiguous = [...targets].filter(([, hrefs]) => hrefs.size > 1).map(([name]) => name);
+
+    expect(targets.size).toBeGreaterThan(3);
+    expect(ambiguous).toEqual([]);
+    await context.close();
+  });
+}
