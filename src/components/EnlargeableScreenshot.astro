@@ -1,0 +1,36 @@
+---
+import Maximize2 from "@lucide/astro/icons/maximize-2";
+import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+import Screenshot from "@/components/Screenshot.astro";
+import { t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  image: ImageMetadata;
+  alt: string;
+  device: "desktop" | "phone";
+  sizes: string;
+  language: Language;
+  class?: string;
+};
+
+const { image, alt, device, sizes, language, class: className } = Astro.props;
+const enlarged = await getImage({ src: image, format: "webp" });
+const label = t(language, "screenshotEnlargeLabel").replace("{alt}", alt);
+---
+
+<a
+  href={enlarged.src}
+  aria-label={label}
+  class:list={["group relative block cursor-zoom-in", className]}
+>
+  <Screenshot image={image} alt={alt} device={device} sizes={sizes} class="h-auto w-full" />
+  <span
+    class:list={[
+      "absolute flex items-center justify-center rounded-full border border-border bg-surface text-brand shadow-sm transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-on-brand",
+      device === "phone" ? "right-1 bottom-1 size-7" : "right-2 bottom-2 size-9",
+    ]}
+  >
+    <Maximize2 size={device === "phone" ? 14 : 18} aria-hidden="true" />
+  </span>
+</a>
