@@ -1,13 +1,15 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import Screenshot from "@/components/Screenshot.astro";
+import EnlargeableScreenshot from "@/components/EnlargeableScreenshot.astro";
 import Video from "@/components/Video.astro";
+import type { Language } from "@/i18n/i18n";
 
 type Props = {
   project: CollectionEntry<"projects">;
+  language: Language;
 };
 
-const { project } = Astro.props;
+const { project, language } = Astro.props;
 const { screenshots, video } = project.data;
 const desktopScreenshots = screenshots.filter((screenshot) => screenshot.device === "desktop");
 const phoneScreenshots = screenshots.filter((screenshot) => screenshot.device === "phone");
@@ -41,13 +43,14 @@ const frameClass = "overflow-hidden rounded-lg border border-border bg-surface s
         </li>
       ) : null}
       {phoneScreenshots.map((screenshot) => (
-        <li class={frameClass}>
-          <Screenshot
+        <li>
+          <EnlargeableScreenshot
             image={screenshot.image}
             alt={screenshot.alt}
             device="phone"
             sizes="(min-width: 1152px) 254px, (min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
-            class="h-auto w-full"
+            language={language}
+            class={frameClass}
           />
         </li>
       ))}
@@ -56,13 +59,14 @@ const frameClass = "overflow-hidden rounded-lg border border-border bg-surface s
   {desktopScreenshots.length > 0 ? (
     <ul class="grid gap-6 md:grid-cols-2">
       {desktopScreenshots.map((screenshot) => (
-        <li class={frameClass}>
-          <Screenshot
+        <li>
+          <EnlargeableScreenshot
             image={screenshot.image}
             alt={screenshot.alt}
             device="desktop"
             sizes="(min-width: 1152px) 532px, (min-width: 768px) 46vw, calc(100vw - 2rem)"
-            class="h-auto w-full"
+            language={language}
+            class={frameClass}
           />
         </li>
       ))}

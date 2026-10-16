@@ -56,6 +56,7 @@ export type Dictionary = {
   projectArchitectureHeading: string;
   projectDetailsLabel: string;
   projectDemoHeading: string;
+  screenshotEnlargeLabel: string;
   skipToContent: string;
   languageSwitchLabel: string;
   languageName: string;

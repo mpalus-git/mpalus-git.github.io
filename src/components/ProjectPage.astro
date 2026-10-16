@@ -70,7 +70,7 @@ const headingClass = "text-3xl font-bold tracking-tight md:text-4xl";
         <h2 id="media-heading" class={headingClass}>
           {t(language, "projectMediaHeading")}
         </h2>
-        <ProjectMedia project={project} />
+        <ProjectMedia project={project} language={language} />
       </section>
     ) : null}
     <section aria-labelledby="demo-heading" class="rounded-xl bg-brand-tint p-6 md:p-8">

@@ -65,6 +65,7 @@ export const en: Dictionary = {
   projectArchitectureHeading: "Architecture",
   projectDetailsLabel: "{title} project details",
   projectDemoHeading: "Demo",
+  screenshotEnlargeLabel: "Enlarge: {alt}",
   skipToContent: "Skip to content",
   languageSwitchLabel: "Language",
   languageName: "English",

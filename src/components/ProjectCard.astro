@@ -58,6 +58,11 @@ const detailsLabel = t(language, "projectDetailsLabel").replace("{title}", proje
         </li>
       ))}
     </ul>
-    <ProjectLinks links={project.data.links} language={language} class="mt-auto pt-6" />
+    <ProjectLinks
+      links={project.data.links}
+      language={language}
+      projectTitle={project.data.title}
+      class="mt-auto pt-6"
+    />
   </div>
 </article>
