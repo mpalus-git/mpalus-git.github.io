@@ -7,10 +7,11 @@ import type { Language } from "@/i18n/i18n";
 type Props = {
   links: CollectionEntry<"projects">["data"]["links"];
   language: Language;
+  projectTitle?: string;
   class?: string;
 };
 
-const { links, language, class: className } = Astro.props;
+const { links, language, projectTitle, class: className } = Astro.props;
 const actions = getProjectActions(links, language);
 ---
 
@@ -25,6 +26,7 @@ const actions = getProjectActions(links, language);
       >
         <action.icon size={18} />
         {action.label}
+        {projectTitle ? <span class="sr-only">{projectTitle}</span> : null}
       </ExternalLink>
     </li>
   ))}

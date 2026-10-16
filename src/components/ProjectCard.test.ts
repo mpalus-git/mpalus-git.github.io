@@ -63,6 +63,14 @@ describe("ProjectCard", () => {
     expect(html.match(/\(opens in a new tab\)/g)).toHaveLength(2);
   });
 
+  it("names the project in every external link for screen readers", async () => {
+    const html = await renderCard(project);
+
+    expect(html).toMatch(/Try the demo\s*<span class="sr-only">FixFlow\.Web<\/span>/);
+    expect(html).toMatch(/Repository\s*<span class="sr-only">FixFlow\.Web<\/span>/);
+    expect(html.match(/<span class="sr-only">FixFlow\.Web<\/span>/g)).toHaveLength(2);
+  });
+
   it("marks only the demo link as a demo link", async () => {
     const html = await renderCard(project);
 
