@@ -85,6 +85,24 @@ for (const project of projects) {
       await context.close();
     });
 
+    test("numbers the technical decisions in an ordered list", async ({ browser }) => {
+      const context = await browser.newContext({ locale: project.locale });
+      await mockApi(context);
+      const page = await context.newPage();
+      await page.goto(project.path);
+
+      const items = page.locator('section[aria-labelledby="decisions-heading"] ol > li');
+      const count = await items.count();
+
+      expect(count).toBeGreaterThanOrEqual(3);
+      expect(count).toBeLessThanOrEqual(5);
+      await expect(items.locator("h3")).toHaveCount(count);
+      await expect(items.locator('[aria-hidden="true"]')).toHaveText(
+        ["01", "02", "03", "04", "05"].slice(0, count),
+      );
+      await context.close();
+    });
+
     test("loads every screenshot with known dimensions and alt text", async ({ browser }) => {
       const context = await browser.newContext({ locale: project.locale });
       await mockApi(context);

@@ -37,14 +37,21 @@ const headingClass = "text-3xl font-bold tracking-tight md:text-4xl";
       <h2 id="decisions-heading" class={headingClass}>
         {t(language, "projectDecisionsHeading")}
       </h2>
-      <ul class="mt-8 grid gap-6 md:grid-cols-2">
-        {project.data.decisions.map((decision) => (
-          <li class="rounded-xl border border-l-4 border-border border-l-brand bg-surface p-6 shadow-sm">
-            <h3 class="text-xl font-bold">{decision.title}</h3>
-            <p class="mt-2 leading-relaxed text-muted">{decision.body}</p>
+      <ol class="mt-8 border-t border-border">
+        {project.data.decisions.map((decision, index) => (
+          <li class="grid gap-2 border-b border-border py-6 md:grid-cols-3 md:gap-x-10 md:py-8">
+            <div>
+              <span aria-hidden="true" class="font-mono text-sm font-bold text-brand tabular-nums">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 class="text-xl font-bold">{decision.title}</h3>
+            </div>
+            <p class="max-w-prose leading-relaxed text-muted md:col-span-2 md:text-lg">
+              {decision.body}
+            </p>
           </li>
         ))}
-      </ul>
+      </ol>
     </section>
     {project.data.project === "fixflow-api" ? (
       <section aria-labelledby="architecture-heading">
