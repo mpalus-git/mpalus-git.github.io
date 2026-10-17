@@ -9,10 +9,7 @@ export const pl: Dictionary = {
   ogImageAlt:
     "Mateusz Palus, Full-stack Developer (.NET, Web): FixFlow, .NET 10, React + TypeScript, .NET MAUI",
   heroDescription:
-    "Projektuję i buduję aplikacje od bazy danych po interfejs. Na tej stronie pokazuję FixFlow, system obsługi zleceń serwisowych w terenie, którego wszystkie trzy części zbudowałem: backend w .NET 10 z PostgreSQL, panel dyspozytora w React i TypeScript oraz aplikację technika w .NET MAUI, która działa bez zasięgu. Zależy mi na tym, czego nie widać na pierwszy rzut oka: regułach biznesowych zabezpieczonych w bazie, pracy offline bez duplikatów, testach i dostępności.",
-  heroBadgeBackend: ".NET 10",
-  heroBadgeWeb: "React + TypeScript",
-  heroBadgeMobile: ".NET MAUI",
+    "Projektuję i buduję aplikacje od bazy danych po interfejs. Na tej stronie pokazuję FixFlow, system obsługi zleceń serwisowych w terenie, którego wszystkie trzy części zbudowałem: API w .NET 10, panel dyspozytora w React i aplikację technika w .NET MAUI, która działa bez zasięgu.",
   heroGitHub: "GitHub",
   heroDemo: "Demo panelu FixFlow",
   fixflowHeading: "FixFlow",

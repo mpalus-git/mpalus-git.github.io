@@ -4,6 +4,7 @@ import type { CollectionEntry } from "astro:content";
 import ApiArchitectureDiagram from "@/components/ApiArchitectureDiagram.astro";
 import ProjectLinks from "@/components/ProjectLinks.astro";
 import Screenshot from "@/components/Screenshot.astro";
+import TechList from "@/components/TechList.astro";
 import { getLocalizedPath, t, type Language } from "@/i18n/i18n";
 
 type Props = {
@@ -51,13 +52,11 @@ const detailsLabel = t(language, "projectDetailsLabel").replace("{title}", proje
       </a>
     </h3>
     <p class="mt-2 text-muted">{project.data.summary}</p>
-    <ul aria-label={t(language, "projectStackLabel")} class="mt-4 flex flex-wrap gap-2">
-      {project.data.stack.map((technology) => (
-        <li class="rounded-full bg-brand-tint px-3 py-1 text-sm font-semibold text-brand-dark">
-          {technology}
-        </li>
-      ))}
-    </ul>
+    <TechList
+      technologies={project.data.stack}
+      label={t(language, "projectStackLabel")}
+      class="mt-4 text-muted"
+    />
     <ProjectLinks
       links={project.data.links}
       language={language}

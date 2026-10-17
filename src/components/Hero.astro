@@ -9,27 +9,17 @@ type Props = {
 };
 
 const { language } = Astro.props;
-const badges = [
-  t(language, "heroBadgeBackend"),
-  t(language, "heroBadgeWeb"),
-  t(language, "heroBadgeMobile"),
-];
 const buttonClass =
   "inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-5 font-semibold transition-colors";
 ---
 
-<section class="bg-linear-to-b from-brand from-70% to-brand-dark text-on-brand [--focus-ring:var(--on-brand)]">
-  <div class="mx-auto max-w-6xl px-4 py-12 md:px-8 md:py-20">
+<section class="bg-brand text-on-brand [--focus-ring:var(--on-brand)]">
+  <div class="mx-auto max-w-6xl px-4 py-12 md:px-8 md:py-14">
     <p class="mb-3 text-lg font-semibold">{t(language, "role")}</p>
     <h1 class="text-4xl leading-tight font-bold tracking-tight md:text-6xl">
       {t(language, "personName")}
     </h1>
     <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">{t(language, "heroDescription")}</p>
-    <ul class="mt-6 flex flex-wrap gap-2">
-      {badges.map((badge) => (
-        <li class="rounded-full bg-brand-dark px-3 py-1 text-sm font-semibold">{badge}</li>
-      ))}
-    </ul>
     <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
       <ExternalLink
         href={githubProfileUrl}
