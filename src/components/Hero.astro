@@ -9,11 +9,6 @@ type Props = {
 };
 
 const { language } = Astro.props;
-const badges = [
-  t(language, "heroBadgeBackend"),
-  t(language, "heroBadgeWeb"),
-  t(language, "heroBadgeMobile"),
-];
 const buttonClass =
   "inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-5 font-semibold transition-colors";
 ---
@@ -25,11 +20,6 @@ const buttonClass =
       {t(language, "personName")}
     </h1>
     <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">{t(language, "heroDescription")}</p>
-    <ul class="mt-6 flex flex-wrap gap-2">
-      {badges.map((badge) => (
-        <li class="rounded-full bg-brand-dark px-3 py-1 text-sm font-semibold">{badge}</li>
-      ))}
-    </ul>
     <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
       <ExternalLink
         href={githubProfileUrl}

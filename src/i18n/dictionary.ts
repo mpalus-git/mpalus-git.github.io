@@ -5,9 +5,6 @@ export type Dictionary = {
   homeDescription: string;
   ogImageAlt: string;
   heroDescription: string;
-  heroBadgeBackend: string;
-  heroBadgeWeb: string;
-  heroBadgeMobile: string;
   heroGitHub: string;
   heroDemo: string;
   fixflowHeading: string;
