@@ -2,6 +2,7 @@
 import ArrowLeft from "@lucide/astro/icons/arrow-left";
 import type { CollectionEntry } from "astro:content";
 import ExternalLink from "@/components/ExternalLink.astro";
+import TechList from "@/components/TechList.astro";
 import { getProjectActions } from "@/components/projectActions";
 import { getLocalizedPath, t, type Language } from "@/i18n/i18n";
 
@@ -29,11 +30,11 @@ const buttonClass =
       {project.data.title}
     </h1>
     <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">{project.data.summary}</p>
-    <ul aria-label={t(language, "projectStackLabel")} class="mt-6 flex flex-wrap gap-2">
-      {project.data.stack.map((technology) => (
-        <li class="rounded-full bg-brand-dark px-3 py-1 text-sm font-semibold">{technology}</li>
-      ))}
-    </ul>
+    <TechList
+      technologies={project.data.stack}
+      label={t(language, "projectStackLabel")}
+      class="mt-6"
+    />
     <ul class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
       {actions.map((action, index) => (
         <li class="flex flex-col">

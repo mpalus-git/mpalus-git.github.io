@@ -1,0 +1,23 @@
+---
+type Props = {
+  technologies: string[];
+  label: string;
+  class?: string;
+};
+
+const { technologies, label, class: className } = Astro.props;
+---
+
+<ul
+  aria-label={label}
+  class:list={[
+    "flex flex-wrap gap-x-5 gap-y-1 overflow-hidden font-mono text-sm leading-6 font-medium",
+    className,
+  ]}
+>
+  {technologies.map((technology) => (
+    <li class="before:-ml-5 before:inline-block before:w-5 before:text-center before:content-['·'_/_'']">
+      {technology}
+    </li>
+  ))}
+</ul>

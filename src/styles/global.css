@@ -28,6 +28,7 @@
   --color-transparent: transparent;
   --color-current: currentColor;
   --font-sans: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
 }
 
 @layer base {
