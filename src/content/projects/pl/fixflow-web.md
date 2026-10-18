@@ -6,10 +6,10 @@ summary: "Panel dyspozytora w React i TypeScript: pulpit, zlecenia, tablica disp
 stack:
   - React 19
   - TypeScript 7
-  - Vite 8
-  - React Router 8
   - TanStack Query
   - Tailwind CSS 4
+  - Vite 8
+  - React Router 8
   - Playwright
 decisions:
   - title: Typy z kontraktu API

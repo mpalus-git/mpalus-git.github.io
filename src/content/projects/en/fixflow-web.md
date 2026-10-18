@@ -6,10 +6,10 @@ summary: "A dispatcher panel in React and TypeScript: dashboard, work orders, a 
 stack:
   - React 19
   - TypeScript 7
-  - Vite 8
-  - React Router 8
   - TanStack Query
   - Tailwind CSS 4
+  - Vite 8
+  - React Router 8
   - Playwright
 decisions:
   - title: Types from the API contract

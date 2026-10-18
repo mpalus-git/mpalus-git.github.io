@@ -45,6 +45,14 @@ describe("project content", () => {
     }
   });
 
+  it("lists at least four technologies for the project card", () => {
+    for (const entries of [polish, english]) {
+      for (const frontmatter of entries.values()) {
+        expect(frontmatter.stack.length).toBeGreaterThanOrEqual(4);
+      }
+    }
+  });
+
   it("names each file after its project", () => {
     for (const entries of [polish, english]) {
       for (const [name, frontmatter] of entries) {
