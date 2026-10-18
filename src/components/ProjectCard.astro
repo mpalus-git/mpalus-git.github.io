@@ -53,7 +53,7 @@ const detailsLabel = t(language, "projectDetailsLabel").replace("{title}", proje
     </h3>
     <p class="mt-2 text-muted">{project.data.summary}</p>
     <TechList
-      technologies={project.data.stack}
+      technologies={project.data.stack.slice(0, 4)}
       label={t(language, "projectStackLabel")}
       class="mt-4 text-muted"
     />

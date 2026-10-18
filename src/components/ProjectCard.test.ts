@@ -43,6 +43,17 @@ describe("ProjectCard", () => {
     expect(html).toContain("TypeScript 7");
   });
 
+  it("shows only the first four technologies of the stack", async () => {
+    const html = await renderCard({
+      ...project,
+      data: { ...project.data, stack: ["One", "Two", "Three", "Four", "Five", "Six"] },
+    });
+
+    expect(html).toContain("Four");
+    expect(html).not.toContain("Five");
+    expect(html).not.toContain("Six");
+  });
+
   it("links the title to the project page in the same language", async () => {
     const html = await renderCard(project);
 
