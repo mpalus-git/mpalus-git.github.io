@@ -16,6 +16,10 @@ const phoneScreenshots = screenshots.filter((screenshot) => screenshot.device ==
 const phoneVideo = video?.device === "phone" ? video : undefined;
 const frameClass = "overflow-hidden rounded-lg border border-border bg-surface shadow-sm";
 const captionClass = "mt-2 text-sm text-muted";
+const singleDesktop = desktopScreenshots.length === 1;
+const desktopSizes = singleDesktop
+  ? "(min-width: 1152px) 725px, (min-width: 768px) 61vw, calc(100vw - 2rem)"
+  : "(min-width: 1152px) 532px, (min-width: 768px) 46vw, calc(100vw - 2rem)";
 ---
 
 <div class="mt-8 flex flex-col gap-10">
@@ -61,7 +65,7 @@ const captionClass = "mt-2 text-sm text-muted";
     </ul>
   ) : null}
   {desktopScreenshots.length > 0 ? (
-    <ul class="grid gap-6 md:grid-cols-2">
+    <ul class:list={["grid gap-6", singleDesktop ? "md:w-2/3" : "md:grid-cols-2"]}>
       {desktopScreenshots.map((screenshot) => (
         <li>
           <figure>
@@ -69,7 +73,7 @@ const captionClass = "mt-2 text-sm text-muted";
               image={screenshot.image}
               alt={screenshot.alt}
               device="desktop"
-              sizes="(min-width: 1152px) 532px, (min-width: 768px) 46vw, calc(100vw - 2rem)"
+              sizes={desktopSizes}
               language={language}
               class={frameClass}
             />
