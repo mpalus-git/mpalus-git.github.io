@@ -69,3 +69,48 @@ for (const { path, diagrams } of diagramPages) {
     });
   }
 }
+
+for (const path of ["/", "/en/"]) {
+  test(`keeps arrow labels apart from arrows and aligns the FixFlow heading on ${path}`, async ({
+    browser,
+  }) => {
+    const context = await newPageContext(browser, path, {
+      viewport: { width: 1440, height: 900 },
+    });
+    const page = await context.newPage();
+    await page.goto(path);
+
+    const report = await page.evaluate((font) => {
+      const svg = document.querySelector<SVGSVGElement>("#fixflow svg[role='img']");
+      const heading = document.querySelector("#fixflow-heading");
+      if (!svg || !heading) {
+        return null;
+      }
+      svg.setAttribute("font-family", font);
+      const arrows = [...svg.querySelectorAll("line")].map((line) => ({
+        x: line.x1.baseVal.value,
+        top: line.y1.baseVal.value,
+        bottom: line.y2.baseVal.value,
+      }));
+      const labels = [...svg.querySelectorAll<SVGTextElement>("g:not(:has(rect)) > text")];
+      const gaps = labels.flatMap((text) => {
+        const bounds = text.getBBox();
+        return arrows
+          .filter((arrow) => bounds.y < arrow.bottom && bounds.y + bounds.height > arrow.top)
+          .map((arrow) => Math.max(bounds.x - arrow.x, arrow.x - (bounds.x + bounds.width)));
+      });
+      return {
+        labels: labels.length,
+        smallestGap: Math.min(...gaps),
+        headingOffset: Math.abs(
+          heading.getBoundingClientRect().top - svg.getBoundingClientRect().top,
+        ),
+      };
+    }, metricFont);
+
+    expect(report?.labels).toBeGreaterThan(0);
+    expect(report?.smallestGap).toBeGreaterThanOrEqual(12);
+    expect(report?.headingOffset).toBeLessThan(24);
+    await context.close();
+  });
+}
