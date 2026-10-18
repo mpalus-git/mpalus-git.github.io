@@ -45,12 +45,6 @@ screenshots:
   - image: ../../../assets/projects/fixflow-web/work-order-details.png
     alt: "Szczegóły zakończonego zlecenia: dane klienta i urządzenia, wpis serwisowy ze zdjęciem i zużytą częścią, przebieg statusów i historia zmian"
     device: desktop
-  - image: ../../../assets/projects/fixflow-web/dashboard-dark.png
-    alt: "Pulpit panelu w trybie ciemnym"
-    device: desktop
-  - image: ../../../assets/projects/fixflow-web/wake.png
-    alt: "Ekran uruchamiania uśpionego serwera demo z paskiem postępu"
-    device: desktop
 video:
   file: dispatch-drag
   poster: ../../../assets/projects/fixflow-web/dispatch-drag-poster.png

@@ -45,12 +45,6 @@ screenshots:
   - image: ../../../assets/projects/fixflow-web/work-order-details.png
     alt: "Details of a completed work order: client and device data, a service entry with a photo and a used part, status progress and change history"
     device: desktop
-  - image: ../../../assets/projects/fixflow-web/dashboard-dark.png
-    alt: "Panel dashboard in dark mode"
-    device: desktop
-  - image: ../../../assets/projects/fixflow-web/wake.png
-    alt: "Startup screen of the sleeping demo server with a progress bar"
-    device: desktop
 video:
   file: dispatch-drag
   poster: ../../../assets/projects/fixflow-web/dispatch-drag-poster.png

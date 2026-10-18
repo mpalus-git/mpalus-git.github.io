@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { newPageContext, trackErrors } from "./support";
 
 const galleries = [
-  { path: "/fixflow-web/", label: /^Powiększ: /, count: 7 },
+  { path: "/fixflow-web/", label: /^Powiększ: /, count: 5 },
   { path: "/en/fixflow-mobile/", label: /^Enlarge: /, count: 8 },
 ];
 
