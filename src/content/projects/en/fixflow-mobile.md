@@ -6,9 +6,9 @@ summary: "A technician app in .NET MAUI 10 for Android and Windows that works wi
 stack:
   - .NET MAUI 10
   - C#
-  - CommunityToolkit.Mvvm
   - SQLite
   - Refit + Polly
+  - CommunityToolkit.Mvvm
   - xUnit
 decisions:
   - title: Offline operation queue

@@ -6,9 +6,9 @@ summary: "Aplikacja technika w .NET MAUI 10 na Androida i Windows, działająca 
 stack:
   - .NET MAUI 10
   - C#
-  - CommunityToolkit.Mvvm
   - SQLite
   - Refit + Polly
+  - CommunityToolkit.Mvvm
   - xUnit
 decisions:
   - title: Kolejka operacji offline
