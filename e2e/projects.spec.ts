@@ -25,7 +25,7 @@ const projects = [
     locale: "pl-PL",
     title: "FixFlow.Web",
     sections: ["Jaki problem rozwiązuje", "Decyzje techniczne", "Jak to wygląda", "Wersja demo"],
-    images: 7,
+    images: 5,
     videos: 1,
     home: "/#fixflow",
   },
@@ -34,7 +34,7 @@ const projects = [
     locale: "en-US",
     title: "FixFlow.Web",
     sections: ["What problem it solves", "Technical decisions", "How it looks", "Demo"],
-    images: 7,
+    images: 5,
     videos: 1,
     home: "/en/#fixflow",
   },
@@ -213,6 +213,31 @@ for (const reducedMotion of ["no-preference", "reduce"] as const) {
       await expect(manual).toBeHidden();
       expect(videoRequests.length).toBeGreaterThan(0);
     }
+    await context.close();
+  });
+}
+
+for (const { width, ratio } of [
+  { width: 1440, ratio: 2 / 3 },
+  { width: 360, ratio: 1 },
+]) {
+  test(`shows the single desktop screenshot of the mobile app at ${String(width)} px`, async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({
+      locale: "en-US",
+      viewport: { width, height: 900 },
+    });
+    await mockApi(context);
+    const page = await context.newPage();
+    await page.goto("/en/fixflow-mobile/");
+
+    const windows = page.locator("figure").filter({ hasText: "Windows version" });
+    const gallery = page.locator("main ul").filter({ has: page.locator("video") });
+    const windowsBox = await windows.boundingBox();
+    const galleryBox = await gallery.boundingBox();
+
+    expect((windowsBox?.width ?? 0) / (galleryBox?.width ?? 1)).toBeCloseTo(ratio, 1);
     await context.close();
   });
 }

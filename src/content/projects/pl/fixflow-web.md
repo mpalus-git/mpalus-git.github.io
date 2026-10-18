@@ -6,10 +6,10 @@ summary: "Panel dyspozytora w React i TypeScript: pulpit, zlecenia, tablica disp
 stack:
   - React 19
   - TypeScript 7
-  - Vite 8
-  - React Router 8
   - TanStack Query
   - Tailwind CSS 4
+  - Vite 8
+  - React Router 8
   - Playwright
 decisions:
   - title: Typy z kontraktu API
@@ -26,27 +26,29 @@ links:
   repository: https://github.com/mpalus-git/FixFlow.Web
   demo: https://fix-flow-web.vercel.app
 demo: "Ekran logowania ma przyciski szybkiego logowania kontami demo dyspozytora i technika. Dane demonstracyjne są wspólne dla wszystkich odwiedzających i przywracane codziennie."
+cover:
+  image: ../../../assets/projects/fixflow-web/dispatch-cover.png
+  alt: "Fragment tablicy dispatch: nieprzypisane zlecenia nad kolumnami dni tygodnia"
 screenshots:
   - image: ../../../assets/projects/fixflow-web/dashboard.png
     alt: "Pulpit panelu: liczniki zleceń do przypisania, w realizacji, do zafakturowania, opóźnionych i części bez stanu, zlecenia według statusu i obciążenie techników w bieżącym tygodniu"
+    caption: "Pulpit z licznikami i obciążeniem"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/login.png
     alt: "Ekran logowania z przyciskami szybkiego logowania jako dyspozytor lub technik i listą funkcji wartych sprawdzenia w demo"
+    caption: "Logowanie kontami demo"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/dispatch.png
     alt: "Tablica dispatch: nieprzypisane zlecenia nad tygodniem w układzie technik x dzień z kartami przypisanych zleceń"
+    caption: "Tygodniowa tablica dispatch"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/work-orders.png
     alt: "Lista zleceń z wyszukiwaniem i filtrami statusu, technika i terminu oraz tabelą z priorytetem, statusem i oznaczeniem zleceń po terminie"
+    caption: "Lista zleceń z filtrami"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/work-order-details.png
     alt: "Szczegóły zakończonego zlecenia: dane klienta i urządzenia, wpis serwisowy ze zdjęciem i zużytą częścią, przebieg statusów i historia zmian"
-    device: desktop
-  - image: ../../../assets/projects/fixflow-web/dashboard-dark.png
-    alt: "Pulpit panelu w trybie ciemnym"
-    device: desktop
-  - image: ../../../assets/projects/fixflow-web/wake.png
-    alt: "Ekran uruchamiania uśpionego serwera demo z paskiem postępu"
+    caption: "Szczegóły i historia zlecenia"
     device: desktop
 video:
   file: dispatch-drag

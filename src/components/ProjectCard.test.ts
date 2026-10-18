@@ -1,6 +1,8 @@
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import type { CollectionEntry } from "astro:content";
 import { describe, expect, it } from "vitest";
+import dispatchCover from "@/assets/projects/fixflow-web/dispatch-cover.png";
+import dashboard from "@/assets/projects/fixflow-web/dashboard.png";
 import ProjectCard from "@/components/ProjectCard.astro";
 import SystemDiagram from "@/components/SystemDiagram.astro";
 
@@ -41,6 +43,17 @@ describe("ProjectCard", () => {
     expect(html).toContain('aria-label="Main technologies"');
     expect(html).toContain("React 19");
     expect(html).toContain("TypeScript 7");
+  });
+
+  it("shows only the first four technologies of the stack", async () => {
+    const html = await renderCard({
+      ...project,
+      data: { ...project.data, stack: ["One", "Two", "Three", "Four", "Five", "Six"] },
+    });
+
+    expect(html).toContain("Four");
+    expect(html).not.toContain("Five");
+    expect(html).not.toContain("Six");
   });
 
   it("links the title to the project page in the same language", async () => {
@@ -115,6 +128,22 @@ describe("ProjectCard cover", () => {
     expect(html).toContain("Feature handlers (vertical slices)");
     expect(html).toContain("which use the domain, HybridCache and PostgreSQL.</desc>");
     expect(html).not.toContain("SMTP");
+  });
+
+  it("prefers the cover image over the first screenshot", async () => {
+    const html = await renderCard({
+      ...project,
+      data: {
+        ...project.data,
+        cover: { image: dispatchCover, alt: "Part of the dispatch board" },
+        screenshots: [
+          { image: dashboard, alt: "Dashboard", caption: "Dashboard", device: "desktop" },
+        ],
+      },
+    });
+
+    expect(html).toContain('alt="Part of the dispatch board"');
+    expect(html).not.toContain('alt="Dashboard"');
   });
 
   it("shows no cover image without screenshots", async () => {

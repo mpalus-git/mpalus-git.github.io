@@ -13,12 +13,14 @@ type Props = {
 };
 
 const { project, language } = Astro.props;
-const cover = project.data.screenshots[0];
+const cover = project.data.cover
+  ? { ...project.data.cover, device: "desktop" as const }
+  : project.data.screenshots[0];
 const detailsHref = getLocalizedPath(`/${project.data.project}/`, language);
 const detailsLabel = t(language, "projectDetailsLabel").replace("{title}", project.data.title);
 ---
 
-<article class="flex h-full flex-col overflow-hidden rounded-xl border border-t-4 border-border border-t-brand bg-surface shadow-sm">
+<article class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-brand">
   <div class="flex aspect-[16/10] items-start justify-center overflow-hidden border-b border-border bg-brand-tint">
     {project.data.project === "fixflow-api" ? (
       <ApiArchitectureDiagram language={language} class="m-auto h-auto w-full max-w-sm p-5" />
@@ -53,7 +55,7 @@ const detailsLabel = t(language, "projectDetailsLabel").replace("{title}", proje
     </h3>
     <p class="mt-2 text-muted">{project.data.summary}</p>
     <TechList
-      technologies={project.data.stack}
+      technologies={project.data.stack.slice(0, 4)}
       label={t(language, "projectStackLabel")}
       class="mt-4 text-muted"
     />
