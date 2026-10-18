@@ -34,6 +34,13 @@ for (const { path, label, count } of galleries) {
       ),
     );
 
+    const captions = await page
+      .locator("figure")
+      .filter({ has: links })
+      .locator("figcaption")
+      .allTextContents();
+    expect(captions).toHaveLength(count);
+    expect(captions.every((caption) => caption.trim() !== "")).toBe(true);
     for (const size of sizes) {
       expect(size.href).toMatch(/^\/_astro\/[^/]+\.webp$/);
       expect(size.target).toBeNull();

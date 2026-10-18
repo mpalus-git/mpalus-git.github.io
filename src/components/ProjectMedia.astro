@@ -15,6 +15,7 @@ const desktopScreenshots = screenshots.filter((screenshot) => screenshot.device 
 const phoneScreenshots = screenshots.filter((screenshot) => screenshot.device === "phone");
 const phoneVideo = video?.device === "phone" ? video : undefined;
 const frameClass = "overflow-hidden rounded-lg border border-border bg-surface shadow-sm";
+const captionClass = "mt-2 text-sm text-muted";
 ---
 
 <div class="mt-8 flex flex-col gap-10">
@@ -44,14 +45,17 @@ const frameClass = "overflow-hidden rounded-lg border border-border bg-surface s
       ) : null}
       {phoneScreenshots.map((screenshot) => (
         <li>
-          <EnlargeableScreenshot
-            image={screenshot.image}
-            alt={screenshot.alt}
-            device="phone"
-            sizes="(min-width: 1152px) 254px, (min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
-            language={language}
-            class={frameClass}
-          />
+          <figure>
+            <EnlargeableScreenshot
+              image={screenshot.image}
+              alt={screenshot.alt}
+              device="phone"
+              sizes="(min-width: 1152px) 254px, (min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
+              language={language}
+              class={frameClass}
+            />
+            <figcaption class={captionClass}>{screenshot.caption}</figcaption>
+          </figure>
         </li>
       ))}
     </ul>
@@ -60,14 +64,17 @@ const frameClass = "overflow-hidden rounded-lg border border-border bg-surface s
     <ul class="grid gap-6 md:grid-cols-2">
       {desktopScreenshots.map((screenshot) => (
         <li>
-          <EnlargeableScreenshot
-            image={screenshot.image}
-            alt={screenshot.alt}
-            device="desktop"
-            sizes="(min-width: 1152px) 532px, (min-width: 768px) 46vw, calc(100vw - 2rem)"
-            language={language}
-            class={frameClass}
-          />
+          <figure>
+            <EnlargeableScreenshot
+              image={screenshot.image}
+              alt={screenshot.alt}
+              device="desktop"
+              sizes="(min-width: 1152px) 532px, (min-width: 768px) 46vw, calc(100vw - 2rem)"
+              language={language}
+              class={frameClass}
+            />
+            <figcaption class={captionClass}>{screenshot.caption}</figcaption>
+          </figure>
         </li>
       ))}
     </ul>

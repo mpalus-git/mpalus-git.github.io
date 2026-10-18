@@ -136,7 +136,9 @@ describe("ProjectCard cover", () => {
       data: {
         ...project.data,
         cover: { image: dispatchCover, alt: "Part of the dispatch board" },
-        screenshots: [{ image: dashboard, alt: "Dashboard", device: "desktop" }],
+        screenshots: [
+          { image: dashboard, alt: "Dashboard", caption: "Dashboard", device: "desktop" },
+        ],
       },
     });
 

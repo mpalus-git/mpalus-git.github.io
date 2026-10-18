@@ -28,27 +28,35 @@ demo: "The release includes an Android APK and a Windows version that runs witho
 screenshots:
   - image: ../../../assets/projects/fixflow-mobile/work-orders.png
     alt: "Technician's work order list split into overdue, upcoming and completed, with status and priority badges"
+    caption: "Technician's work order list"
     device: phone
   - image: ../../../assets/projects/fixflow-mobile/work-order-details-dark.png
     alt: "Details of a work order in progress with the client, contact person and device in dark mode"
+    caption: "Work order details in dark mode"
     device: phone
   - image: ../../../assets/projects/fixflow-mobile/work-order-history.png
     alt: "Service entry with a photo and GPS position, and the work order history"
+    caption: "Entry with photo and GPS"
     device: phone
   - image: ../../../assets/projects/fixflow-mobile/service-entry.png
     alt: "Service entry form with work time and a used part"
+    caption: "Service entry form"
     device: phone
   - image: ../../../assets/projects/fixflow-mobile/complete-signature.png
     alt: "Work order completion screen with the client's signature"
+    caption: "Completion with client's signature"
     device: phone
   - image: ../../../assets/projects/fixflow-mobile/offline-queue.png
     alt: "List without a connection, with a status bar and the number of changes to send"
+    caption: "Working without a connection"
     device: phone
   - image: ../../../assets/projects/fixflow-mobile/conflict.png
     alt: "Sync screen with a start rejected after the work order was handed to another technician and a held service entry"
+    caption: "Conflict during synchronization"
     device: phone
   - image: ../../../assets/projects/fixflow-mobile/windows.png
     alt: "Work order list in the Windows version in dark mode"
+    caption: "Windows version"
     device: desktop
 video:
   file: offline-sync

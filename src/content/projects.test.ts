@@ -1,7 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { languages } from "@/i18n/i18n";
 
-type Media = { image?: string; poster?: string; file?: string; alt: string; device: string };
+type Media = {
+  image?: string;
+  poster?: string;
+  file?: string;
+  alt: string;
+  caption?: string;
+  device: string;
+};
 
 type ProjectFrontmatter = {
   project: string;
@@ -101,6 +108,23 @@ describe("project content", () => {
       }
       for (const alt of [...polishAlts, ...englishAlts]) {
         expect(alt).not.toMatch(/zrzut ekranu|screenshot/i);
+      }
+    }
+  });
+
+  it("gives every screenshot a short caption in both languages", () => {
+    for (const [name, pl] of polish) {
+      const polishCaptions = (pl.screenshots ?? []).map((screenshot) => screenshot.caption ?? "");
+      const englishCaptions = (english.get(name)?.screenshots ?? []).map(
+        (screenshot) => screenshot.caption ?? "",
+      );
+      expect(englishCaptions).toHaveLength(polishCaptions.length);
+      for (const [index, caption] of polishCaptions.entries()) {
+        expect(englishCaptions[index]).not.toBe(caption);
+      }
+      for (const caption of [...polishCaptions, ...englishCaptions]) {
+        expect(caption.split(" ").length).toBeGreaterThanOrEqual(2);
+        expect(caption.split(" ").length).toBeLessThanOrEqual(6);
       }
     }
   });

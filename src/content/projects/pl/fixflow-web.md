@@ -32,18 +32,23 @@ cover:
 screenshots:
   - image: ../../../assets/projects/fixflow-web/dashboard.png
     alt: "Pulpit panelu: liczniki zleceń do przypisania, w realizacji, do zafakturowania, opóźnionych i części bez stanu, zlecenia według statusu i obciążenie techników w bieżącym tygodniu"
+    caption: "Pulpit z licznikami i obciążeniem"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/login.png
     alt: "Ekran logowania z przyciskami szybkiego logowania jako dyspozytor lub technik i listą funkcji wartych sprawdzenia w demo"
+    caption: "Logowanie kontami demo"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/dispatch.png
     alt: "Tablica dispatch: nieprzypisane zlecenia nad tygodniem w układzie technik x dzień z kartami przypisanych zleceń"
+    caption: "Tygodniowa tablica dispatch"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/work-orders.png
     alt: "Lista zleceń z wyszukiwaniem i filtrami statusu, technika i terminu oraz tabelą z priorytetem, statusem i oznaczeniem zleceń po terminie"
+    caption: "Lista zleceń z filtrami"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/work-order-details.png
     alt: "Szczegóły zakończonego zlecenia: dane klienta i urządzenia, wpis serwisowy ze zdjęciem i zużytą częścią, przebieg statusów i historia zmian"
+    caption: "Szczegóły i historia zlecenia"
     device: desktop
 video:
   file: dispatch-drag
