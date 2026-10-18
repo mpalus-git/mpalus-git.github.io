@@ -26,6 +26,9 @@ links:
   repository: https://github.com/mpalus-git/FixFlow.Web
   demo: https://fix-flow-web.vercel.app/?lang=en
 demo: "The sign-in screen has quick sign-in buttons for the demo dispatcher and technician accounts. The demo data is shared by all visitors and reset every day."
+cover:
+  image: ../../../assets/projects/fixflow-web/dispatch-cover.png
+  alt: "Part of the dispatch board: unassigned work orders above the weekday columns"
 screenshots:
   - image: ../../../assets/projects/fixflow-web/dashboard.png
     alt: "Panel dashboard: counters of work orders to assign, in progress, to invoice and overdue, parts out of stock, work orders by status and technician workload in the current week"

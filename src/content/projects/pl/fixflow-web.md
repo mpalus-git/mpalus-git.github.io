@@ -26,6 +26,9 @@ links:
   repository: https://github.com/mpalus-git/FixFlow.Web
   demo: https://fix-flow-web.vercel.app
 demo: "Ekran logowania ma przyciski szybkiego logowania kontami demo dyspozytora i technika. Dane demonstracyjne są wspólne dla wszystkich odwiedzających i przywracane codziennie."
+cover:
+  image: ../../../assets/projects/fixflow-web/dispatch-cover.png
+  alt: "Fragment tablicy dispatch: nieprzypisane zlecenia nad kolumnami dni tygodnia"
 screenshots:
   - image: ../../../assets/projects/fixflow-web/dashboard.png
     alt: "Pulpit panelu: liczniki zleceń do przypisania, w realizacji, do zafakturowania, opóźnionych i części bez stanu, zlecenia według statusu i obciążenie techników w bieżącym tygodniu"
