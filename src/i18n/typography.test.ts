@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { bindSingleLetterWords, rehypeBindSingleLetterWords } from "@/i18n/typography";
+import { bindSingleLetterWords, bindSingleLetterWordsPlugin } from "@/i18n/typography";
 
 const nbsp = " ";
 
@@ -39,24 +39,16 @@ describe("bindSingleLetterWords", () => {
   );
 });
 
-describe("rehypeBindSingleLetterWords", () => {
-  it("binds words in nested text nodes", () => {
-    const tree = {
-      type: "root",
-      children: [
-        {
-          type: "element",
-          children: [
-            { type: "text", value: "dyspozytor i technik" },
-            { type: "element", children: [{ type: "text", value: "w terenie" }] },
-          ],
-        },
-      ],
-    };
+describe("bindSingleLetterWordsPlugin", () => {
+  it("replaces a Markdown text node with bound words", () => {
+    expect(
+      bindSingleLetterWordsPlugin.text({ type: "text", value: "dyspozytor i technik" }),
+    ).toEqual({ type: "text", value: `dyspozytor i${nbsp}technik` });
+  });
 
-    rehypeBindSingleLetterWords()(tree);
-
-    expect(JSON.stringify(tree)).toContain(`dyspozytor i${nbsp}technik`);
-    expect(JSON.stringify(tree)).toContain(`w${nbsp}terenie`);
+  it("keeps a text node without single-letter words", () => {
+    expect(
+      bindSingleLetterWordsPlugin.text({ type: "text", value: "Vertical Slice" }),
+    ).toBeUndefined();
   });
 });

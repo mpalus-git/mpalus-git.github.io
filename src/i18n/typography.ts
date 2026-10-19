@@ -1,24 +1,18 @@
 const singleLetterWord = /(?<=^|[\s(„"])([aiouwz])[ \t\r\n]+(?=\S)/giu;
 
-type HastNode = {
-  type: string;
-  value?: string;
-  children?: HastNode[];
+type TextNode = {
+  type: "text";
+  value: string;
 };
 
 export function bindSingleLetterWords(text: string): string {
   return text.replace(singleLetterWord, "$1 ");
 }
 
-export function rehypeBindSingleLetterWords() {
-  return (tree: HastNode): void => {
-    bindTextNodes(tree);
-  };
-}
-
-function bindTextNodes(node: HastNode): void {
-  if (node.type === "text" && node.value !== undefined) {
-    node.value = bindSingleLetterWords(node.value);
-  }
-  node.children?.forEach(bindTextNodes);
-}
+export const bindSingleLetterWordsPlugin = {
+  name: "bind-single-letter-words",
+  text: (node: Readonly<TextNode>): TextNode | undefined => {
+    const value = bindSingleLetterWords(node.value);
+    return value === node.value ? undefined : { type: "text", value };
+  },
+};

@@ -1,7 +1,9 @@
+import { satteri } from "@astrojs/markdown-satteri";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import { apiOrigin } from "./src/config.ts";
+import { bindSingleLetterWordsPlugin } from "./src/i18n/typography.ts";
 
 export default defineConfig({
   site: "https://mpalus-git.github.io",
@@ -29,6 +31,7 @@ export default defineConfig({
   },
   markdown: {
     syntaxHighlight: false,
+    processor: satteri({ hastPlugins: [bindSingleLetterWordsPlugin] }),
   },
   security: {
     csp: {
