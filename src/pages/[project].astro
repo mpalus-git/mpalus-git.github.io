@@ -7,13 +7,18 @@ export const getStaticPaths = (async () => {
   const projects = await getCollection("projects", (entry) => entry.id.startsWith("pl/"));
   return projects.map((project) => ({
     params: { project: project.data.project },
-    props: { project },
+    props: {
+      project,
+      otherProjects: projects
+        .filter((other) => other.id !== project.id)
+        .sort((first, second) => first.data.order - second.data.order),
+    },
   }));
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { project } = Astro.props;
+const { project, otherProjects } = Astro.props;
 ---
 
-<ProjectPage project={project} language="pl" />
+<ProjectPage project={project} otherProjects={otherProjects} language="pl" />

@@ -18,6 +18,11 @@ describe("dictionaries", () => {
     expect(t("pl", "skipToContent")).toBe("Przejdź do treści");
     expect(t("en", "skipToContent")).toBe("Skip to content");
   });
+
+  it("bind single-letter words to the next word", () => {
+    expect(t("pl", "diagramDescription")).toContain("(FixFlow.Web) i aplikacja");
+    expect(t("pl", "diagramDescription")).toContain("dane w PostgreSQL");
+  });
 });
 
 describe("getLanguageFromPath", () => {

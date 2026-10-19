@@ -6,7 +6,13 @@ const projects = [
     path: "/fixflow-api/",
     locale: "pl-PL",
     title: "FixFlow.Api",
-    sections: ["Jaki problem rozwiązuje", "Decyzje techniczne", "Architektura", "Wersja demo"],
+    sections: [
+      "Jaki problem rozwiązuje",
+      "Decyzje techniczne",
+      "Architektura",
+      "Wersja demo",
+      "Pozostałe części FixFlow",
+    ],
     images: 0,
     videos: 0,
     home: "/#fixflow",
@@ -15,7 +21,13 @@ const projects = [
     path: "/en/fixflow-api/",
     locale: "en-US",
     title: "FixFlow.Api",
-    sections: ["What problem it solves", "Technical decisions", "Architecture", "Demo"],
+    sections: [
+      "What problem it solves",
+      "Technical decisions",
+      "Architecture",
+      "Demo",
+      "Other parts of FixFlow",
+    ],
     images: 0,
     videos: 0,
     home: "/en/#fixflow",
@@ -24,7 +36,13 @@ const projects = [
     path: "/fixflow-web/",
     locale: "pl-PL",
     title: "FixFlow.Web",
-    sections: ["Jaki problem rozwiązuje", "Decyzje techniczne", "Jak to wygląda", "Wersja demo"],
+    sections: [
+      "Jaki problem rozwiązuje",
+      "Decyzje techniczne",
+      "Jak to wygląda",
+      "Wersja demo",
+      "Pozostałe części FixFlow",
+    ],
     images: 5,
     videos: 1,
     home: "/#fixflow",
@@ -33,7 +51,13 @@ const projects = [
     path: "/en/fixflow-web/",
     locale: "en-US",
     title: "FixFlow.Web",
-    sections: ["What problem it solves", "Technical decisions", "How it looks", "Demo"],
+    sections: [
+      "What problem it solves",
+      "Technical decisions",
+      "How it looks",
+      "Demo",
+      "Other parts of FixFlow",
+    ],
     images: 5,
     videos: 1,
     home: "/en/#fixflow",
@@ -42,7 +66,13 @@ const projects = [
     path: "/fixflow-mobile/",
     locale: "pl-PL",
     title: "FixFlow.Mobile",
-    sections: ["Jaki problem rozwiązuje", "Decyzje techniczne", "Jak to wygląda", "Wersja demo"],
+    sections: [
+      "Jaki problem rozwiązuje",
+      "Decyzje techniczne",
+      "Jak to wygląda",
+      "Wersja demo",
+      "Pozostałe części FixFlow",
+    ],
     images: 8,
     videos: 1,
     home: "/#fixflow",
@@ -51,7 +81,13 @@ const projects = [
     path: "/en/fixflow-mobile/",
     locale: "en-US",
     title: "FixFlow.Mobile",
-    sections: ["What problem it solves", "Technical decisions", "How it looks", "Demo"],
+    sections: [
+      "What problem it solves",
+      "Technical decisions",
+      "How it looks",
+      "Demo",
+      "Other parts of FixFlow",
+    ],
     images: 8,
     videos: 1,
     home: "/en/#fixflow",
@@ -153,6 +189,31 @@ for (const project of projects) {
           pathname: project.home.split("#")[0],
           hash: "#fixflow",
         });
+      await context.close();
+    });
+
+    test("links to the other parts of FixFlow in the same language", async ({ browser }) => {
+      const others = projects.filter(
+        (other) => other.locale === project.locale && other.path !== project.path,
+      );
+      const context = await browser.newContext({ locale: project.locale });
+      await mockApi(context);
+      const page = await context.newPage();
+      await page.goto(project.path);
+
+      const section = page.getByRole("region", {
+        name: /^(Pozostałe części FixFlow|Other parts of FixFlow)$/,
+      });
+      const links = section.getByRole("link");
+      await expect(links).toHaveCount(2);
+      for (const [index, other] of others.entries()) {
+        await expect(links.nth(index)).toHaveAttribute("href", other.path);
+        await expect(links.nth(index)).toHaveText(other.title);
+      }
+      await links.first().click();
+
+      await expect(page).toHaveURL(new RegExp(`${others[0]?.path ?? ""}$`));
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText(others[0]?.title ?? "");
       await context.close();
     });
   });

@@ -73,7 +73,7 @@ describe("ProjectCard", () => {
       expect(link).toContain('target="_blank"');
       expect(link).toContain('rel="noopener"');
     }
-    expect(html.match(/\(opens in a new tab\)/g)).toHaveLength(2);
+    expect(html.match(/\(opens in a\snew tab\)/g)).toHaveLength(2);
   });
 
   it("names the project in every external link for screen readers", async () => {

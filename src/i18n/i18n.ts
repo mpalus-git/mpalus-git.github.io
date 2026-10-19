@@ -1,6 +1,7 @@
 import type { Dictionary } from "@/i18n/dictionary";
 import { en } from "@/i18n/en";
 import { pl } from "@/i18n/pl";
+import { bindSingleLetterWords } from "@/i18n/typography";
 
 export const languages = ["pl", "en"] as const;
 
@@ -17,7 +18,7 @@ const notFoundPath = "/404/";
 const notFoundFile = "/404.html";
 
 export function t(language: Language, key: keyof Dictionary): string {
-  return dictionaries[language][key];
+  return bindSingleLetterWords(dictionaries[language][key]);
 }
 
 export function getOtherLanguage(language: Language): Language {
