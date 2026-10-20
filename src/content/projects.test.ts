@@ -32,6 +32,8 @@ const sources = import.meta.glob<string>("/src/content/projects/*/*.md", {
   import: "default",
 });
 
+const videoFiles = Object.keys(import.meta.glob("/src/assets/projects/*/*.{mp4,webm}"));
+
 function entriesFor(language: string) {
   const prefix = `/src/content/projects/${language}/`;
   return new Map(
@@ -113,6 +115,18 @@ describe("project content", () => {
       for (const alt of [...polishAlts, ...englishAlts]) {
         expect(alt).not.toMatch(/zrzut ekranu|screenshot/i);
       }
+    }
+  });
+
+  it("has WebM and MP4 files for every video", () => {
+    const videos = [...polish, ...english].flatMap(([name, frontmatter]) =>
+      frontmatter.video?.file ? [`/src/assets/projects/${name}/${frontmatter.video.file}`] : [],
+    );
+
+    expect(videos.length).toBeGreaterThan(0);
+    for (const video of videos) {
+      expect(videoFiles).toContain(`${video}.webm`);
+      expect(videoFiles).toContain(`${video}.mp4`);
     }
   });
 
