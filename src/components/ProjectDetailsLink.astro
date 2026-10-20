@@ -13,7 +13,7 @@ const { project, language } = Astro.props;
 
 <a
   href={getLocalizedPath(`/${project.data.project}/`, language)}
-  aria-label={t(language, "projectDetailsLabel").replace("{title}", project.data.title)}
+  aria-label={t(language, "projectDetailsLabel", { title: project.data.title })}
   class="inline-flex min-h-11 items-center gap-2 decoration-2 underline-offset-4 hover:text-brand hover:underline"
 >
   {project.data.title}
