@@ -1,5 +1,6 @@
 ---
-import ExternalLink from "@/components/ExternalLink.astro";
+import BrandBand from "@/components/BrandBand.astro";
+import ButtonLink from "@/components/ButtonLink.astro";
 import GitHubIcon from "@/components/GitHubIcon.astro";
 import { githubProfileUrl, panelDemoUrls } from "@/config";
 import { t, type Language } from "@/i18n/i18n";
@@ -9,37 +10,21 @@ type Props = {
 };
 
 const { language } = Astro.props;
-const buttonClass =
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-5 font-semibold transition-colors";
 ---
 
-<section class="bg-brand text-on-brand [--focus-ring:var(--on-brand)]">
-  <div class="mx-auto max-w-6xl px-4 py-12 md:px-8 md:py-14">
-    <p class="mb-3 text-lg font-semibold">{t(language, "role")}</p>
-    <h1 class="text-4xl leading-tight font-bold tracking-tight md:text-6xl">
-      {t(language, "personName")}
-    </h1>
-    <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">{t(language, "heroDescription")}</p>
-    <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-      <ExternalLink
-        href={githubProfileUrl}
-        language={language}
-        class:list={[
-          buttonClass,
-          "border-2 border-transparent bg-surface text-brand hover:bg-brand-tint",
-        ]}
-      >
-        <GitHubIcon class="size-5" />
-        {t(language, "heroGitHub")}
-      </ExternalLink>
-      <ExternalLink
-        href={panelDemoUrls[language]}
-        language={language}
-        demo
-        class:list={[buttonClass, "border-2 border-on-brand text-on-brand hover:bg-brand-dark"]}
-      >
-        {t(language, "heroDemo")}
-      </ExternalLink>
-    </div>
+<BrandBand class="py-12">
+  <p class="mb-3 text-lg font-semibold">{t(language, "role")}</p>
+  <h1 class="text-4xl leading-tight font-bold tracking-tight md:text-6xl">
+    {t(language, "personName")}
+  </h1>
+  <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">{t(language, "heroDescription")}</p>
+  <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+    <ButtonLink href={githubProfileUrl} language={language} variant="primary">
+      <GitHubIcon class="size-5" />
+      {t(language, "heroGitHub")}
+    </ButtonLink>
+    <ButtonLink href={panelDemoUrls[language]} language={language} variant="outline" demo>
+      {t(language, "heroDemo")}
+    </ButtonLink>
   </div>
-</section>
+</BrandBand>
