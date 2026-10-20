@@ -1,4 +1,6 @@
+import type { CollectionEntry } from "astro:content";
 import { describe, expect, it } from "vitest";
+import { selectProjects } from "@/content/projects";
 import { languages } from "@/i18n/i18n";
 
 type Media = {
@@ -142,5 +144,44 @@ describe("project content", () => {
     for (const source of Object.values(sources)) {
       expect(source).not.toMatch(/@fixflow\.local|password|hasło:/i);
     }
+  });
+});
+
+function entry(id: string, order: number): CollectionEntry<"projects"> {
+  return {
+    id,
+    collection: "projects",
+    data: {
+      project: "fixflow-web",
+      order,
+      title: id,
+      summary: "Summary.",
+      stack: ["Astro"],
+      decisions: [
+        { title: "One", body: "First." },
+        { title: "Two", body: "Second." },
+        { title: "Three", body: "Third." },
+      ],
+      links: { repository: "https://github.com/mpalus-git/FixFlow.Web" },
+      demo: "Demo.",
+      screenshots: [],
+    },
+  };
+}
+
+describe("selectProjects", () => {
+  const entries = [
+    entry("en/web", 2),
+    entry("pl/mobile", 3),
+    entry("pl/api", 1),
+    entry("en/api", 1),
+    entry("pl/web", 2),
+  ];
+
+  it.each([
+    ["pl", ["pl/api", "pl/web", "pl/mobile"]],
+    ["en", ["en/api", "en/web"]],
+  ] as const)("keeps only %s projects sorted by order", (language, ids) => {
+    expect(selectProjects(entries, language).map((project) => project.id)).toEqual(ids);
   });
 });

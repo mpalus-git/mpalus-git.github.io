@@ -1,17 +1,15 @@
 ---
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import { getCollection } from "astro:content";
 import ProjectPage from "@/components/ProjectPage.astro";
+import { getProjects } from "@/content/projects";
 
 export const getStaticPaths = (async () => {
-  const projects = await getCollection("projects", (entry) => entry.id.startsWith("en/"));
+  const projects = await getProjects("en");
   return projects.map((project) => ({
     params: { project: project.data.project },
     props: {
       project,
-      otherProjects: projects
-        .filter((other) => other.id !== project.id)
-        .sort((first, second) => first.data.order - second.data.order),
+      otherProjects: projects.filter((other) => other.id !== project.id),
     },
   }));
 }) satisfies GetStaticPaths;
