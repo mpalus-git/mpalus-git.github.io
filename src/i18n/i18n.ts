@@ -17,8 +17,15 @@ const notFoundPath = "/404/";
 
 const notFoundFile = "/404.html";
 
-export function t(language: Language, key: keyof Dictionary): string {
-  return bindSingleLetterWords(dictionaries[language][key]);
+export function t(
+  language: Language,
+  key: keyof Dictionary,
+  params: Readonly<Record<string, string>> = {},
+): string {
+  return Object.entries(params).reduce(
+    (text, [name, value]) => text.replaceAll(`{${name}}`, value),
+    bindSingleLetterWords(dictionaries[language][key]),
+  );
 }
 
 export function getOtherLanguage(language: Language): Language {
