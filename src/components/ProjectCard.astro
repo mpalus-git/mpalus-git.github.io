@@ -1,11 +1,11 @@
 ---
-import ArrowRight from "@lucide/astro/icons/arrow-right";
 import type { CollectionEntry } from "astro:content";
 import ApiArchitectureDiagram from "@/components/ApiArchitectureDiagram.astro";
+import ProjectDetailsLink from "@/components/ProjectDetailsLink.astro";
 import ProjectLinks from "@/components/ProjectLinks.astro";
 import Screenshot from "@/components/Screenshot.astro";
 import TechList from "@/components/TechList.astro";
-import { getLocalizedPath, t, type Language } from "@/i18n/i18n";
+import { t, type Language } from "@/i18n/i18n";
 
 type Props = {
   project: CollectionEntry<"projects">;
@@ -16,13 +16,11 @@ const { project, language } = Astro.props;
 const cover = project.data.cover
   ? { ...project.data.cover, device: "desktop" as const }
   : project.data.screenshots[0];
-const detailsHref = getLocalizedPath(`/${project.data.project}/`, language);
-const detailsLabel = t(language, "projectDetailsLabel").replace("{title}", project.data.title);
 ---
 
 <article class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-brand">
   <div class="flex aspect-[16/10] items-start justify-center overflow-hidden border-b border-border bg-brand-tint">
-    {project.data.project === "fixflow-api" ? (
+    {project.data.architectureDiagram ? (
       <ApiArchitectureDiagram language={language} class="m-auto h-auto w-full max-w-sm p-5" />
     ) : cover?.device === "phone" ? (
       <Screenshot
@@ -44,14 +42,7 @@ const detailsLabel = t(language, "projectDetailsLabel").replace("{title}", proje
   </div>
   <div class="flex flex-1 flex-col p-6">
     <h3 class="text-xl font-bold">
-      <a
-        href={detailsHref}
-        aria-label={detailsLabel}
-        class="inline-flex min-h-11 items-center gap-2 decoration-2 underline-offset-4 hover:text-brand hover:underline"
-      >
-        {project.data.title}
-        <ArrowRight size={20} class="text-brand" />
-      </a>
+      <ProjectDetailsLink project={project} language={language} />
     </h3>
     <p class="mt-2 text-muted">{project.data.summary}</p>
     <TechList

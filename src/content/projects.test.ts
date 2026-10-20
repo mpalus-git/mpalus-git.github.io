@@ -1,4 +1,6 @@
+import type { CollectionEntry } from "astro:content";
 import { describe, expect, it } from "vitest";
+import { selectProjects } from "@/content/projects";
 import { languages } from "@/i18n/i18n";
 
 type Media = {
@@ -15,6 +17,7 @@ type ProjectFrontmatter = {
   order: number;
   stack: string[];
   links: Record<string, string>;
+  architectureDiagram?: boolean;
   screenshots?: Media[];
   video?: Media;
 };
@@ -28,6 +31,8 @@ const sources = import.meta.glob<string>("/src/content/projects/*/*.md", {
   query: "?raw",
   import: "default",
 });
+
+const videoFiles = Object.keys(import.meta.glob("/src/assets/projects/*/*.{mp4,webm}"));
 
 function entriesFor(language: string) {
   const prefix = `/src/content/projects/${language}/`;
@@ -68,11 +73,12 @@ describe("project content", () => {
     }
   });
 
-  it("keeps the order, stack and links the same in both languages", () => {
+  it("keeps the order, stack, links and diagram the same in both languages", () => {
     for (const [name, pl] of polish) {
       const en = english.get(name);
       expect(en?.order).toBe(pl.order);
       expect(en?.stack).toEqual(pl.stack);
+      expect(en?.architectureDiagram).toBe(pl.architectureDiagram);
       const { demo: polishDemo, ...polishLinks } = pl.links;
       const { demo: englishDemo, ...englishLinks } = en?.links ?? {};
       expect(englishLinks).toEqual(polishLinks);
@@ -112,6 +118,18 @@ describe("project content", () => {
     }
   });
 
+  it("has WebM and MP4 files for every video", () => {
+    const videos = [...polish, ...english].flatMap(([name, frontmatter]) =>
+      frontmatter.video?.file ? [`/src/assets/projects/${name}/${frontmatter.video.file}`] : [],
+    );
+
+    expect(videos.length).toBeGreaterThan(0);
+    for (const video of videos) {
+      expect(videoFiles).toContain(`${video}.webm`);
+      expect(videoFiles).toContain(`${video}.mp4`);
+    }
+  });
+
   it("gives every screenshot a short caption in both languages", () => {
     for (const [name, pl] of polish) {
       const polishCaptions = (pl.screenshots ?? []).map((screenshot) => screenshot.caption ?? "");
@@ -129,6 +147,12 @@ describe("project content", () => {
     }
   });
 
+  it("shows the architecture diagram only for the API", () => {
+    expect(polish.get("fixflow-api")?.architectureDiagram).toBe(true);
+    expect(polish.get("fixflow-web")?.architectureDiagram).toBeUndefined();
+    expect(polish.get("fixflow-mobile")?.architectureDiagram).toBeUndefined();
+  });
+
   it("shows screenshots for the web panel and the mobile app", () => {
     expect(polish.get("fixflow-web")?.screenshots?.[0]?.device).toBe("desktop");
     expect(polish.get("fixflow-mobile")?.screenshots?.[0]?.device).toBe("phone");
@@ -142,5 +166,45 @@ describe("project content", () => {
     for (const source of Object.values(sources)) {
       expect(source).not.toMatch(/@fixflow\.local|password|hasło:/i);
     }
+  });
+});
+
+function entry(id: string, order: number): CollectionEntry<"projects"> {
+  return {
+    id,
+    collection: "projects",
+    data: {
+      project: "fixflow-web",
+      order,
+      title: id,
+      summary: "Summary.",
+      stack: ["Astro"],
+      decisions: [
+        { title: "One", body: "First." },
+        { title: "Two", body: "Second." },
+        { title: "Three", body: "Third." },
+      ],
+      links: { repository: "https://github.com/mpalus-git/FixFlow.Web" },
+      demo: "Demo.",
+      architectureDiagram: false,
+      screenshots: [],
+    },
+  };
+}
+
+describe("selectProjects", () => {
+  const entries = [
+    entry("en/web", 2),
+    entry("pl/mobile", 3),
+    entry("pl/api", 1),
+    entry("en/api", 1),
+    entry("pl/web", 2),
+  ];
+
+  it.each([
+    ["pl", ["pl/api", "pl/web", "pl/mobile"]],
+    ["en", ["en/api", "en/web"]],
+  ] as const)("keeps only %s projects sorted by order", (language, ids) => {
+    expect(selectProjects(entries, language).map((project) => project.id)).toEqual(ids);
   });
 });

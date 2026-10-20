@@ -25,6 +25,7 @@ const projects = defineCollection({
         docs: z.url().optional(),
       }),
       demo: prose,
+      architectureDiagram: z.boolean().default(false),
       cover: z.object({ image: image(), alt: z.string().min(1) }).optional(),
       screenshots: z
         .array(

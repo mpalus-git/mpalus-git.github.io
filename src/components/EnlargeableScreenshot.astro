@@ -16,7 +16,7 @@ type Props = {
 
 const { image, alt, device, sizes, language, class: className } = Astro.props;
 const enlarged = await getImage({ src: image, format: "webp" });
-const label = t(language, "screenshotEnlargeLabel").replace("{alt}", alt);
+const label = t(language, "screenshotEnlargeLabel", { alt });
 ---
 
 <a

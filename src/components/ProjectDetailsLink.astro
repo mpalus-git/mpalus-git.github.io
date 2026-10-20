@@ -1,0 +1,21 @@
+---
+import ArrowRight from "@lucide/astro/icons/arrow-right";
+import type { CollectionEntry } from "astro:content";
+import { getLocalizedPath, t, type Language } from "@/i18n/i18n";
+
+type Props = {
+  project: CollectionEntry<"projects">;
+  language: Language;
+};
+
+const { project, language } = Astro.props;
+---
+
+<a
+  href={getLocalizedPath(`/${project.data.project}/`, language)}
+  aria-label={t(language, "projectDetailsLabel", { title: project.data.title })}
+  class="inline-flex min-h-11 items-center gap-2 decoration-2 underline-offset-4 hover:text-brand hover:underline"
+>
+  {project.data.title}
+  <ArrowRight size={20} class="text-brand" />
+</a>

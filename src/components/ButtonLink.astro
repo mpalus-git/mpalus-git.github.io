@@ -1,0 +1,29 @@
+---
+import ExternalLink from "@/components/ExternalLink.astro";
+import type { Language } from "@/i18n/i18n";
+
+type Props = {
+  href: string;
+  language: Language;
+  variant: "primary" | "outline";
+  demo?: boolean;
+};
+
+const { href, language, variant, demo = false } = Astro.props;
+const variantClass =
+  variant === "primary"
+    ? "border-transparent bg-surface text-brand hover:bg-brand-tint"
+    : "border-on-brand text-on-brand hover:bg-brand-dark";
+---
+
+<ExternalLink
+  href={href}
+  language={language}
+  demo={demo}
+  class:list={[
+    "inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border-2 px-5 font-semibold transition-colors",
+    variantClass,
+  ]}
+>
+  <slot />
+</ExternalLink>

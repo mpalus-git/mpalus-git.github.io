@@ -26,6 +26,7 @@ links:
   repository: https://github.com/mpalus-git/FixFlow.Api
   docs: https://fixflow-api-us2p.onrender.com/scalar
 demo: "Dokumentację i klienta API (Scalar) można wypróbować na instancji demo. Konta demo i sposób logowania opisuje README repozytorium, a dane demonstracyjne są przywracane codziennie."
+architectureDiagram: true
 ---
 
 Firma serwisująca klimatyzację i urządzenia biurowe potrzebuje jednego miejsca, w którym dyspozytor prowadzi klientów, urządzenia i części, tworzy zlecenia i przypisuje je technikom, a technik raportuje pracę w terenie.

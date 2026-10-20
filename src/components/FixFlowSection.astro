@@ -1,7 +1,8 @@
 ---
-import { getCollection } from "astro:content";
 import ProjectCard from "@/components/ProjectCard.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import SystemDiagram from "@/components/SystemDiagram.astro";
+import { getProjects } from "@/content/projects";
 import { t, type Language } from "@/i18n/i18n";
 
 type Props = {
@@ -9,9 +10,7 @@ type Props = {
 };
 
 const { language } = Astro.props;
-const projects = (
-  await getCollection("projects", (entry) => entry.id.startsWith(`${language}/`))
-).sort((first, second) => first.data.order - second.data.order);
+const projects = await getProjects(language);
 ---
 
 <section
@@ -21,9 +20,7 @@ const projects = (
 >
   <div class="grid items-start gap-10 md:grid-cols-2">
     <div>
-      <h2 id="fixflow-heading" class="text-3xl font-bold tracking-tight md:text-4xl">
-        {t(language, "fixflowHeading")}
-      </h2>
+      <SectionHeading id="fixflow-heading">{t(language, "fixflowHeading")}</SectionHeading>
       <p class="mt-4 max-w-prose text-lg leading-relaxed text-muted">
         {t(language, "fixflowIntro")}
       </p>

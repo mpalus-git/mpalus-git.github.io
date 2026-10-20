@@ -1,0 +1,13 @@
+---
+type Props = {
+  class: string;
+};
+
+const { class: className } = Astro.props;
+---
+
+<section class="bg-brand text-on-brand [--focus-ring:var(--on-brand)]">
+  <div class:list={["mx-auto max-w-6xl px-4 md:px-8 md:py-14", className]}>
+    <slot />
+  </div>
+</section>

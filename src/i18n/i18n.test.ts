@@ -19,6 +19,21 @@ describe("dictionaries", () => {
     expect(t("en", "skipToContent")).toBe("Skip to content");
   });
 
+  it("fill in parameters", () => {
+    expect(t("pl", "projectDetailsLabel", { title: "FixFlow.Web" })).toBe(
+      "Szczegóły projektu FixFlow.Web",
+    );
+    expect(t("en", "projectDetailsLabel", { title: "FixFlow.Web" })).toBe(
+      "FixFlow.Web project details",
+    );
+  });
+
+  it("insert parameters without changing them", () => {
+    expect(t("pl", "screenshotEnlargeLabel", { alt: "Lista zleceń w panelu" })).toBe(
+      "Powiększ: Lista zleceń w panelu",
+    );
+  });
+
   it("bind single-letter words to the next word", () => {
     expect(t("pl", "diagramDescription")).toContain("(FixFlow.Web) i aplikacja");
     expect(t("pl", "diagramDescription")).toContain("dane w PostgreSQL");
