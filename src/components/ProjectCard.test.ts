@@ -25,6 +25,7 @@ const project: CollectionEntry<"projects"> = {
       demo: "https://fix-flow-web.vercel.app/?lang=en",
     },
     demo: "Quick sign-in buttons.",
+    architectureDiagram: false,
     screenshots: [],
   },
 };
@@ -116,11 +117,16 @@ describe("ProjectCard", () => {
 });
 
 describe("ProjectCard cover", () => {
-  it("shows the API architecture diagram for FixFlow.Api", async () => {
+  it("shows the API architecture diagram when the project has one", async () => {
     const html = await renderCard({
       ...project,
       id: "en/fixflow-api",
-      data: { ...project.data, project: "fixflow-api", title: "FixFlow.Api" },
+      data: {
+        ...project.data,
+        project: "fixflow-api",
+        title: "FixFlow.Api",
+        architectureDiagram: true,
+      },
     });
 
     expect(html).toContain('aria-labelledby="api-diagram-title api-diagram-description"');

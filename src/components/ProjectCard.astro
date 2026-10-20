@@ -20,7 +20,7 @@ const cover = project.data.cover
 
 <article class="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition-colors hover:border-brand">
   <div class="flex aspect-[16/10] items-start justify-center overflow-hidden border-b border-border bg-brand-tint">
-    {project.data.project === "fixflow-api" ? (
+    {project.data.architectureDiagram ? (
       <ApiArchitectureDiagram language={language} class="m-auto h-auto w-full max-w-sm p-5" />
     ) : cover?.device === "phone" ? (
       <Screenshot

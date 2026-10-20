@@ -53,7 +53,7 @@ const hasMedia = project.data.screenshots.length > 0 || project.data.video !== u
         ))}
       </ol>
     </section>
-    {project.data.project === "fixflow-api" ? (
+    {project.data.architectureDiagram ? (
       <section aria-labelledby="architecture-heading">
         <SectionHeading id="architecture-heading">
           {t(language, "projectArchitectureHeading")}

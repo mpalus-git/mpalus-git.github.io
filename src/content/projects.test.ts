@@ -17,6 +17,7 @@ type ProjectFrontmatter = {
   order: number;
   stack: string[];
   links: Record<string, string>;
+  architectureDiagram?: boolean;
   screenshots?: Media[];
   video?: Media;
 };
@@ -70,11 +71,12 @@ describe("project content", () => {
     }
   });
 
-  it("keeps the order, stack and links the same in both languages", () => {
+  it("keeps the order, stack, links and diagram the same in both languages", () => {
     for (const [name, pl] of polish) {
       const en = english.get(name);
       expect(en?.order).toBe(pl.order);
       expect(en?.stack).toEqual(pl.stack);
+      expect(en?.architectureDiagram).toBe(pl.architectureDiagram);
       const { demo: polishDemo, ...polishLinks } = pl.links;
       const { demo: englishDemo, ...englishLinks } = en?.links ?? {};
       expect(englishLinks).toEqual(polishLinks);
@@ -131,6 +133,12 @@ describe("project content", () => {
     }
   });
 
+  it("shows the architecture diagram only for the API", () => {
+    expect(polish.get("fixflow-api")?.architectureDiagram).toBe(true);
+    expect(polish.get("fixflow-web")?.architectureDiagram).toBeUndefined();
+    expect(polish.get("fixflow-mobile")?.architectureDiagram).toBeUndefined();
+  });
+
   it("shows screenshots for the web panel and the mobile app", () => {
     expect(polish.get("fixflow-web")?.screenshots?.[0]?.device).toBe("desktop");
     expect(polish.get("fixflow-mobile")?.screenshots?.[0]?.device).toBe("phone");
@@ -164,6 +172,7 @@ function entry(id: string, order: number): CollectionEntry<"projects"> {
       ],
       links: { repository: "https://github.com/mpalus-git/FixFlow.Web" },
       demo: "Demo.",
+      architectureDiagram: false,
       screenshots: [],
     },
   };
