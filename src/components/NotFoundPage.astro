@@ -1,4 +1,7 @@
 ---
+import ProjectSummaryList from "@/components/ProjectSummaryList.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import { getProjects } from "@/content/projects";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getLocalizedPath, t, type Language } from "@/i18n/i18n";
 
@@ -7,6 +10,7 @@ type Props = {
 };
 
 const { language } = Astro.props;
+const projects = await getProjects(language);
 ---
 
 <BaseLayout
@@ -24,5 +28,16 @@ const { language } = Astro.props;
     >
       {t(language, "notFoundLink")}
     </a>
+  </section>
+  <section
+    aria-labelledby="not-found-projects-heading"
+    class="mx-auto max-w-6xl px-4 pb-16 md:px-8 md:pb-24"
+  >
+    <SectionHeading id="not-found-projects-heading">{t(language, "fixflowHeading")}</SectionHeading>
+    <ProjectSummaryList
+      projects={projects}
+      language={language}
+      class="md:grid-cols-2 lg:grid-cols-3"
+    />
   </section>
 </BaseLayout>

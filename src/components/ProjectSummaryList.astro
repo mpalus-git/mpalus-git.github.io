@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from "astro:content";
+import ProjectDetailsLink from "@/components/ProjectDetailsLink.astro";
+import type { Language } from "@/i18n/i18n";
+
+type Props = {
+  projects: CollectionEntry<"projects">[];
+  language: Language;
+  class?: string;
+};
+
+const { projects, language, class: className } = Astro.props;
+---
+
+<ul class:list={["mt-8 grid gap-6", className]}>
+  {projects.map((project) => (
+    <li class="rounded-xl border border-border bg-surface p-6 transition-colors hover:border-brand">
+      <h3 class="text-xl font-bold">
+        <ProjectDetailsLink project={project} language={language} />
+      </h3>
+      <p class="mt-2 text-muted">{project.data.summary}</p>
+    </li>
+  ))}
+</ul>

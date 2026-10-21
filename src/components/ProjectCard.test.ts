@@ -15,9 +15,9 @@ const project: CollectionEntry<"projects"> = {
     summary: "A dispatcher panel.",
     stack: ["React 19", "TypeScript 7"],
     decisions: [
-      { title: "One", body: "First." },
-      { title: "Two", body: "Second." },
-      { title: "Three", body: "Third." },
+      { title: "One", tag: "one", body: "First." },
+      { title: "Two", tag: "two", body: "Second." },
+      { title: "Three", tag: "three", body: "Third." },
     ],
     links: {
       repository: "https://github.com/mpalus-git/FixFlow.Web",

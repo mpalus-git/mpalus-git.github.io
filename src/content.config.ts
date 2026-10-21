@@ -15,7 +15,7 @@ const projects = defineCollection({
       summary: prose,
       stack: z.array(z.string().min(1)).min(1),
       decisions: z
-        .array(z.object({ title: prose, body: prose }))
+        .array(z.object({ title: prose, tag: z.string().min(1), body: prose }))
         .min(3)
         .max(5),
       links: z.object({
@@ -43,6 +43,7 @@ const projects = defineCollection({
           file: z.string().min(1),
           poster: image(),
           alt: z.string().min(1),
+          caption: prose,
           device: z.enum(["desktop", "phone"]),
         })
         .optional(),

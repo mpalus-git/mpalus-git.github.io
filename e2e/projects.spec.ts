@@ -116,26 +116,28 @@ for (const project of projects) {
       await expect(page.getByRole("heading", { level: 2 })).toHaveText([...project.sections]);
       expect(await page.getByRole("heading", { level: 3 }).count()).toBeGreaterThanOrEqual(3);
       await expect(page.locator("main video")).toHaveCount(project.videos * 2);
+      await expect(page.locator("main figure:has(video) figcaption")).toHaveCount(project.videos);
       await expect(page.locator("main video[autoplay]:not([controls])")).toHaveCount(0);
       expect(errors).toEqual([]);
       await context.close();
     });
 
-    test("numbers the technical decisions in an ordered list", async ({ browser }) => {
+    test("labels each technical decision with its mechanism", async ({ browser }) => {
       const context = await browser.newContext({ locale: project.locale });
       await mockApi(context);
       const page = await context.newPage();
       await page.goto(project.path);
 
-      const items = page.locator('section[aria-labelledby="decisions-heading"] ol > li');
+      const items = page.locator('section[aria-labelledby="decisions-heading"] ul > li');
       const count = await items.count();
 
       expect(count).toBeGreaterThanOrEqual(3);
       expect(count).toBeLessThanOrEqual(5);
       await expect(items.locator("h3")).toHaveCount(count);
-      await expect(items.locator('[aria-hidden="true"]')).toHaveText(
-        ["01", "02", "03", "04", "05"].slice(0, count),
-      );
+      const tags = await items.locator("div > p.font-mono").allTextContents();
+      expect(tags).toHaveLength(count);
+      expect(tags.every((tag) => tag.trim() !== "")).toBe(true);
+      expect(new Set(tags).size).toBe(count);
       await context.close();
     });
 

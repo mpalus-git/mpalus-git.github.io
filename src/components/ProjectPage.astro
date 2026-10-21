@@ -1,10 +1,10 @@
 ---
 import { render, type CollectionEntry } from "astro:content";
 import ApiArchitectureFullDiagram from "@/components/ApiArchitectureFullDiagram.astro";
-import ProjectDetailsLink from "@/components/ProjectDetailsLink.astro";
 import ProjectHero from "@/components/ProjectHero.astro";
 import ProjectLinks from "@/components/ProjectLinks.astro";
 import ProjectMedia from "@/components/ProjectMedia.astro";
+import ProjectSummaryList from "@/components/ProjectSummaryList.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { t, type Language } from "@/i18n/i18n";
@@ -37,13 +37,11 @@ const hasMedia = project.data.screenshots.length > 0 || project.data.video !== u
       <SectionHeading id="decisions-heading">
         {t(language, "projectDecisionsHeading")}
       </SectionHeading>
-      <ol class="mt-8 border-t border-border">
-        {project.data.decisions.map((decision, index) => (
+      <ul class="mt-8 border-t border-border">
+        {project.data.decisions.map((decision) => (
           <li class="grid gap-2 border-b border-border py-6 md:grid-cols-3 md:gap-x-10 md:py-8">
             <div>
-              <span aria-hidden="true" class="font-mono text-sm font-bold text-brand tabular-nums">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+              <p class="font-mono text-sm font-bold text-brand">{decision.tag}</p>
               <h3 class="text-xl font-bold">{decision.title}</h3>
             </div>
             <p class="max-w-prose leading-relaxed text-muted md:col-span-2 md:text-lg">
@@ -51,14 +49,14 @@ const hasMedia = project.data.screenshots.length > 0 || project.data.video !== u
             </p>
           </li>
         ))}
-      </ol>
+      </ul>
     </section>
     {project.data.architectureDiagram ? (
       <section aria-labelledby="architecture-heading">
         <SectionHeading id="architecture-heading">
           {t(language, "projectArchitectureHeading")}
         </SectionHeading>
-        <div class="mt-8 rounded-xl border border-border bg-surface px-2 py-4 shadow-sm md:p-8">
+        <div class="mt-8 rounded-xl border border-border bg-surface px-2 py-4 md:p-8">
           <ApiArchitectureFullDiagram
             language={language}
             layout="narrow"
@@ -78,7 +76,10 @@ const hasMedia = project.data.screenshots.length > 0 || project.data.video !== u
         <ProjectMedia project={project} language={language} />
       </section>
     ) : null}
-    <section aria-labelledby="demo-heading" class="rounded-xl bg-brand-tint p-6 md:p-8">
+    <section
+      aria-labelledby="demo-heading"
+      class="rounded-xl border-2 border-brand bg-surface p-6 md:p-8"
+    >
       <SectionHeading id="demo-heading">{t(language, "projectDemoHeading")}</SectionHeading>
       <p class="mt-4 max-w-prose text-lg leading-relaxed">{project.data.demo}</p>
       <ProjectLinks links={project.data.links} language={language} class="mt-4" />
@@ -87,16 +88,7 @@ const hasMedia = project.data.screenshots.length > 0 || project.data.video !== u
       <SectionHeading id="other-projects-heading">
         {t(language, "otherProjectsHeading")}
       </SectionHeading>
-      <ul class="mt-8 grid gap-6 md:grid-cols-2">
-        {otherProjects.map((other) => (
-          <li class="rounded-xl border border-border bg-surface p-6 transition-colors hover:border-brand">
-            <h3 class="text-xl font-bold">
-              <ProjectDetailsLink project={other} language={language} />
-            </h3>
-            <p class="mt-2 text-muted">{other.data.summary}</p>
-          </li>
-        ))}
-      </ul>
+      <ProjectSummaryList projects={otherProjects} language={language} class="md:grid-cols-2" />
     </section>
   </div>
 </BaseLayout>
