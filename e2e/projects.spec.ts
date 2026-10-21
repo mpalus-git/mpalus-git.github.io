@@ -216,6 +216,35 @@ for (const project of projects) {
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(others[0]?.title ?? "");
       await context.close();
     });
+
+    test("maps the other parts of FixFlow in the opening section on wide screens", async ({
+      browser,
+    }) => {
+      const others = projects.filter(
+        (other) => other.locale === project.locale && other.path !== project.path,
+      );
+      const context = await browser.newContext({
+        locale: project.locale,
+        viewport: { width: 1440, height: 900 },
+      });
+      await mockApi(context);
+      const page = await context.newPage();
+      await page.goto(project.path);
+
+      const map = page.locator("main > section:first-child svg[aria-labelledby]");
+      await expect(map).toBeVisible();
+      await expect(map.getByRole("link")).toHaveCount(2);
+      for (const other of others) {
+        await expect(
+          map.getByRole("link", { name: new RegExp(`^${other.title.replace(".", "\\.")}`) }),
+        ).toHaveAttribute("href", other.path);
+      }
+      await expect(map.locator("[aria-current='page']")).toContainText(project.title);
+
+      await page.setViewportSize({ width: 360, height: 800 });
+      await expect(map).toBeHidden();
+      await context.close();
+    });
   });
 }
 

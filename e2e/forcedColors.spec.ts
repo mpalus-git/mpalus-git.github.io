@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { newPageContext, sitePages } from "./support";
 
 const heroPages = ["/", "/en/", "/fixflow-api/", "/en/fixflow-mobile/"];
-const diagramPages = ["/", "/en/", "/fixflow-api/", "/en/fixflow-api/"];
+const diagramPages = ["/", "/en/", "/fixflow-api/", "/en/fixflow-api/", "/fixflow-web/"];
 const palettes = ["light", "dark"] as const;
 
 async function openForced(
@@ -70,7 +70,7 @@ for (const colorScheme of palettes) {
     test(`draws diagrams in system colors on ${path} (${colorScheme})`, async ({ browser }) => {
       const page = await openForced(browser, path, colorScheme);
       const colors = await systemColors(page);
-      const used = await page.locator("svg[role='img']").evaluateAll((diagrams) =>
+      const used = await page.locator("svg[aria-labelledby]").evaluateAll((diagrams) =>
         diagrams.flatMap((diagram) =>
           [...diagram.querySelectorAll("rect, text, path, line")].flatMap((shape) => {
             const style = getComputedStyle(shape);
