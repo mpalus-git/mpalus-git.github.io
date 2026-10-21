@@ -76,7 +76,10 @@ const hasMedia = project.data.screenshots.length > 0 || project.data.video !== u
         <ProjectMedia project={project} language={language} />
       </section>
     ) : null}
-    <section aria-labelledby="demo-heading" class="rounded-xl bg-brand-tint p-6 md:p-8">
+    <section
+      aria-labelledby="demo-heading"
+      class="rounded-xl border-2 border-brand bg-surface p-6 md:p-8"
+    >
       <SectionHeading id="demo-heading">{t(language, "projectDemoHeading")}</SectionHeading>
       <p class="mt-4 max-w-prose text-lg leading-relaxed">{project.data.demo}</p>
       <ProjectLinks links={project.data.links} language={language} class="mt-4" />
