@@ -14,15 +14,15 @@ const { screenshots, video } = project.data;
 const desktopScreenshots = screenshots.filter((screenshot) => screenshot.device === "desktop");
 const phoneScreenshots = screenshots.filter((screenshot) => screenshot.device === "phone");
 const phoneVideo = video?.device === "phone" ? video : undefined;
-const frameClass = "overflow-hidden rounded-lg border border-border bg-surface shadow-sm";
+const frameClass = "overflow-hidden rounded-lg border border-border bg-surface";
 const captionClass = "mt-2 text-sm text-muted";
 const singleDesktop = desktopScreenshots.length === 1;
 const desktopSizes = singleDesktop
-  ? "(min-width: 1152px) 725px, (min-width: 768px) 61vw, calc(100vw - 2rem)"
-  : "(min-width: 1152px) 532px, (min-width: 768px) 46vw, calc(100vw - 2rem)";
+  ? "(min-width: 1152px) 688px, (min-width: 768px) 58vw, calc(100vw - 4rem)"
+  : "(min-width: 1152px) 504px, (min-width: 768px) 43vw, calc(100vw - 4rem)";
 ---
 
-<div class="mt-8 flex flex-col gap-10">
+<div class="mt-8 flex flex-col gap-10 rounded-2xl bg-brand-tint p-4 sm:p-7">
   {video?.device === "desktop" ? (
     <div class:list={[frameClass, "max-w-3xl"]}>
       <Video
@@ -54,7 +54,7 @@ const desktopSizes = singleDesktop
               image={screenshot.image}
               alt={screenshot.alt}
               device="phone"
-              sizes="(min-width: 1152px) 254px, (min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
+              sizes="(min-width: 1152px) 246px, (min-width: 1024px) 21vw, (min-width: 640px) 28vw, 42vw"
               language={language}
               class={frameClass}
             />
@@ -71,6 +71,7 @@ const desktopSizes = singleDesktop
           <figure>
             <EnlargeableScreenshot
               image={screenshot.image}
+              thumbnail={screenshot.thumbnail}
               alt={screenshot.alt}
               device="desktop"
               sizes={desktopSizes}

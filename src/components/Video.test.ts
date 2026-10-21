@@ -2,6 +2,7 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { describe, expect, it } from "vitest";
 import dashboard from "@/assets/projects/fixflow-web/dashboard.png";
 import poster from "@/assets/projects/fixflow-web/dispatch-drag-poster.png";
+import offlineQueueCover from "@/assets/projects/fixflow-mobile/offline-queue-cover.png";
 import workOrders from "@/assets/projects/fixflow-mobile/work-orders.png";
 import Screenshot from "@/components/Screenshot.astro";
 import Video from "@/components/Video.astro";
@@ -96,6 +97,18 @@ describe("Screenshot", () => {
 
     expect(html).toContain("max-w-[280px]");
     expect(html).toContain('sizes="280px"');
+  });
+
+  it("offers the native width of a narrow desktop image", async () => {
+    const html = await renderScreenshot({
+      image: offlineQueueCover,
+      alt: "Work order list without a connection",
+      device: "desktop",
+    });
+    const [webp] = /<source[^>]*type="image\/webp"[^>]*>/.exec(html) ?? [];
+
+    expect(webp).toMatch(/ 480w, [^"]* 540w"/);
+    expect(webp).not.toContain("800w");
   });
 
   it("falls back to WebP instead of the source PNG", async () => {

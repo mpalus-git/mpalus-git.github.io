@@ -25,6 +25,9 @@ links:
   repository: https://github.com/mpalus-git/FixFlow.Mobile
   release: https://github.com/mpalus-git/FixFlow.Mobile/releases/latest
 demo: "The release includes an Android APK and a Windows version that runs without installation. The app connects to the demo instance, and the technician account and demo sign-in are described in the repository README. The demo data is reset every day."
+cover:
+  image: ../../../assets/projects/fixflow-mobile/offline-queue-cover.png
+  alt: "Work order list without a connection: a bar with the last sync time and the number of changes to send above an overdue work order"
 screenshots:
   - image: ../../../assets/projects/fixflow-mobile/work-orders.png
     alt: "Technician's work order list split into overdue, upcoming and completed, with status and priority badges"

@@ -31,22 +31,27 @@ cover:
   alt: "Part of the dispatch board: unassigned work orders above the weekday columns"
 screenshots:
   - image: ../../../assets/projects/fixflow-web/dashboard.png
+    thumbnail: ../../../assets/projects/fixflow-web/dashboard-thumb.png
     alt: "Panel dashboard: counters of work orders to assign, in progress, to invoice and overdue, parts out of stock, work orders by status and technician workload in the current week"
     caption: "Dashboard with counters and workload"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/login.png
+    thumbnail: ../../../assets/projects/fixflow-web/login-thumb.png
     alt: "Sign-in screen with quick sign-in buttons for the dispatcher and the technician and a list of features worth checking in the demo"
     caption: "Sign-in with demo accounts"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/dispatch.png
+    thumbnail: ../../../assets/projects/fixflow-web/dispatch-thumb.png
     alt: "Dispatch board: unassigned work orders above a week laid out as technician x day with cards of assigned work orders"
     caption: "Weekly dispatch board"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/work-orders.png
+    thumbnail: ../../../assets/projects/fixflow-web/work-orders-thumb.png
     alt: "Work order list with search, filters for status, technician and due date, and a table with priority, status and overdue labels"
     caption: "Work order list with filters"
     device: desktop
   - image: ../../../assets/projects/fixflow-web/work-order-details.png
+    thumbnail: ../../../assets/projects/fixflow-web/work-order-details-thumb.png
     alt: "Details of a completed work order: client and device data, a service entry with a photo and a used part, status progress and change history"
     caption: "Work order details and history"
     device: desktop

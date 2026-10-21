@@ -2,11 +2,11 @@ import { expect, test } from "@playwright/test";
 import { newPageContext, trackErrors } from "./support";
 
 const galleries = [
-  { path: "/fixflow-web/", label: /^Powiększ: /, count: 5 },
-  { path: "/en/fixflow-mobile/", label: /^Enlarge: /, count: 8 },
+  { path: "/fixflow-web/", label: /^Powiększ: /, count: 5, cropped: true },
+  { path: "/en/fixflow-mobile/", label: /^Enlarge: /, count: 8, cropped: false },
 ];
 
-for (const { path, label, count } of galleries) {
+for (const { path, label, count, cropped } of galleries) {
   test(`links every screenshot on ${path} to its full-size image`, async ({ browser }) => {
     const context = await newPageContext(browser, path);
     const page = await context.newPage();
@@ -45,7 +45,12 @@ for (const { path, label, count } of galleries) {
       expect(size.href).toMatch(/^\/_astro\/[^/]+\.webp$/);
       expect(size.target).toBeNull();
       expect(size.label).toBe(`${path.startsWith("/en/") ? "Enlarge" : "Powiększ"}: ${size.alt}`);
-      expect(size.width).toBe(size.expected);
+      if (cropped) {
+        expect(size.width).toBe(1440);
+        expect(size.expected).toBe(800);
+      } else {
+        expect(size.width).toBe(size.expected);
+      }
       expect(size.width).toBeGreaterThanOrEqual(540);
     }
     expect(errors).toEqual([]);

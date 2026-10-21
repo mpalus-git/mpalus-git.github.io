@@ -1,6 +1,7 @@
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { describe, expect, it } from "vitest";
 import dispatch from "@/assets/projects/fixflow-web/dispatch.png";
+import dispatchThumb from "@/assets/projects/fixflow-web/dispatch-thumb.png";
 import workOrders from "@/assets/projects/fixflow-mobile/work-orders.png";
 import EnlargeableScreenshot from "@/components/EnlargeableScreenshot.astro";
 
@@ -28,6 +29,17 @@ describe("EnlargeableScreenshot", () => {
     expect(link).toMatch(/href="[^"]*w=1440[^"]*"/);
     expect(link).not.toContain("target=");
     expect(link).toContain("frame");
+  });
+
+  it("shows the thumbnail and links to the full-size image", async () => {
+    const html = await render({ ...props, thumbnail: dispatchThumb });
+    const [link] = /<a[^>]*>/.exec(html) ?? [];
+    const [img] = /<img[^>]*>/.exec(html) ?? [];
+
+    expect(link).toMatch(/href="[^"]*w=1440[^"]*"/);
+    expect(img).toContain('width="800"');
+    expect(img).toContain('height="500"');
+    expect(img).toContain('alt="Dispatch board"');
   });
 
   it.each([

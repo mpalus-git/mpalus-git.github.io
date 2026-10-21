@@ -1,3 +1,4 @@
+import type { ImageMetadata } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { describe, expect, it } from "vitest";
 import { selectProjects } from "@/content/projects";
@@ -5,6 +6,7 @@ import { languages } from "@/i18n/i18n";
 
 type Media = {
   image?: string;
+  thumbnail?: string;
   poster?: string;
   file?: string;
   alt: string;
@@ -33,6 +35,14 @@ const sources = import.meta.glob<string>("/src/content/projects/*/*.md", {
 });
 
 const videoFiles = Object.keys(import.meta.glob("/src/assets/projects/*/*.{mp4,webm}"));
+const images = import.meta.glob<ImageMetadata>("/src/assets/projects/*/*.png", {
+  eager: true,
+  import: "default",
+});
+
+function imageAt(path: string): ImageMetadata | undefined {
+  return images[path.replace("../../../", "/src/")];
+}
 
 function entriesFor(language: string) {
   const prefix = `/src/content/projects/${language}/`;
@@ -91,7 +101,7 @@ describe("project content", () => {
       const en = english.get(name);
       const files = (project?: ProjectFrontmatter) =>
         [...(project?.screenshots ?? []), ...(project?.video ? [project.video] : [])].map(
-          (media) => [media.image, media.file, media.poster, media.device],
+          (media) => [media.image, media.thumbnail, media.file, media.poster, media.device],
         );
       expect(files(en)).toEqual(files(pl));
     }
@@ -144,6 +154,19 @@ describe("project content", () => {
         expect(caption.split(" ").length).toBeGreaterThanOrEqual(2);
         expect(caption.split(" ").length).toBeLessThanOrEqual(6);
       }
+    }
+  });
+
+  it("crops every thumbnail to 16:10 at a smaller size than its screenshot", () => {
+    const screenshots = [...polish.values()].flatMap((project) => project.screenshots ?? []);
+    const cropped = screenshots.filter((screenshot) => screenshot.thumbnail !== undefined);
+
+    expect(cropped.length).toBeGreaterThan(0);
+    for (const { image, thumbnail } of cropped) {
+      const full = imageAt(image ?? "");
+      const crop = imageAt(thumbnail ?? "");
+      expect(crop?.width).toBeLessThan(full?.width ?? 0);
+      expect((crop?.width ?? 0) * 10).toBe((crop?.height ?? 0) * 16);
     }
   });
 
