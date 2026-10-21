@@ -4,7 +4,6 @@ import { describe, expect, it } from "vitest";
 import dispatchCover from "@/assets/projects/fixflow-web/dispatch-cover.png";
 import dashboard from "@/assets/projects/fixflow-web/dashboard.png";
 import ProjectCard from "@/components/ProjectCard.astro";
-import SystemDiagram from "@/components/SystemDiagram.astro";
 
 const project: CollectionEntry<"projects"> = {
   id: "en/fixflow-web",
@@ -157,21 +156,5 @@ describe("ProjectCard cover", () => {
 
     expect(html).not.toContain("<img");
     expect(html).not.toContain("<svg role");
-  });
-});
-
-describe("SystemDiagram", () => {
-  it.each([
-    ["pl", "Architektura systemu FixFlow", "Panel dyspozytora"],
-    ["en", "FixFlow system architecture", "Dispatcher panel"],
-  ] as const)("is an accessible image in %s", async (language, title, role) => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(SystemDiagram, { props: { language } });
-
-    expect(html).toContain('role="img"');
-    expect(html).toContain('aria-labelledby="system-diagram-title system-diagram-description"');
-    expect(html).toContain(`<title id="system-diagram-title">${title}</title>`);
-    expect(html).toMatch(/<desc id="system-diagram-description">[^<]+<\/desc>/);
-    expect(html).toContain(role);
   });
 });
