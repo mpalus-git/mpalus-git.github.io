@@ -7,6 +7,7 @@ import { t, type Language } from "@/i18n/i18n";
 
 type Props = {
   image: ImageMetadata;
+  thumbnail?: ImageMetadata | undefined;
   alt: string;
   device: "desktop" | "phone";
   sizes: string;
@@ -14,7 +15,7 @@ type Props = {
   class?: string;
 };
 
-const { image, alt, device, sizes, language, class: className } = Astro.props;
+const { image, thumbnail, alt, device, sizes, language, class: className } = Astro.props;
 const enlarged = await getImage({ src: image, format: "webp" });
 const label = t(language, "screenshotEnlargeLabel", { alt });
 ---
@@ -24,7 +25,13 @@ const label = t(language, "screenshotEnlargeLabel", { alt });
   aria-label={label}
   class:list={["group relative block cursor-zoom-in", className]}
 >
-  <Screenshot image={image} alt={alt} device={device} sizes={sizes} class="h-auto w-full" />
+  <Screenshot
+    image={thumbnail ?? image}
+    alt={alt}
+    device={device}
+    sizes={sizes}
+    class="h-auto w-full"
+  />
   <span
     class:list={[
       "absolute flex items-center justify-center rounded-full border border-border bg-surface text-brand shadow-sm transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-on-brand",

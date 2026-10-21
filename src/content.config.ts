@@ -31,6 +31,7 @@ const projects = defineCollection({
         .array(
           z.object({
             image: image(),
+            thumbnail: image().optional(),
             alt: z.string().min(1),
             caption: prose,
             device: z.enum(["desktop", "phone"]),
