@@ -2,27 +2,29 @@ import { expect, test } from "@playwright/test";
 import { newPageContext } from "./support";
 
 const diagramPages = [
-  { path: "/", diagrams: 2 },
-  { path: "/en/", diagrams: 2 },
-  { path: "/fixflow-api/", diagrams: 1 },
-  { path: "/en/fixflow-api/", diagrams: 1 },
+  { path: "/", diagrams: { 360: 2, 640: 2, 1440: 2 } },
+  { path: "/en/", diagrams: { 360: 2, 640: 2, 1440: 2 } },
+  { path: "/fixflow-api/", diagrams: { 360: 1, 640: 1, 1440: 2 } },
+  { path: "/en/fixflow-api/", diagrams: { 360: 1, 640: 1, 1440: 2 } },
+  { path: "/fixflow-web/", diagrams: { 360: 0, 640: 0, 1440: 1 } },
+  { path: "/en/fixflow-mobile/", diagrams: { 360: 0, 640: 0, 1440: 1 } },
 ];
 const minimumTextSize = 12;
 const metricFont = 'Arial, "Liberation Sans"';
 
 for (const { path, diagrams } of diagramPages) {
-  for (const width of ["360", "640", "1440"]) {
-    test(`keeps diagram text readable on ${path} at ${width} px`, async ({ browser }) => {
+  for (const width of [360, 640, 1440] as const) {
+    test(`keeps diagram text readable on ${path} at ${String(width)} px`, async ({ browser }) => {
       const context = await newPageContext(browser, path, {
-        viewport: { width: Number(width), height: 900 },
+        viewport: { width, height: 900 },
       });
       const page = await context.newPage();
       await page.goto(path);
 
       const report = await page.evaluate((font) => {
-        const visible = [...document.querySelectorAll<SVGSVGElement>("svg[role='img']")].filter(
-          (svg) => svg.getBoundingClientRect().width > 0,
-        );
+        const visible = [
+          ...document.querySelectorAll<SVGSVGElement>("svg[aria-labelledby]"),
+        ].filter((svg) => svg.getBoundingClientRect().width > 0);
         for (const svg of visible) {
           svg.setAttribute("font-family", font);
         }
@@ -60,7 +62,7 @@ for (const { path, diagrams } of diagramPages) {
       }, metricFont);
 
       expect(report.overflow).toBe(false);
-      expect(report.diagrams).toHaveLength(diagrams);
+      expect(report.diagrams).toHaveLength(diagrams[width]);
       for (const diagram of report.diagrams) {
         expect(diagram.smallest).toBeGreaterThanOrEqual(minimumTextSize);
         expect(diagram.outside).toEqual([]);
@@ -71,7 +73,7 @@ for (const { path, diagrams } of diagramPages) {
 }
 
 for (const path of ["/", "/en/"]) {
-  test(`keeps arrow labels apart from arrows and aligns the FixFlow heading on ${path}`, async ({
+  test(`keeps arrow labels apart from arrows in the opening section on ${path}`, async ({
     browser,
   }) => {
     const context = await newPageContext(browser, path, {
@@ -81,9 +83,10 @@ for (const path of ["/", "/en/"]) {
     await page.goto(path);
 
     const report = await page.evaluate((font) => {
-      const svg = document.querySelector<SVGSVGElement>("#fixflow svg[role='img']");
-      const heading = document.querySelector("#fixflow-heading");
-      if (!svg || !heading) {
+      const svg = document.querySelector<SVGSVGElement>(
+        "main > section:first-child svg[role='img']",
+      );
+      if (!svg) {
         return null;
       }
       svg.setAttribute("font-family", font);
@@ -102,15 +105,11 @@ for (const path of ["/", "/en/"]) {
       return {
         labels: labels.length,
         smallestGap: Math.min(...gaps),
-        headingOffset: Math.abs(
-          heading.getBoundingClientRect().top - svg.getBoundingClientRect().top,
-        ),
       };
     }, metricFont);
 
     expect(report?.labels).toBeGreaterThan(0);
     expect(report?.smallestGap).toBeGreaterThanOrEqual(12);
-    expect(report?.headingOffset).toBeLessThan(24);
     await context.close();
   });
 }

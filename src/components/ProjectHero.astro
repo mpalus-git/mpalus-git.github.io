@@ -3,6 +3,7 @@ import ArrowLeft from "@lucide/astro/icons/arrow-left";
 import type { CollectionEntry } from "astro:content";
 import BrandBand from "@/components/BrandBand.astro";
 import ButtonLink from "@/components/ButtonLink.astro";
+import SystemDiagram from "@/components/SystemDiagram.astro";
 import TechList from "@/components/TechList.astro";
 import { getProjectActions } from "@/components/projectActions";
 import { getLocalizedPath, t, type Language } from "@/i18n/i18n";
@@ -17,35 +18,40 @@ const actions = getProjectActions(project.data.links, language);
 ---
 
 <BrandBand class="py-10">
-  <a
-    href={`${getLocalizedPath("/", language)}#fixflow`}
-    class="inline-flex min-h-11 items-center gap-1.5 font-semibold underline decoration-2 underline-offset-4"
-  >
-    <ArrowLeft size={18} />
-    {t(language, "projectBackLink")}
-  </a>
-  <h1 class="mt-4 text-4xl leading-tight font-bold tracking-tight md:text-6xl">
-    {project.data.title}
-  </h1>
-  <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">{project.data.summary}</p>
-  <TechList
-    technologies={project.data.stack}
-    label={t(language, "projectStackLabel")}
-    class="mt-6"
-  />
-  <ul class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-    {actions.map((action, index) => (
-      <li class="flex flex-col">
-        <ButtonLink
-          href={action.href}
-          language={language}
-          variant={index === 0 ? "primary" : "outline"}
-          demo={action.wakesApi}
-        >
-          <action.icon size={20} />
-          {action.label}
-        </ButtonLink>
-      </li>
-    ))}
-  </ul>
+  <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-center lg:gap-16">
+    <div>
+      <a
+        href={`${getLocalizedPath("/", language)}#fixflow`}
+        class="inline-flex min-h-11 items-center gap-1.5 font-semibold underline decoration-2 underline-offset-4"
+      >
+        <ArrowLeft size={18} />
+        {t(language, "projectBackLink")}
+      </a>
+      <h1 class="mt-4 text-4xl leading-tight font-bold tracking-tight md:text-6xl">
+        {project.data.title}
+      </h1>
+      <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">{project.data.summary}</p>
+      <TechList
+        technologies={project.data.stack}
+        label={t(language, "projectStackLabel")}
+        class="mt-6"
+      />
+      <ul class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        {actions.map((action, index) => (
+          <li class="flex flex-col">
+            <ButtonLink
+              href={action.href}
+              language={language}
+              variant={index === 0 ? "primary" : "outline"}
+              demo={action.wakesApi}
+            >
+              <action.icon size={20} />
+              {action.label}
+            </ButtonLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <SystemDiagram language={language} current={project.data.project} class="hidden lg:block" />
+  </div>
 </BrandBand>

@@ -9,12 +9,10 @@ export const en: Dictionary = {
   ogImageAlt:
     "Mateusz Palus, Full-stack Developer (.NET, Web): FixFlow, .NET 10, React + TypeScript, .NET MAUI",
   heroDescription:
-    "I design and build applications from the database to the user interface. This site presents FixFlow, a field service management system whose three parts I built: a .NET 10 API, a React dispatcher panel and a .NET MAUI technician app that works without coverage.",
+    "I design and build applications from the database to the user interface. This site presents FixFlow, a field service management system whose three parts I built: the dispatcher assigns work orders in a React panel, the technician carries them out in a .NET MAUI app even without coverage, and a .NET 10 API enforces the business rules.",
   heroGitHub: "GitHub",
   heroDemo: "FixFlow panel demo",
   fixflowHeading: "FixFlow",
-  fixflowIntro:
-    "FixFlow is a field service management system for a company that repairs air conditioning and office equipment. The dispatcher creates work orders and assigns them to technicians in the web panel, and technicians carry them out in the mobile app, even without coverage. Both apps use one API that enforces the business rules.",
   diagramTitle: "FixFlow system architecture",
   diagramDescription:
     "The dispatcher panel (FixFlow.Web) and the technician app (FixFlow.Mobile) connect to FixFlow.Api, which stores data in PostgreSQL and is the single source of truth for the business rules. The technician app sends changes from an offline queue.",

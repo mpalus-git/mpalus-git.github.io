@@ -8,7 +8,6 @@ export type Dictionary = {
   heroGitHub: string;
   heroDemo: string;
   fixflowHeading: string;
-  fixflowIntro: string;
   diagramTitle: string;
   diagramDescription: string;
   diagramWebName: string;

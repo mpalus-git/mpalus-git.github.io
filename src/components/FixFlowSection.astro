@@ -1,7 +1,6 @@
 ---
 import ProjectCard from "@/components/ProjectCard.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
-import SystemDiagram from "@/components/SystemDiagram.astro";
 import { getProjects } from "@/content/projects";
 import { t, type Language } from "@/i18n/i18n";
 
@@ -18,18 +17,8 @@ const projects = await getProjects(language);
   aria-labelledby="fixflow-heading"
   class="mx-auto max-w-6xl px-4 py-16 md:px-8"
 >
-  <div class="grid items-start gap-10 md:grid-cols-2">
-    <div>
-      <SectionHeading id="fixflow-heading">{t(language, "fixflowHeading")}</SectionHeading>
-      <p class="mt-4 max-w-prose text-lg leading-relaxed text-muted">
-        {t(language, "fixflowIntro")}
-      </p>
-    </div>
-    <div class="flex justify-center">
-      <SystemDiagram language={language} />
-    </div>
-  </div>
-  <ul class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  <SectionHeading id="fixflow-heading">{t(language, "fixflowHeading")}</SectionHeading>
+  <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
     {projects.map((project) => (
       <li>
         <ProjectCard project={project} language={language} />
