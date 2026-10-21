@@ -14,7 +14,7 @@ const { image, alt, device, sizes, class: className } = Astro.props;
 const widths =
   device === "phone"
     ? [280, 560].filter((width) => width <= image.width)
-    : [480, 800, 1200, 1440].filter((width) => width <= image.width);
+    : [...[480, 800, 1200, 1440].filter((width) => width < image.width), image.width];
 const defaultSizes =
   device === "phone" ? "280px" : "(min-width: 1152px) 1088px, calc(100vw - 2rem)";
 ---

@@ -25,6 +25,9 @@ links:
   repository: https://github.com/mpalus-git/FixFlow.Mobile
   release: https://github.com/mpalus-git/FixFlow.Mobile/releases/latest
 demo: "Wydanie zawiera plik APK na Androida i wersję Windows do uruchomienia bez instalacji. Aplikacja łączy się z instancją demo, a konto technika i logowanie kontem demo opisuje README repozytorium. Dane demonstracyjne są przywracane codziennie."
+cover:
+  image: ../../../assets/projects/fixflow-mobile/offline-queue-cover.png
+  alt: "Lista zleceń bez połączenia: pasek z czasem ostatniej synchronizacji i liczbą zmian do wysłania nad zaległym zleceniem"
 screenshots:
   - image: ../../../assets/projects/fixflow-mobile/work-orders.png
     alt: "Lista zleceń technika z podziałem na zaległe, nadchodzące i zakończone, z plakietkami statusu i priorytetu"
