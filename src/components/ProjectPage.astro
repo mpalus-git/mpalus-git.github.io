@@ -37,13 +37,11 @@ const hasMedia = project.data.screenshots.length > 0 || project.data.video !== u
       <SectionHeading id="decisions-heading">
         {t(language, "projectDecisionsHeading")}
       </SectionHeading>
-      <ol class="mt-8 border-t border-border">
-        {project.data.decisions.map((decision, index) => (
+      <ul class="mt-8 border-t border-border">
+        {project.data.decisions.map((decision) => (
           <li class="grid gap-2 border-b border-border py-6 md:grid-cols-3 md:gap-x-10 md:py-8">
             <div>
-              <span aria-hidden="true" class="font-mono text-sm font-bold text-brand tabular-nums">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+              <p class="font-mono text-sm font-bold text-brand">{decision.tag}</p>
               <h3 class="text-xl font-bold">{decision.title}</h3>
             </div>
             <p class="max-w-prose leading-relaxed text-muted md:col-span-2 md:text-lg">
@@ -51,7 +49,7 @@ const hasMedia = project.data.screenshots.length > 0 || project.data.video !== u
             </p>
           </li>
         ))}
-      </ol>
+      </ul>
     </section>
     {project.data.architectureDiagram ? (
       <section aria-labelledby="architecture-heading">

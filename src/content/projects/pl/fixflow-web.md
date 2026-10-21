@@ -13,14 +13,19 @@ stack:
   - Playwright
 decisions:
   - title: Typy z kontraktu API
+    tag: "OpenAPI → TypeScript"
     body: "Panel nie ma ręcznie pisanych DTO: typy są generowane z kontraktu OpenAPI, a CI odrzuca build, gdy różnią się od zacommitowanych."
   - title: Jedno odświeżenie tokena naraz
+    tag: "Web Locks"
     body: "API rotuje refresh token, a ponowne użycie starego wylogowuje. Równoległe żądania czekają na jedno wspólne odświeżenie, a między kartami chroni je blokada Web Locks."
   - title: Konflikty edycji przez ETag
+    tag: "ETag · 412"
     body: "Formularz wysyła wersję danych, którą użytkownik otworzył. Odpowiedź 412 otwiera dialog z możliwością wczytania aktualnej wersji zamiast nadpisywać cudze zmiany."
   - title: Uśpiony serwer
+    tag: "system/ready"
     body: "Panel budzi API przez system/ready, a nie /health, który blokuje lista EasyPrivacy, i pokazuje ekran z postępem uruchamiania. Formularz logowania pojawia się dopiero, gdy API odpowiada."
   - title: Czas polski niezależnie od przeglądarki
+    tag: "Europe/Warsaw"
     body: "Daty są wyświetlane w strefie Europe/Warsaw, a testy działają w strefie America/New_York, żeby wyłapać każdą zależność od strefy przeglądarki."
 links:
   repository: https://github.com/mpalus-git/FixFlow.Web

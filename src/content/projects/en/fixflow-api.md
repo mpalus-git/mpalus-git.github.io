@@ -13,14 +13,19 @@ stack:
   - QuestPDF
 decisions:
   - title: Vertical slices instead of layers
+    tag: "endpoint · handler · validator"
     body: "Each feature has its own folder with the endpoint, handler, validator and contract. Business rules live in domain entities, and the handler passes them whatever they need as arguments, so the rules can be unit tested."
   - title: Business errors without exceptions
+    tag: "ErrorOr → ProblemDetails"
     body: "A rejected status transition or a missing part is an expected outcome, so methods return ErrorOr and the mapping to ProblemDetails and HTTP codes lives in one place."
   - title: Rules enforced in the database too
+    tag: "index · CHECK · 409"
     body: "One work order in progress per technician, stock that never drops below zero and unique serial numbers are backed by an index, a CHECK constraint or a concurrency token, so parallel requests end with a 409 instead of inconsistent data."
   - title: Safe retries for offline clients
+    tag: "idempotency"
     body: "Service entries and photos use identifiers assigned by the app, and a repeated start or completion returns 200 with the current state, so the offline queue can retry requests without creating duplicates."
   - title: Contract guarded in CI
+    tag: "OpenAPI · CI"
     body: "The OpenAPI document is generated during the build and committed, and CI rejects a change when the generated version differs, so every contract change shows up in code review."
 links:
   repository: https://github.com/mpalus-git/FixFlow.Api
