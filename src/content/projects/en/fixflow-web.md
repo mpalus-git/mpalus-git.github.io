@@ -64,6 +64,7 @@ video:
   file: dispatch-drag
   poster: ../../../assets/projects/fixflow-web/dispatch-drag-poster.png
   alt: "Dragging an unassigned work order onto a technician and a day on the dispatch board"
+  caption: "Assigning a work order by dragging"
   device: desktop
 ---
 

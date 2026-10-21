@@ -141,12 +141,14 @@ describe("project content", () => {
     }
   });
 
-  it("gives every screenshot a short caption in both languages", () => {
-    for (const [name, pl] of polish) {
-      const polishCaptions = (pl.screenshots ?? []).map((screenshot) => screenshot.caption ?? "");
-      const englishCaptions = (english.get(name)?.screenshots ?? []).map(
-        (screenshot) => screenshot.caption ?? "",
+  it("gives every screenshot and video a short caption in both languages", () => {
+    const media = (project?: ProjectFrontmatter) =>
+      [...(project?.screenshots ?? []), ...(project?.video ? [project.video] : [])].map(
+        (item) => item.caption ?? "",
       );
+    for (const [name, pl] of polish) {
+      const polishCaptions = media(pl);
+      const englishCaptions = media(english.get(name));
       expect(englishCaptions).toHaveLength(polishCaptions.length);
       for (const [index, caption] of polishCaptions.entries()) {
         expect(englishCaptions[index]).not.toBe(caption);

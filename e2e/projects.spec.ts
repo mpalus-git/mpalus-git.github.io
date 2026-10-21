@@ -116,6 +116,7 @@ for (const project of projects) {
       await expect(page.getByRole("heading", { level: 2 })).toHaveText([...project.sections]);
       expect(await page.getByRole("heading", { level: 3 }).count()).toBeGreaterThanOrEqual(3);
       await expect(page.locator("main video")).toHaveCount(project.videos * 2);
+      await expect(page.locator("main figure:has(video) figcaption")).toHaveCount(project.videos);
       await expect(page.locator("main video[autoplay]:not([controls])")).toHaveCount(0);
       expect(errors).toEqual([]);
       await context.close();

@@ -24,27 +24,35 @@ const desktopSizes = singleDesktop
 
 <div class="mt-8 flex flex-col gap-10 rounded-2xl bg-brand-tint p-4 sm:p-7">
   {video?.device === "desktop" ? (
-    <div class:list={[frameClass, "max-w-3xl"]}>
-      <Video
-        project={project.data.project}
-        file={video.file}
-        poster={video.poster}
-        alt={video.alt}
-        device="desktop"
-      />
-    </div>
+    <figure class="max-w-3xl">
+      <div class={frameClass}>
+        <Video
+          project={project.data.project}
+          file={video.file}
+          poster={video.poster}
+          alt={video.alt}
+          device="desktop"
+        />
+      </div>
+      <figcaption class={captionClass}>{video.caption}</figcaption>
+    </figure>
   ) : null}
   {phoneScreenshots.length > 0 || phoneVideo ? (
     <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
       {phoneVideo ? (
-        <li class={frameClass}>
-          <Video
-            project={project.data.project}
-            file={phoneVideo.file}
-            poster={phoneVideo.poster}
-            alt={phoneVideo.alt}
-            device="phone"
-          />
+        <li>
+          <figure>
+            <div class={frameClass}>
+              <Video
+                project={project.data.project}
+                file={phoneVideo.file}
+                poster={phoneVideo.poster}
+                alt={phoneVideo.alt}
+                device="phone"
+              />
+            </div>
+            <figcaption class={captionClass}>{phoneVideo.caption}</figcaption>
+          </figure>
         </li>
       ) : null}
       {phoneScreenshots.map((screenshot) => (

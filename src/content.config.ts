@@ -43,6 +43,7 @@ const projects = defineCollection({
           file: z.string().min(1),
           poster: image(),
           alt: z.string().min(1),
+          caption: prose,
           device: z.enum(["desktop", "phone"]),
         })
         .optional(),

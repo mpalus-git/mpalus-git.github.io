@@ -70,6 +70,7 @@ video:
   file: offline-sync
   poster: ../../../assets/projects/fixflow-mobile/offline-sync-poster.png
   alt: "Rozpoczęcie zlecenia i wpis serwisowy bez sieci, potem synchronizacja po odzyskaniu połączenia"
+  caption: "Praca offline i synchronizacja"
   device: phone
 ---
 

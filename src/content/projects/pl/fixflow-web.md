@@ -64,6 +64,7 @@ video:
   file: dispatch-drag
   poster: ../../../assets/projects/fixflow-web/dispatch-drag-poster.png
   alt: "Przeciągnięcie nieprzypisanego zlecenia na technika i dzień na tablicy dispatch"
+  caption: "Przypisanie zlecenia przeciągnięciem"
   device: desktop
 ---
 

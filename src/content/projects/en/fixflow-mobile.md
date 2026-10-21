@@ -70,6 +70,7 @@ video:
   file: offline-sync
   poster: ../../../assets/projects/fixflow-mobile/offline-sync-poster.png
   alt: "Starting a work order and adding a service entry without a network, then synchronization once the connection is back"
+  caption: "Offline work and synchronization"
   device: phone
 ---
 
