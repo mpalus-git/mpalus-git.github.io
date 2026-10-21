@@ -61,6 +61,27 @@ for (const { path, locale, demoName, demoHref } of pages) {
       await context.close();
     });
 
+    test("puts every project card link on its own row", async ({ browser }) => {
+      for (const width of [1024, 1440]) {
+        const context = await browser.newContext({ locale, viewport: { width, height: 900 } });
+        await mockApi(context);
+        const page = await context.newPage();
+        await page.goto(path);
+
+        const lists = page.locator("article ul").filter({ has: page.locator("a[target]") });
+        await expect(lists).toHaveCount(3);
+        for (const list of await lists.all()) {
+          const boxes = await list
+            .locator(":scope > li")
+            .evaluateAll((items) => items.map((item) => item.getBoundingClientRect()));
+          expect(boxes.length).toBeGreaterThanOrEqual(2);
+          expect(new Set(boxes.map((box) => Math.round(box.left))).size).toBe(1);
+          expect(new Set(boxes.map((box) => Math.round(box.top))).size).toBe(boxes.length);
+        }
+        await context.close();
+      }
+    });
+
     test("wakes the API again when a demo link is hovered after five minutes", async ({
       browser,
     }) => {
