@@ -2,6 +2,7 @@
 import BrandBand from "@/components/BrandBand.astro";
 import ButtonLink from "@/components/ButtonLink.astro";
 import GitHubIcon from "@/components/GitHubIcon.astro";
+import SystemDiagram from "@/components/SystemDiagram.astro";
 import { githubProfileUrl, panelDemoUrls } from "@/config";
 import { t, type Language } from "@/i18n/i18n";
 
@@ -13,18 +14,23 @@ const { language } = Astro.props;
 ---
 
 <BrandBand class="py-12">
-  <p class="mb-3 text-lg font-semibold">{t(language, "role")}</p>
-  <h1 class="text-4xl leading-tight font-bold tracking-tight md:text-6xl">
-    {t(language, "personName")}
-  </h1>
-  <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">{t(language, "heroDescription")}</p>
-  <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-    <ButtonLink href={githubProfileUrl} language={language} variant="primary">
-      <GitHubIcon class="size-5" />
-      {t(language, "heroGitHub")}
-    </ButtonLink>
-    <ButtonLink href={panelDemoUrls[language]} language={language} variant="outline" demo>
-      {t(language, "heroDemo")}
-    </ButtonLink>
+  <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-center lg:gap-16">
+    <div>
+      <p class="mb-3 text-lg font-semibold">{t(language, "role")}</p>
+      <h1 class="text-4xl leading-tight font-bold tracking-tight md:text-6xl">
+        {t(language, "personName")}
+      </h1>
+      <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">{t(language, "heroDescription")}</p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <ButtonLink href={githubProfileUrl} language={language} variant="primary">
+          <GitHubIcon class="size-5" />
+          {t(language, "heroGitHub")}
+        </ButtonLink>
+        <ButtonLink href={panelDemoUrls[language]} language={language} variant="outline" demo>
+          {t(language, "heroDemo")}
+        </ButtonLink>
+      </div>
+    </div>
+    <SystemDiagram language={language} />
   </div>
 </BrandBand>

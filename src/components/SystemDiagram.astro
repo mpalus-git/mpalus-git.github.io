@@ -19,7 +19,7 @@ const clients = [
   height="348"
   role="img"
   aria-labelledby="system-diagram-title system-diagram-description"
-  class="h-auto w-full max-w-md"
+  class="h-auto w-full max-w-[21rem] forced-colors:[--brand-dark:Canvas] forced-colors:[--on-brand:CanvasText]"
 >
   <title id="system-diagram-title">{t(language, "diagramTitle")}</title>
   <desc id="system-diagram-description">{t(language, "diagramDescription")}</desc>
@@ -33,7 +33,7 @@ const clients = [
       markerHeight="8"
       orient="auto-start-reverse"
     >
-      <path d="M0 0 10 5 0 10z" class="fill-brand"></path>
+      <path d="M0 0 10 5 0 10z" class="fill-on-brand"></path>
     </marker>
   </defs>
   {clients.map((client) => (
@@ -44,23 +44,28 @@ const clients = [
         width="150"
         height="64"
         rx="10"
-        class="fill-surface stroke-brand"
+        class="fill-brand-dark stroke-on-brand"
         stroke-width="2"
       />
-      <text x={client.x + 75} y="28" text-anchor="middle" class="fill-text text-[15px] font-bold">
+      <text
+        x={client.x + 75}
+        y="28"
+        text-anchor="middle"
+        class="fill-on-brand text-[15px] font-bold"
+      >
         {client.name}
       </text>
-      <text x={client.x + 75} y="48" text-anchor="middle" class="fill-muted text-[12px]">
+      <text x={client.x + 75} y="48" text-anchor="middle" class="fill-on-brand text-[12px]">
         {client.role}
       </text>
     </g>
   ))}
-  <g class="stroke-brand" stroke-width="2" fill="none">
+  <g class="stroke-on-brand" stroke-width="2" fill="none">
     <line x1="75" y1="66" x2="75" y2="146" marker-end="url(#system-diagram-arrow)"></line>
     <line x1="245" y1="66" x2="245" y2="146" marker-end="url(#system-diagram-arrow)"></line>
     <line x1="160" y1="224" x2="160" y2="286" marker-end="url(#system-diagram-arrow)"></line>
   </g>
-  <g class="fill-muted text-[12px]">
+  <g class="fill-on-brand text-[12px]">
     <text x="91" y="100">
       {t(language, "diagramRest")}
     </text>
@@ -71,23 +76,35 @@ const clients = [
       {t(language, "diagramOfflineQueue")}
     </text>
   </g>
-  <rect x="0" y="150" width="320" height="72" rx="10" class="fill-brand"></rect>
-  <text x="160" y="181" text-anchor="middle" class="fill-on-brand text-[16px] font-bold">
-    {t(language, "diagramApiName")}
-  </text>
-  <text x="160" y="203" text-anchor="middle" class="fill-on-brand text-[12px]">
-    {t(language, "diagramApiRole")}
-  </text>
-  <rect
-    x="95"
-    y="290"
-    width="130"
-    height="50"
-    rx="10"
-    class="fill-brand-tint stroke-brand"
-    stroke-width="2"
-  ></rect>
-  <text x="160" y="320" text-anchor="middle" class="fill-text text-[14px] font-semibold">
-    {t(language, "diagramDatabase")}
-  </text>
+  <g>
+    <rect
+      x="0"
+      y="150"
+      width="320"
+      height="72"
+      rx="10"
+      class="fill-brand-dark stroke-on-brand"
+      stroke-width="3"
+    ></rect>
+    <text x="160" y="181" text-anchor="middle" class="fill-on-brand text-[16px] font-bold">
+      {t(language, "diagramApiName")}
+    </text>
+    <text x="160" y="203" text-anchor="middle" class="fill-on-brand text-[12px]">
+      {t(language, "diagramApiRole")}
+    </text>
+  </g>
+  <g>
+    <rect
+      x="95"
+      y="290"
+      width="130"
+      height="50"
+      rx="10"
+      class="fill-brand-dark stroke-on-brand"
+      stroke-width="2"
+    ></rect>
+    <text x="160" y="320" text-anchor="middle" class="fill-on-brand text-[14px] font-semibold">
+      {t(language, "diagramDatabase")}
+    </text>
+  </g>
 </svg>

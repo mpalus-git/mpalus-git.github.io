@@ -71,7 +71,7 @@ for (const { path, diagrams } of diagramPages) {
 }
 
 for (const path of ["/", "/en/"]) {
-  test(`keeps arrow labels apart from arrows and aligns the FixFlow heading on ${path}`, async ({
+  test(`keeps arrow labels apart from arrows in the opening section on ${path}`, async ({
     browser,
   }) => {
     const context = await newPageContext(browser, path, {
@@ -81,9 +81,10 @@ for (const path of ["/", "/en/"]) {
     await page.goto(path);
 
     const report = await page.evaluate((font) => {
-      const svg = document.querySelector<SVGSVGElement>("#fixflow svg[role='img']");
-      const heading = document.querySelector("#fixflow-heading");
-      if (!svg || !heading) {
+      const svg = document.querySelector<SVGSVGElement>(
+        "main > section:first-child svg[role='img']",
+      );
+      if (!svg) {
         return null;
       }
       svg.setAttribute("font-family", font);
@@ -102,15 +103,11 @@ for (const path of ["/", "/en/"]) {
       return {
         labels: labels.length,
         smallestGap: Math.min(...gaps),
-        headingOffset: Math.abs(
-          heading.getBoundingClientRect().top - svg.getBoundingClientRect().top,
-        ),
       };
     }, metricFont);
 
     expect(report?.labels).toBeGreaterThan(0);
     expect(report?.smallestGap).toBeGreaterThanOrEqual(12);
-    expect(report?.headingOffset).toBeLessThan(24);
     await context.close();
   });
 }

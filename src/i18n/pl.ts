@@ -9,12 +9,10 @@ export const pl: Dictionary = {
   ogImageAlt:
     "Mateusz Palus, Full-stack Developer (.NET, Web): FixFlow, .NET 10, React + TypeScript, .NET MAUI",
   heroDescription:
-    "Projektuję i buduję aplikacje od bazy danych po interfejs. Na tej stronie pokazuję FixFlow, system obsługi zleceń serwisowych w terenie, którego wszystkie trzy części zbudowałem: API w .NET 10, panel dyspozytora w React i aplikację technika w .NET MAUI, która działa bez zasięgu.",
+    "Projektuję i buduję aplikacje od bazy danych po interfejs. Pokazuję tu FixFlow, system obsługi zleceń serwisowych w terenie, którego wszystkie trzy części zbudowałem: dyspozytor przydziela zlecenia w panelu React, technik realizuje je w aplikacji .NET MAUI także bez zasięgu, a API w .NET 10 pilnuje reguł biznesowych.",
   heroGitHub: "GitHub",
   heroDemo: "Demo panelu FixFlow",
   fixflowHeading: "FixFlow",
-  fixflowIntro:
-    "FixFlow to system obsługi zleceń serwisowych w terenie dla firmy naprawiającej klimatyzację i urządzenia biurowe. Dyspozytor tworzy zlecenia i przypisuje je technikom w panelu webowym, a technik realizuje je w aplikacji mobilnej, także bez zasięgu. Obie aplikacje korzystają z jednego API, które pilnuje reguł biznesowych.",
   diagramTitle: "Architektura systemu FixFlow",
   diagramDescription:
     "Panel dyspozytora (FixFlow.Web) i aplikacja technika (FixFlow.Mobile) łączą się z FixFlow.Api, które przechowuje dane w PostgreSQL i jest jedynym źródłem prawdy dla reguł biznesowych. Aplikacja technika wysyła zmiany z kolejki offline.",
