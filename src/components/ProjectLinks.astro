@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import ExternalLink from "@/components/ExternalLink.astro";
+import Icon from "@/components/Icon.astro";
 import { getProjectActions } from "@/components/projectActions";
 import type { Language } from "@/i18n/i18n";
 
@@ -24,7 +25,7 @@ const actions = getProjectActions(links, language);
         demo={action.wakesApi}
         class="inline-flex min-h-11 items-center gap-1.5 font-semibold text-brand underline decoration-2 underline-offset-4 hover:text-brand-dark"
       >
-        <action.icon size={18} />
+        <Icon name={action.icon} size={18} />
         {action.label}
         {projectTitle ? <span class="sr-only">{projectTitle}</span> : null}
       </ExternalLink>

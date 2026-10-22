@@ -1,14 +1,11 @@
-import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
-import BookOpen from "@lucide/astro/icons/book-open";
-import Code from "@lucide/astro/icons/code";
-import Download from "@lucide/astro/icons/download";
 import type { CollectionEntry } from "astro:content";
+import type { IconName } from "@/components/icons";
 import { t, type Language } from "@/i18n/i18n";
 
 export type ProjectAction = {
   href: string;
   label: string;
-  icon: typeof ArrowUpRight;
+  icon: IconName;
   wakesApi: boolean;
 };
 
@@ -21,7 +18,7 @@ export function getProjectActions(
       ? {
           href: links.demo,
           label: t(language, "projectLinkDemo"),
-          icon: ArrowUpRight,
+          icon: "arrow-up-right",
           wakesApi: true,
         }
       : null,
@@ -29,17 +26,22 @@ export function getProjectActions(
       ? {
           href: links.release,
           label: t(language, "projectLinkRelease"),
-          icon: Download,
+          icon: "download",
           wakesApi: false,
         }
       : null,
     links.docs
-      ? { href: links.docs, label: t(language, "projectLinkDocs"), icon: BookOpen, wakesApi: true }
+      ? {
+          href: links.docs,
+          label: t(language, "projectLinkDocs"),
+          icon: "book-open",
+          wakesApi: true,
+        }
       : null,
     {
       href: links.repository,
       label: t(language, "projectLinkRepository"),
-      icon: Code,
+      icon: "code",
       wakesApi: false,
     },
   ];

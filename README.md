@@ -24,7 +24,7 @@ Portfolio z projektami systemu FixFlow do obsługi zleceń serwisowych w terenie
 | -------------- | ---------------------------------------------------------------------------------------------------- |
 | Podstawa       | Astro 7 (wyjście statyczne), TypeScript 6 (`astro/tsconfigs/strictest`), Node.js 24, pnpm 12         |
 | Treść          | Content collections ze schematem Zod (Markdown osobno po polsku i angielsku), i18n wbudowane w Astro |
-| UI             | Tailwind CSS 4, czcionki systemowe, ikony jako inline SVG (@lucide/astro)                            |
+| UI             | Tailwind CSS 4, czcionki systemowe, ikony jako inline SVG (Lucide, Octicons)                         |
 | Obrazy         | astro:assets (AVIF i WebP w kilku rozmiarach), wideo MP4 i WebM zamiast GIF                          |
 | Jakość         | ESLint 10 z typescript-eslint, eslint-plugin-astro i jsx-a11y, Prettier, @astrojs/check              |
 | Testy          | Vitest, Playwright, axe-core                                                                         |
