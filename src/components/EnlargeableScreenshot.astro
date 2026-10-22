@@ -1,7 +1,7 @@
 ---
-import Maximize2 from "@lucide/astro/icons/maximize-2";
 import type { ImageMetadata } from "astro";
 import { getImage } from "astro:assets";
+import Icon from "@/components/Icon.astro";
 import Screenshot from "@/components/Screenshot.astro";
 import { t, type Language } from "@/i18n/i18n";
 
@@ -38,6 +38,6 @@ const label = t(language, "screenshotEnlargeLabel", { alt });
       device === "phone" ? "right-1 bottom-1 size-7" : "right-2 bottom-2 size-9",
     ]}
   >
-    <Maximize2 size={device === "phone" ? 14 : 18} aria-hidden="true" />
+    <Icon name="maximize-2" size={device === "phone" ? 14 : 18} />
   </span>
 </a>

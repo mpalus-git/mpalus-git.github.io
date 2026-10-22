@@ -1,8 +1,8 @@
 ---
-import ArrowLeft from "@lucide/astro/icons/arrow-left";
 import type { CollectionEntry } from "astro:content";
 import BrandBand from "@/components/BrandBand.astro";
 import ButtonLink from "@/components/ButtonLink.astro";
+import Icon from "@/components/Icon.astro";
 import SystemDiagram from "@/components/SystemDiagram.astro";
 import TechList from "@/components/TechList.astro";
 import { getProjectActions } from "@/components/projectActions";
@@ -24,7 +24,7 @@ const actions = getProjectActions(project.data.links, language);
         href={`${getLocalizedPath("/", language)}#fixflow`}
         class="inline-flex min-h-11 items-center gap-1.5 font-semibold underline decoration-2 underline-offset-4"
       >
-        <ArrowLeft size={18} />
+        <Icon name="arrow-left" size={18} />
         {t(language, "projectBackLink")}
       </a>
       <h1 class="mt-4 text-4xl leading-tight font-bold tracking-tight md:text-6xl">
@@ -45,7 +45,7 @@ const actions = getProjectActions(project.data.links, language);
               variant={index === 0 ? "primary" : "outline"}
               demo={action.wakesApi}
             >
-              <action.icon size={20} />
+              <Icon name={action.icon} size={20} />
               {action.label}
             </ButtonLink>
           </li>

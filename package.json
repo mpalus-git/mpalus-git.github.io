@@ -21,7 +21,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@lucide/astro": "1.55.0",
     "astro": "7.4.2"
   },
   "devDependencies": {
