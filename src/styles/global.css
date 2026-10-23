@@ -47,6 +47,10 @@
     text-wrap: balance;
   }
 
+  img[width][height] {
+    aspect-ratio: attr(width type(<number>)) / attr(height type(<number>));
+  }
+
   :focus-visible {
     outline: 3px solid var(--focus-ring);
     outline-offset: 2px;
