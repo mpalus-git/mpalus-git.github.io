@@ -12,19 +12,14 @@ stack:
   - xUnit
 decisions:
   - title: Kolejka operacji offline
-    tag: "SQLite · transakcja"
     body: "Każda zmiana zapisuje się w tabeli kolejki w jednej transakcji SQLite z danymi lokalnymi i jest wysyłana w kolejności powstania. ViewModele nigdy nie wołają API przy zmianach stanu."
   - title: Ponowne wysłanie bez duplikatów
-    tag: "idempotencja"
     body: "Identyfikatory wpisów i zdjęć nadaje aplikacja, więc gdy odpowiedź się zgubi i kolejka wyśle wpis jeszcze raz, API go rozpoznaje i nie zdejmuje części ze stanu drugi raz."
   - title: Zmiany do wyjaśnienia
-    tag: "backoff · konflikty"
     body: "Błędy przejściowe są ponawiane z narastającym odstępem, a zmiana odrzucona przez serwer, np. po przekazaniu zlecenia innemu technikowi, trafia na ekran „Do wyjaśnienia”, gdzie technik ją ponawia albo odrzuca."
   - title: Podpis klienta w kolejce
-    tag: "podpis = zdjęcie"
     body: "Podpis to zdjęcie wysyłane przed zakończeniem zlecenia, więc działa offline tak jak inne zdjęcia i trafia do protokołu PDF. Pole podpisu powstało bez zewnętrznej biblioteki."
   - title: Logika bez MAUI
-    tag: "net10.0 · xUnit"
     body: "ViewModele, synchronizacja i dostęp do SQLite są w projekcie net10.0 bez zależności od MAUI, więc cała logika jest testowana zwykłymi testami jednostkowymi, bez emulatora."
 links:
   repository: https://github.com/mpalus-git/FixFlow.Mobile

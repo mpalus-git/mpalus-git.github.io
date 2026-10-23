@@ -18,7 +18,7 @@ type ProjectFrontmatter = {
   project: string;
   order: number;
   stack: string[];
-  decisions: { title: string; tag?: string; body: string }[];
+  decisions: { title: string; body: string }[];
   links: Record<string, string>;
   architectureDiagram?: boolean;
   screenshots?: Media[];
@@ -173,18 +173,6 @@ describe("project content", () => {
     }
   });
 
-  it("labels every decision with a distinct mechanism in both languages", () => {
-    for (const [name, pl] of polish) {
-      const englishTags = (english.get(name)?.decisions ?? []).map((decision) => decision.tag);
-      const polishTags = pl.decisions.map((decision) => decision.tag);
-      expect(englishTags).toHaveLength(polishTags.length);
-      for (const tags of [polishTags, englishTags]) {
-        expect(tags.every((tag) => tag !== undefined && tag.trim() !== "")).toBe(true);
-        expect(new Set(tags).size).toBe(tags.length);
-      }
-    }
-  });
-
   it("shows the architecture diagram only for the API", () => {
     expect(polish.get("fixflow-api")?.architectureDiagram).toBe(true);
     expect(polish.get("fixflow-web")?.architectureDiagram).toBeUndefined();
@@ -218,9 +206,9 @@ function entry(id: string, order: number): CollectionEntry<"projects"> {
       summary: "Summary.",
       stack: ["Astro"],
       decisions: [
-        { title: "One", tag: "one", body: "First." },
-        { title: "Two", tag: "two", body: "Second." },
-        { title: "Three", tag: "three", body: "Third." },
+        { title: "One", body: "First." },
+        { title: "Two", body: "Second." },
+        { title: "Three", body: "Third." },
       ],
       links: { repository: "https://github.com/mpalus-git/FixFlow.Web" },
       demo: "Demo.",
