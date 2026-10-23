@@ -122,7 +122,7 @@ for (const project of projects) {
       await context.close();
     });
 
-    test("labels each technical decision with its mechanism", async ({ browser }) => {
+    test("lists three to five technical decisions with headings", async ({ browser }) => {
       const context = await browser.newContext({ locale: project.locale });
       await mockApi(context);
       const page = await context.newPage();
@@ -134,10 +134,7 @@ for (const project of projects) {
       expect(count).toBeGreaterThanOrEqual(3);
       expect(count).toBeLessThanOrEqual(5);
       await expect(items.locator("h3")).toHaveCount(count);
-      const tags = await items.locator("div > p.font-mono").allTextContents();
-      expect(tags).toHaveLength(count);
-      expect(tags.every((tag) => tag.trim() !== "")).toBe(true);
-      expect(new Set(tags).size).toBe(count);
+      await expect(items.locator("p.font-mono")).toHaveCount(0);
       await context.close();
     });
 

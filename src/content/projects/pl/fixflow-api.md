@@ -13,19 +13,14 @@ stack:
   - QuestPDF
 decisions:
   - title: Vertical Slice zamiast warstw
-    tag: "endpoint · handler · walidator"
     body: "Każda funkcja ma własny folder z endpointem, handlerem, walidatorem i kontraktem. Reguły biznesowe są w encjach domeny, a handler przekazuje im potrzebną wiedzę jako argument, więc da się je testować jednostkowo."
   - title: Błędy biznesowe bez wyjątków
-    tag: "ErrorOr → ProblemDetails"
     body: "Odrzucone przejście statusu czy brak części to oczekiwany wynik operacji, więc metody zwracają ErrorOr, a mapowanie na ProblemDetails i kody HTTP jest w jednym miejscu."
   - title: Reguły zabezpieczone także w bazie
-    tag: "indeks · CHECK · 409"
     body: "Jedno zlecenie w toku na technika, stan magazynu nie poniżej zera i unikalne numery seryjne mają odpowiednik w indeksie, ograniczeniu CHECK lub tokenie współbieżności, więc równoległe żądania kończą się błędem 409 zamiast błędnymi danymi."
   - title: Bezpieczne ponawianie dla klienta offline
-    tag: "idempotencja"
     body: "Wpisy i zdjęcia mają identyfikatory nadawane przez aplikację, a ponowiony start lub zakończenie zlecenia zwraca 200 z bieżącym stanem, więc kolejka offline może ponawiać żądania bez duplikatów."
   - title: Kontrakt pilnowany w CI
-    tag: "OpenAPI · CI"
     body: "Dokument OpenAPI jest generowany przy buildzie i commitowany, a CI odrzuca zmianę, jeśli wygenerowana wersja się różni, więc każda zmiana kontraktu jest widoczna w review."
 links:
   repository: https://github.com/mpalus-git/FixFlow.Api

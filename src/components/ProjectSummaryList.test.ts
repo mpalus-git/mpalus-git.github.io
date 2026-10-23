@@ -14,9 +14,9 @@ function entry(project: "fixflow-api" | "fixflow-web", title: string): Collectio
       summary: `${title} summary.`,
       stack: ["Astro"],
       decisions: [
-        { title: "One", tag: "one", body: "First." },
-        { title: "Two", tag: "two", body: "Second." },
-        { title: "Three", tag: "three", body: "Third." },
+        { title: "One", body: "First." },
+        { title: "Two", body: "Second." },
+        { title: "Three", body: "Third." },
       ],
       links: { repository: "https://github.com/mpalus-git/FixFlow.Web" },
       demo: "Demo.",

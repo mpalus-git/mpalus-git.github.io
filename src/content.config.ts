@@ -15,7 +15,7 @@ const projects = defineCollection({
       summary: prose,
       stack: z.array(z.string().min(1)).min(1),
       decisions: z
-        .array(z.object({ title: prose, tag: z.string().min(1), body: prose }))
+        .array(z.object({ title: prose, body: prose }))
         .min(3)
         .max(5),
       links: z.object({
