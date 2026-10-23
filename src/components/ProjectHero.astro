@@ -34,6 +34,7 @@ const actions = getProjectActions(project.data.links, language);
       <TechList
         technologies={project.data.stack}
         label={t(language, "projectStackLabel")}
+        tone="brand"
         class="mt-6"
       />
       <ul class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">

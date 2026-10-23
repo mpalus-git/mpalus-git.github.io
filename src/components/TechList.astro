@@ -2,21 +2,24 @@
 type Props = {
   technologies: string[];
   label: string;
+  tone: "surface" | "brand";
   class?: string;
 };
 
-const { technologies, label, class: className } = Astro.props;
+const { technologies, label, tone, class: className } = Astro.props;
 ---
 
 <ul
   aria-label={label}
-  class:list={[
-    "flex flex-wrap gap-x-5 gap-y-1 overflow-hidden font-mono text-sm leading-6 font-medium",
-    className,
-  ]}
+  class:list={["flex flex-wrap gap-2 text-[13px] leading-5 font-medium", className]}
 >
   {technologies.map((technology) => (
-    <li class="before:-ml-5 before:inline-block before:w-5 before:text-center before:content-['·'_/_'']">
+    <li
+      class:list={[
+        "rounded-md border px-2.5 py-1",
+        tone === "brand" ? "border-on-brand/55 text-on-brand" : "border-border bg-bg text-text",
+      ]}
+    >
       {technology}
     </li>
   ))}
