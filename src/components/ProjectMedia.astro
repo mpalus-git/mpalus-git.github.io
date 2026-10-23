@@ -14,7 +14,7 @@ const { screenshots, video } = project.data;
 const desktopScreenshots = screenshots.filter((screenshot) => screenshot.device === "desktop");
 const phoneScreenshots = screenshots.filter((screenshot) => screenshot.device === "phone");
 const phoneVideo = video?.device === "phone" ? video : undefined;
-const frameClass = "overflow-hidden rounded-lg border border-border bg-surface";
+const frameClass = "overflow-hidden rounded-xl border-2 border-brand bg-surface";
 const captionClass = "mt-2 text-sm text-muted";
 const singleDesktop = desktopScreenshots.length === 1;
 const desktopSizes = singleDesktop
@@ -22,7 +22,7 @@ const desktopSizes = singleDesktop
   : "(min-width: 1152px) 504px, (min-width: 768px) 43vw, calc(100vw - 4rem)";
 ---
 
-<div class="mt-8 flex flex-col gap-10 rounded-2xl bg-brand-tint p-4 sm:p-7">
+<div class="mt-8 flex flex-col gap-10">
   {video?.device === "desktop" ? (
     <figure class="max-w-3xl">
       <div class={frameClass}>
